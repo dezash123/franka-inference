@@ -9,7 +9,7 @@ This repository preserves the **Rome-specific setup**. It contains source and de
 - Franka FR3 v2.1, firmware 5.10; local libfranka 0.21.3 with the recorded patches.
 - Intel Arc B580, Ryzen 5 4500; PREEMPT_RT `6.18.53-spring-rt`.
 - Control CPU 5 / FIFO 80; robot Ethernet CPU 4 / FIFO 90; housekeeping 0–3,6–9.
-- ZED 2i external left eye, always paired with the ZED Mini wrist left eye. No wrist digital zoom. The selector supports randomly choosing between two external left eyes; currently `37266581` is disabled because the two external cameras share a congested USB 2 link. `39338267` is the active external camera.
+- ZED 2i external left eye, always paired with the ZED Mini wrist left eye. No wrist digital zoom. The selector supports randomly choosing between two external left eyes; `37266581` remains excluded from inference after the earlier shared-USB issue, while `39338267` is the active external camera. The UI now previews all three devices independently; simultaneous live capture was verified at about 15 FPS per camera after the USB topology changed.
 - Continuous sessions until Pause, Stop, or a fault. Saved selection at the publication recheck: 5 actions per inference, nominal 60 Hz, prompt `pick up the markers and put them in the bowl`.
 - DROID FR3 constraints and hybrid joint/Cartesian impedance. No Ruckig and no table boundary; native rate limiting, 100 Hz filtering, 40 N / 40 Nm native collision thresholds, workspace and joint checks remain. See the [operating handoff](docs/DESMOND_FRANKA_HANDOFF.md).
 

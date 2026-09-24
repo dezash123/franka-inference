@@ -1,0 +1,82 @@
+{
+  "updated_utc": "2026-09-24T21:30:05.825729+00:00",
+  "deployed_sha256": {
+    "control_ui.py": "1e243f295395f6e2ded87c20d8c508ad3181dc9ce466a22ff717c6fc94c090d5",
+    "cameras.py": "2cd073c9c59245f9f6520e758b53007a42066985c3be65d4ac42cb63031894e0",
+    "camera_preview.py": "228fbdeb4c664079a52e09a064688ad42083fcede94455937d27c4a259c43d2f",
+    "run_policy_stream.py": "e8b71dbf276922a07e7e8ffe88a18f7012e4709460c43f11bbab5d093098ee40",
+    "warmup_policy_live.py": "bb9a3326fd5921f32c48cab85c8bbe327b52ddf558df9cf6f5853101a4f6622f",
+    "ui/index.html": "e493374de65504524ec0b6cc55870f01c5bbea109f8ebaa9ee932c38261af03e",
+    "ui/app.js": "0323b4ec55cc9fc82c8beb8cf42c7853c33552dc9ad6768873cdd3ea4f5d643c",
+    "ui/style.css": "c11324b1b85782b4fd920212e48ad2a9d3a9e2b49bb46666f3d6c4334cff78c2"
+  },
+  "validation": {
+    "python_syntax": "passed",
+    "javascript_syntax": "passed",
+    "live_camera_owner_check_s": 35,
+    "live_capture_fps": {
+      "39338267": [
+        14.97,
+        14.98
+      ],
+      "37266581": [
+        14.97,
+        14.98
+      ],
+      "12607895": [
+        14.99,
+        15.0
+      ]
+    },
+    "all_three_jpeg_endpoints": "HTTP 200, valid JPEG, source=capture",
+    "browser_review": "Three live camera previews and FPS labels verified",
+    "idle_viewer_after_check": {
+      "updated_unix": 1790285405.6529782,
+      "cameras": [
+        {
+          "id": "39338267",
+          "serial": "39338267",
+          "role": "external",
+          "eye": "left",
+          "inference_enabled": true,
+          "fps": 14.98,
+          "healthy": true,
+          "age_seconds": 0.018,
+          "frame_available": true,
+          "status": "Live",
+          "source": "viewer"
+        },
+        {
+          "id": "37266581",
+          "serial": "37266581",
+          "role": "external",
+          "eye": "left",
+          "inference_enabled": false,
+          "fps": 14.97,
+          "healthy": true,
+          "age_seconds": 0.036,
+          "frame_available": true,
+          "status": "Live",
+          "source": "viewer"
+        },
+        {
+          "id": "12607895",
+          "serial": "12607895",
+          "role": "wrist",
+          "eye": "left",
+          "inference_enabled": true,
+          "fps": 15.0,
+          "healthy": true,
+          "age_seconds": 0.022,
+          "frame_available": true,
+          "status": "Live",
+          "source": "viewer"
+        }
+      ]
+    },
+    "offline_tests_run": false,
+    "robot_commands_sent": false,
+    "policy_settings_changed": false
+  },
+  "backup": "/var/lib/spring-data/workloads/robo_run/franka_droid/backups/camera-ui-1790285324821514339"
+}

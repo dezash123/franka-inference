@@ -3,6 +3,7 @@
 import json,os,subprocess,time
 import numpy as np
 from cameras import ZedSource,wrist_source,LatestCamera
+from camera_preview import CameraPreview
 from contract import ROOT,settings,make_observation
 from gripper import GripperReader
 from openpi_client.websocket_client_policy import WebsocketClientPolicy
@@ -19,7 +20,7 @@ class WarmupClient(WebsocketClientPolicy):
             except ConnectionRefusedError:time.sleep(2)
 
 def main():
-    cfg=settings();streams=[];reader=None
+    cfg=settings();streams=[];reader=None;preview=None
     report={'backend':cfg['policy']['backend'],'live_cameras':True,'robot_commands_sent':False,'started_unix':time.time()}
     dest=ROOT/'evidence/policy-readiness.json'
     try:
@@ -30,6 +31,7 @@ def main():
         validate_runtime(metadata,report['backend'])
         for c in cfg['external_cameras']:streams.append(LatestCamera(ZedSource({**c,'eye':'left'})))
         streams.append(LatestCamera(wrist_source(cfg['wrist_camera'])))
+        preview=CameraPreview(streams,cfg)
         timings=[]
         for i in range(8):
             deadline=time.monotonic()+10
@@ -51,6 +53,7 @@ def main():
         if not report['ready']:report['error']='Runtime loaded, but live inference exceeds the existing 250 ms motion deadline.'
     except Exception as e:report.update(ready=False,error=str(e),finished_unix=time.time());raise
     finally:
+        if preview:preview.close()
         if reader:reader.close()
         for stream in reversed(streams):stream.close()
         tmp=dest.with_suffix('.tmp');tmp.write_text(json.dumps(report,indent=2));os.replace(tmp,dest)

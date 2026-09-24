@@ -26,6 +26,8 @@
         <div class="stats"><div><strong id="action-count">0</strong><span>Actions</span><small><b id="action-rate">0.0</b> /s average</small></div><div><strong id="inference-count">0</strong><span>Inferences</span><small><b id="inference-rate">0.0</b> /s average</small></div><div><strong id="hold-count">0 / 0</strong><span>Target / camera holds</span><small>Since session start</small></div><div class="latency-stat"><strong><span id="latency-latest">—</span><em>ms</em></strong><span>Model latency</span><small>Median <b id="latency-median">—</b> · p95 <b id="latency-p95">—</b></small></div></div>
         <div class="latency-detail"><span id="latency-status">Waiting for inference</span><span id="latency-detail">No measurements</span></div>
       </section>
+      <section id="cameras" class="cameras" aria-label="Live cameras"></section>
+      <p class="hint preview-note" id="preview-note">Capture FPS · previews refresh once per second · left eyes</p>
       <section class="panel plots" aria-labelledby="activity-title">
         <div class="plot-heading"><h2 id="activity-title">Activity</h2><div class="plot-tools"><span id="graph-status">Waiting for data</span><label class="sr-only" for="graph-window">Graph time window</label><select id="graph-window"><option value="10">10 seconds</option><option value="30" selected>30 seconds</option><option value="60">60 seconds</option></select></div></div>
         <div class="legend"><span><i class="key inference"></i>Inference round trip</span><span><i class="key action"></i>Action sent</span><span><i class="key rejection"></i>Target rejected / validation hold</span><span><i class="key paused"></i>Paused</span></div>
@@ -36,8 +38,6 @@
         <div class="graph-caption"><span id="graph-readout">Move over a graph to inspect a sample.</span><span id="graph-source">Measured feedback · dispatched targets</span></div>
         <p class="plot-note">Targets are sent setpoints. Gaps indicate holds, unavailable samples, or no commands; raw model predictions are not plotted.</p>
       </section>
-      <section class="cameras"><article class="panel"><div class="section-title"><h2>External</h2><span id="external-label" class="camera-label">Left eye</span></div><div class="image-wrap"><img id="external" alt="External left-eye camera preview"><span class="image-placeholder">Waiting for camera</span></div></article><article class="panel"><div class="section-title"><h2>Wrist</h2><span class="camera-label">ZED Mini · left</span></div><div class="image-wrap"><img id="wrist" alt="Wrist camera preview"><span class="image-placeholder">Waiting for camera</span></div></article></section>
-      <p class="hint preview-note" id="preview-note">Camera observations update about every 2 seconds.</p>
       <details class="panel"><summary>Session log</summary><p id="receipt" class="hint"></p><button id="refresh-log" class="secondary small">Refresh</button><pre id="log"></pre><p class="hint">Model latency excludes image preparation. Round trip includes preparation and transport.</p></details>
     </div>
   </div>

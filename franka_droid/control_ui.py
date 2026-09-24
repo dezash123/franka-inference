@@ -3,7 +3,7 @@
 import argparse,json,math,os,secrets,signal,statistics,subprocess,threading,time
 from http.server import BaseHTTPRequestHandler,ThreadingHTTPServer
 from pathlib import Path
-from urllib.parse import urlparse,parse_qs
+from urllib.parse import urlparse,parse_qs,urlencode
 from urllib.request import urlopen
 from runtime_contract import RUNTIMES
 from live_telemetry import LiveTelemetry
@@ -17,6 +17,7 @@ LOCK=threading.RLock();TOKEN=secrets.token_urlsafe(32)
 STATE={'busy':False,'phase':'idle','message':'Load the selected runtime to prepare a session.','ready':False,'run':None,'robot':None}
 PROCESS=None;RUN_SINCE=0.;RECEIPT=None;PAUSE_REQUESTED=False;STOP_REQUESTED=False
 TELEMETRY=LiveTelemetry()
+CAMERA_LOCK=threading.Lock();CAMERA_CACHE=None;CAMERA_CACHE_TIME=0.
 
 def load(path,default=None):
     try:return json.loads(path.read_text())
@@ -236,6 +237,72 @@ def monitor():
         except Exception:pass
         time.sleep(.5)
 
+def camera_status():
+    global CAMERA_CACHE,CAMERA_CACHE_TIME
+    with CAMERA_LOCK:
+        now=time.monotonic()
+        if CAMERA_CACHE is not None and now-CAMERA_CACHE_TIME<.4:return CAMERA_CACHE
+        c=config();rows=[];seen=set()
+        for role,enabled,items in [('external',True,c['external_cameras']),
+                                   ('external',False,c.get('external_cameras_disabled',[])),
+                                   ('wrist',True,[c['wrist_camera']])]:
+            for item in items:
+                serial=str(item['serial'])
+                if serial in seen:continue
+                seen.add(serial)
+                rows.append(dict(id=serial,serial=serial,role=role,eye=item.get('eye','left'),
+                                 inference_enabled=enabled,fps=0.,healthy=False,age_seconds=None,
+                                 frame_available=False,status='Waiting for capture',source=None))
+        capture=load(ROOT/'evidence/camera-preview.json',{})
+        age=now-capture.get('updated_monotonic',0)
+        pid=capture.get('owner_pid')
+        owner_alive=type(pid) is int and (Path('/proc')/str(pid)).exists()
+        if owner_alive and 0<=age<3:
+            for row in rows:
+                data=next((x for x in capture.get('cameras',[]) if str(x.get('serial'))==row['serial']),None)
+                if not data:continue
+                frame_age=data.get('age_seconds')
+                row.update(source='capture',fps=data.get('fps',0.),healthy=bool(data.get('healthy')),
+                           age_seconds=frame_age+age if frame_age is not None else None,
+                           status=data.get('error') or ('Live' if data.get('healthy') else 'No fresh frames'))
+                image=f'camera-preview-{pid}-{row["serial"]}.jpg'
+                if data.get('image')==image and row['healthy']:
+                    row.update(frame_available=True,_image=image)
+        else:
+            try:
+                with urlopen('http://127.0.0.1:8765/api/status',timeout=1) as response:
+                    viewer=json.load(response).get('cameras',[])
+                for row in rows:
+                    data=next((x for x in viewer if str(x.get('serial'))==row['serial']),None)
+                    # Some wrist UVC nodes lack a serial; the sole wrist is unambiguous.
+                    wrists=[x for x in viewer if x.get('role')=='wrist']
+                    if data is None and row['role']=='wrist' and len(wrists)==1:data=wrists[0]
+                    if data is None:
+                        row['status']='Disconnected';continue
+                    fresh=bool(data.get('healthy')) and not data.get('error')
+                    row.update(source='viewer',fps=data.get('fps',0.) if fresh else 0.,healthy=fresh,
+                               age_seconds=data.get('age_seconds'),frame_available=fresh,_viewer_id=data['id'],
+                               status=data.get('error') or ('Live' if fresh else 'No fresh frames'))
+            except (OSError,ValueError):
+                for row in rows:row['status']='Waiting for camera owner'
+        for row in rows:
+            if not row['healthy']:row['fps']=0.
+        CAMERA_CACHE={'cameras':rows,'updated_unix':time.time()};CAMERA_CACHE_TIME=time.monotonic()
+        return CAMERA_CACHE
+
+def camera_frame(camera_id):
+    row=next((x for x in camera_status()['cameras'] if x['id']==camera_id),None)
+    if not row or not row['frame_available']:raise ValueError('No fresh frame for this camera')
+    if row['source']=='capture':return (ROOT/'evidence'/row['_image']).read_bytes()
+    query=urlencode({'camera':row['_viewer_id'],'eye':row['eye']})
+    with urlopen('http://127.0.0.1:8765/snapshot.jpg?'+query,timeout=2) as response:data=response.read()
+    if row['role']=='wrist':
+        zoom=config()['wrist_camera'].get('digital_zoom',1.0)
+        if zoom!=1:
+            with Image.open(BytesIO(data)) as image:
+                output=BytesIO();image.crop(center_crop_bounds(image.width,image.height,zoom)).save(output,format='JPEG',quality=90);data=output.getvalue()
+    return data
+
 def frame(view):
     if view not in ('external','wrist'):raise ValueError('Unknown camera view')
     if STATE['phase'] in ('starting','playing','pausing','paused','resuming','stopping') and RECEIPT:
@@ -268,10 +335,16 @@ class Handler(BaseHTTPRequestHandler):
         u=urlparse(self.path)
         try:
             if u.path=='/api/status':return self.reply(public_state())
+            if u.path=='/api/cameras':
+                data=camera_status()
+                return self.reply({'updated_unix':data['updated_unix'],
+                                   'cameras':[{k:v for k,v in row.items() if not k.startswith('_')} for row in data['cameras']]})
             if u.path=='/api/telemetry':
                 with LOCK:path,phase=RECEIPT,STATE['phase']
                 return self.reply(TELEMETRY.read(path,phase))
-            if u.path=='/api/frame':return self.reply(frame(parse_qs(u.query).get('view',['external'])[0]),'image/jpeg')
+            if u.path=='/api/frame':
+                query=parse_qs(u.query)
+                return self.reply(camera_frame(query['camera'][0]) if 'camera' in query else frame(query.get('view',['external'])[0]),'image/jpeg')
             if u.path=='/api/log':
                 name=STATE.get('runtime_log') if STATE['phase'] in ('loading','warming') else STATE.get('run_log',STATE.get('runtime_log'))
                 text=(ROOT/'evidence'/name).read_text(errors='replace')[-6000:] if name else ''
@@ -305,7 +378,7 @@ class Handler(BaseHTTPRequestHandler):
         except (ValueError,ProcessLookupError) as e:self.reply({'error':str(e)},code=409)
         except Exception as e:self.reply({'error':str(e)},code=500)
     def log_message(self,fmt,*args):
-        if args and any(p in str(args[0]) for p in ('/api/status','/api/telemetry')):return
+        if args and any(p in str(args[0]) for p in ('/api/status','/api/telemetry','/api/cameras','/api/frame')):return
         super().log_message(fmt,*args)
 
 def restore_last_session():

@@ -7,6 +7,7 @@ import rclpy
 from moveit_msgs.srv import GetStateValidity
 from openpi_client.websocket_client_policy import WebsocketClientPolicy
 from cameras import ZedSource,wrist_source,LatestCamera
+from camera_preview import CameraPreview
 from contract import ROOT,settings,make_observation
 from gripper_control import GripperSession
 from runtime_contract import RUNTIMES,ABSOLUTE,validate_runtime
@@ -44,7 +45,7 @@ class Feedback:
         return item[0]
 
 def main():
-    cfg=settings()
+    cfg=settings();preview=None
     external_cfgs=cfg['external_cameras']
     if cfg['policy'].get('external_view_selection')!='uniform_random_camera_left_eye_per_inference':
         raise ValueError('Expected random external camera selection with left eyes only')
@@ -200,6 +201,7 @@ def main():
         for camera_cfg in external_cfgs:
             streams.append(LatestCamera(ZedSource({**camera_cfg,'eye':'left'})))
         streams.append(LatestCamera(wrist_source(cfg['wrist_camera'])))
+        preview=CameraPreview(streams,cfg)
         frames=cameras(8)
         receipt['camera_sources']=[s.source.info for s in streams]
         for view in views:
@@ -420,6 +422,7 @@ def main():
             try:gripper.close()
             except Exception as e:
                 receipt.setdefault('cleanup_errors',[]).append(f'Gripper: {e}');save()
+        if preview:preview.close()
         for s in reversed(streams):
             try:s.close()
             except Exception as e:

@@ -1,5 +1,6 @@
 """Serial-pinned RGB camera sources. No policy inference or robot access."""
 import configparser
+from collections import deque
 import sys
 import threading
 import time
@@ -189,7 +190,7 @@ def wrist_source(cfg):
 
 class LatestCamera:
     def __init__(self,source):
-        self.source=source;self.latest=None;self.error=None;self.count=0
+        self.source=source;self.latest=None;self.error=None;self.count=0;self.times=deque(maxlen=90)
         self.lock=threading.Lock();self.stop=threading.Event()
         self.thread=threading.Thread(target=self._run,daemon=True)
         self.thread.start()
@@ -198,7 +199,7 @@ class LatestCamera:
             while not self.stop.is_set():
                 frame=self.source.read()
                 if frame is not None:
-                    with self.lock: self.latest=frame;self.count+=1
+                    with self.lock: self.latest=frame;self.count+=1;self.times.append(time.monotonic())
         except Exception as e: self.error=e
     def get(self,max_age=.25):
         if self.error: raise self.error
@@ -206,6 +207,16 @@ class LatestCamera:
         if result is None or time.monotonic()-result[1]>max_age:
             raise RuntimeError('No fresh camera frame')
         return result
+    def preview(self):
+        """Nonblocking snapshot of accepted frames, independent of inference rate."""
+        now=time.monotonic()
+        with self.lock:
+            frame=self.latest;times=[t for t in self.times if t>=now-2];count=self.count
+        age=now-frame[1] if frame is not None else None
+        healthy=not self.error and age is not None and 0<=age<.25
+        fps=(len(times)-1)/(times[-1]-times[0]) if healthy and len(times)>1 else 0.
+        return frame,{'fps':round(fps,2),'frame_count':count,'age_seconds':age,
+                      'healthy':healthy,'error':str(self.error) if self.error else None}
     def close(self):
         self.stop.set();self.thread.join(timeout=3)
         if self.thread.is_alive(): raise RuntimeError('Camera worker did not stop')
