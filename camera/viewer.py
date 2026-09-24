@@ -5,6 +5,7 @@ import collections
 import hashlib
 import json
 import logging
+import os
 from pathlib import Path
 import signal
 import threading
@@ -202,7 +203,7 @@ class Handler(BaseHTTPRequestHandler):
         if url.path=='/api/status':
             with LOCK:
                 status=[c.status() for c in CAMERAS.values()]
-            return self.reply(json.dumps({'cameras':status,'timestamp':time.time()}).encode(),'application/json')
+            return self.reply(json.dumps({'cameras':status,'timestamp':time.time(),'pid':os.getpid()}).encode(),'application/json')
         if url.path not in ('/stream.mjpg','/snapshot.jpg'):
             return self.reply(b'Not found','text/plain',404)
         query=parse_qs(url.query)
@@ -226,10 +227,12 @@ class Handler(BaseHTTPRequestHandler):
         self.end_headers()
         self.close_connection=True
         previous=-1
+        last_sent=time.monotonic()
         try:
             while not STOP.is_set() and not cam.stop.is_set():
                 with cam.condition:
-                    cam.condition.wait_for(lambda:cam.frame_count!=previous or cam.stop.is_set(),timeout=2)
+                    cam.condition.wait_for(lambda:(cam.frame_count!=previous and time.monotonic()-cam.last_frame<2) or cam.stop.is_set(),timeout=.5)
+                    if time.monotonic()-last_sent>3:break
                     if cam.frame_count==previous or time.monotonic()-cam.last_frame>2:
                         continue
                     data=cam.jpeg.get(eye)
@@ -237,6 +240,7 @@ class Handler(BaseHTTPRequestHandler):
                 if data:
                     self.wfile.write(b'--frame\r\nContent-Type: image/jpeg\r\nContent-Length: '+str(len(data)).encode()+b'\r\n\r\n'+data+b'\r\n')
                     self.wfile.flush()
+                    last_sent=time.monotonic()
         except (BrokenPipeError,ConnectionResetError,TimeoutError):
             pass
 

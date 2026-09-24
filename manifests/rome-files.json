@@ -2,11 +2,11 @@
   {
     "source": "/var/lib/spring-data/workloads/robo_run/franka_droid/control_ui.py",
     "path": "franka_droid/control_ui.py",
-    "bytes": 26399,
-    "sha256": "1e243f295395f6e2ded87c20d8c508ad3181dc9ce466a22ff717c6fc94c090d5",
-    "published_sha256": "1e243f295395f6e2ded87c20d8c508ad3181dc9ce466a22ff717c6fc94c090d5",
-    "published_bytes": 26399,
-    "verified_unix": 1790285405.825729
+    "bytes": 28558,
+    "sha256": "73cedb073cf0b843bda641606541a75467e80588999e5218bcd66fa529c7ecd6",
+    "published_sha256": "73cedb073cf0b843bda641606541a75467e80588999e5218bcd66fa529c7ecd6",
+    "published_bytes": 28558,
+    "verified_unix": 1790286203.087318
   },
   {
     "source": "/var/lib/spring-data/workloads/robo_run/franka_droid/live_telemetry.py",
@@ -346,10 +346,10 @@
     "path": "franka_droid/CONTROL_UI.md",
     "bytes": 6739,
     "sha256": "19bdc703ab813b2c4efd90b48cdaf9eda6e574f90a5e090772d5f6239fd75bf3",
-    "published_sha256": "0ab33ecfa4c5a4fcdd724eb72f2f36c97d0d3ab8e552346105251f6b54afa6aa",
-    "published_bytes": 7677,
+    "published_sha256": "7015eb680b5d112b2a9dec4a8c831461dace0a0a9f3ce374d401afdbf29e17bd",
+    "published_bytes": 8515,
     "verified_unix": 1790284614.3325393,
-    "publication_change": "Updated camera UI documentation in the repository."
+    "publication_change": "Updated live video UI documentation in the repository."
   },
   {
     "source": "/var/lib/spring-data/workloads/robo_run/franka_droid/SSOG_SETUP.md",
@@ -444,20 +444,20 @@
   {
     "source": "/var/lib/spring-data/workloads/robo_run/franka_droid/ui/index.html",
     "path": "franka_droid/ui/index.html",
-    "bytes": 5673,
-    "sha256": "23eb89d197a2faf710c6bf348b1e47d0a89fea63d353eeb62739947239ac3a59",
-    "published_sha256": "23eb89d197a2faf710c6bf348b1e47d0a89fea63d353eeb62739947239ac3a59",
-    "published_bytes": 5673,
-    "verified_unix": 1790285722.5044549
+    "bytes": 5657,
+    "sha256": "99775a4d5f2800e4bc83cdb32f50f43d5d3cfcd610790a2335f2830f1adc537f",
+    "published_sha256": "99775a4d5f2800e4bc83cdb32f50f43d5d3cfcd610790a2335f2830f1adc537f",
+    "published_bytes": 5657,
+    "verified_unix": 1790286203.087318
   },
   {
     "source": "/var/lib/spring-data/workloads/robo_run/franka_droid/ui/app.js",
     "path": "franka_droid/ui/app.js",
-    "bytes": 8617,
-    "sha256": "f71217b803c2256b1915f9134c9a7a3566ee435db16a8baa59a6e656d5670ab9",
-    "published_sha256": "f71217b803c2256b1915f9134c9a7a3566ee435db16a8baa59a6e656d5670ab9",
-    "published_bytes": 8617,
-    "verified_unix": 1790285722.527461
+    "bytes": 9103,
+    "sha256": "927dbe412ba59778291313ba62dc07d68e6f4b2538d43a83a8dae20984ee3c7a",
+    "published_sha256": "927dbe412ba59778291313ba62dc07d68e6f4b2538d43a83a8dae20984ee3c7a",
+    "published_bytes": 9103,
+    "verified_unix": 1790286203.087318
   },
   {
     "source": "/var/lib/spring-data/workloads/robo_run/franka_droid/ui/style.css",
@@ -491,11 +491,11 @@
   {
     "source": "/home/spring/zed_camera_setup/viewer.py",
     "path": "camera/viewer.py",
-    "bytes": 12979,
-    "sha256": "e947ac1ce253a4b5ed0b53e39535c6d3e0437c45ef86797429ff7e8592f86736",
-    "published_sha256": "e947ac1ce253a4b5ed0b53e39535c6d3e0437c45ef86797429ff7e8592f86736",
-    "published_bytes": 12979,
-    "verified_unix": 1790284614.3325393
+    "bytes": 13188,
+    "sha256": "ca9fe0eb96d6ef74f9edbdb8e3ff1d9ef847b44c3674ae35af7fe355c4df512f",
+    "published_sha256": "ca9fe0eb96d6ef74f9edbdb8e3ff1d9ef847b44c3674ae35af7fe355c4df512f",
+    "published_bytes": 13188,
+    "verified_unix": 1790286203.087318
   },
   {
     "source": "/home/spring/zed_camera_setup/capture.py",
@@ -819,96 +819,6 @@
     "sha256": "496de330aa7c80969fd975e50622a2668e3da7ce62c2babae9da69a611ba78dc",
     "published_sha256": "496de330aa7c80969fd975e50622a2668e3da7ce62c2babae9da69a611ba78dc",
     "published_bytes": 261734,
-    "verified_unix": 1790284614.3325393
-  },
-  {
-    "source": "/home/spring/robo_run/openpi/LICENSE",
-    "path": "third_party/licenses/openpi-LICENSE",
-    "bytes": 11356,
-    "sha256": "43070e2d4e532684de521b885f385d0841030efa2b1a20bafb76133a5e1379c1",
-    "published_sha256": "43070e2d4e532684de521b885f385d0841030efa2b1a20bafb76133a5e1379c1",
-    "published_bytes": 11356,
-    "verified_unix": 1790284614.3325393
-  },
-  {
-    "source": "/var/lib/spring-data/workloads/robo_run/vendor/libfranka/LICENSE",
-    "path": "third_party/licenses/libfranka-LICENSE",
-    "bytes": 10173,
-    "sha256": "a6cba85bc92e0cff7a450b1d873c0eaa2e9fc96bf472df0247a26bec77bf3ff9",
-    "published_sha256": "a6cba85bc92e0cff7a450b1d873c0eaa2e9fc96bf472df0247a26bec77bf3ff9",
-    "published_bytes": 10173,
-    "verified_unix": 1790284614.3325393
-  },
-  {
-    "source": "/var/lib/spring-data/workloads/robo_run/ros2_ws/src/franka_ros2/LICENSE",
-    "path": "third_party/licenses/ros2-franka_ros2-LICENSE",
-    "bytes": 10173,
-    "sha256": "a6cba85bc92e0cff7a450b1d873c0eaa2e9fc96bf472df0247a26bec77bf3ff9",
-    "published_sha256": "a6cba85bc92e0cff7a450b1d873c0eaa2e9fc96bf472df0247a26bec77bf3ff9",
-    "published_bytes": 10173,
-    "verified_unix": 1790284614.3325393
-  },
-  {
-    "source": "/var/lib/spring-data/workloads/robo_run/ros2_ws/src/gz_ros2_control/LICENSE",
-    "path": "third_party/licenses/ros2-gz_ros2_control-LICENSE",
-    "bytes": 11358,
-    "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
-    "published_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
-    "published_bytes": 11358,
-    "verified_unix": 1790284614.3325393
-  },
-  {
-    "source": "/var/lib/spring-data/workloads/robo_run/ros2_ws/src/ros2_control/LICENSE",
-    "path": "third_party/licenses/ros2-ros2_control-LICENSE",
-    "bytes": 11358,
-    "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
-    "published_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
-    "published_bytes": 11358,
-    "verified_unix": 1790284614.3325393
-  },
-  {
-    "source": "/var/lib/spring-data/workloads/robo_run/ros2_ws/src/franka_description/LICENSE",
-    "path": "third_party/licenses/ros2-franka_description-LICENSE",
-    "bytes": 12926,
-    "sha256": "4b25434e6ec2012e28a484f1d7924a0fd1a8bf232c2be2d50d584d299d04d6d6",
-    "published_sha256": "4b25434e6ec2012e28a484f1d7924a0fd1a8bf232c2be2d50d584d299d04d6d6",
-    "published_bytes": 12926,
-    "verified_unix": 1790284614.3325393
-  },
-  {
-    "source": "/var/lib/spring-data/workloads/robo_run/ros2_ws/src/libfranka/LICENSE",
-    "path": "third_party/licenses/ros2-libfranka-LICENSE",
-    "bytes": 10173,
-    "sha256": "a6cba85bc92e0cff7a450b1d873c0eaa2e9fc96bf472df0247a26bec77bf3ff9",
-    "published_sha256": "a6cba85bc92e0cff7a450b1d873c0eaa2e9fc96bf472df0247a26bec77bf3ff9",
-    "published_bytes": 10173,
-    "verified_unix": 1790284614.3325393
-  },
-  {
-    "source": "/var/lib/spring-data/workloads/robo_run/ros2_ws/src/ros2_robotiq_gripper/LICENSE",
-    "path": "third_party/licenses/ros2-ros2_robotiq_gripper-LICENSE",
-    "bytes": 1524,
-    "sha256": "a47544ef0ad645c587e46348dc10e68b89c3e74732bd124c005cfcd8ede3b3b8",
-    "published_sha256": "a47544ef0ad645c587e46348dc10e68b89c3e74732bd124c005cfcd8ede3b3b8",
-    "published_bytes": 1524,
-    "verified_unix": 1790284614.3325393
-  },
-  {
-    "source": "/var/lib/spring-data/workloads/robo_run/ros2_ws/src/olvx_descriptions_module/LICENSE",
-    "path": "third_party/licenses/ros2-olvx_descriptions_module-LICENSE",
-    "bytes": 1076,
-    "sha256": "a590aacad300df8834ee80ce3658a8d31f5ca92e777ca86e6a42210d2554f16a",
-    "published_sha256": "a590aacad300df8834ee80ce3658a8d31f5ca92e777ca86e6a42210d2554f16a",
-    "published_bytes": 1076,
-    "verified_unix": 1790284614.3325393
-  },
-  {
-    "source": "/var/lib/spring-data/workloads/robo_run/ros2_ws/src/zed_description/LICENSE",
-    "path": "third_party/licenses/ros2-zed_description-LICENSE",
-    "bytes": 13543,
-    "sha256": "a427e18c20d55e736c7889b3f5e4b3e3babb1b4e5d49ee792e8a1932b9ee31c5",
-    "published_sha256": "a427e18c20d55e736c7889b3f5e4b3e3babb1b4e5d49ee792e8a1932b9ee31c5",
-    "published_bytes": 13543,
     "verified_unix": 1790284614.3325393
   },
   {
@@ -3390,10 +3300,10 @@
   {
     "source": "/var/lib/spring-data/workloads/robo_run/franka_droid/camera_preview.py",
     "path": "franka_droid/camera_preview.py",
-    "bytes": 4706,
-    "sha256": "228fbdeb4c664079a52e09a064688ad42083fcede94455937d27c4a259c43d2f",
-    "published_sha256": "228fbdeb4c664079a52e09a064688ad42083fcede94455937d27c4a259c43d2f",
-    "published_bytes": 4706,
-    "verified_unix": 1790285405.825729
+    "bytes": 8628,
+    "sha256": "ba8fa94eab11b85ccffa116da5ab771b5353259ea07b88fccf8dc5e9906d354d",
+    "published_sha256": "ba8fa94eab11b85ccffa116da5ab771b5353259ea07b88fccf8dc5e9906d354d",
+    "published_bytes": 8628,
+    "verified_unix": 1790286203.087318
   }
 ]

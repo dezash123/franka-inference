@@ -39,9 +39,9 @@ article.innerHTML='<div class="section-title"><h2></h2><span class="camera-fps">
 const img=article.querySelector('img');img.alt=camera.role==='wrist'?'Wrist left-eye camera preview':'External '+index+' left-eye camera preview';
 article.querySelector('h2').textContent=camera.role==='wrist'?'Wrist':'External '+index;
 article.querySelector('.camera-label').textContent=camera.serial+' · left';
-card={article,img,lastFrameRequest:0,available:false};
+card={article,img,streamKey:null,retryAt:0,available:false};
 img.onload=()=>img.classList.toggle('loaded',card.available);
-img.onerror=()=>{img.classList.remove('loaded');article.querySelector('.image-placeholder').textContent='Preview unavailable';};
+img.onerror=()=>{img.classList.remove('loaded');card.streamKey=null;card.retryAt=Date.now()+1000;article.querySelector('.image-placeholder').textContent='Reconnecting video…';};
 $('cameras').append(article);cameraCards.set(camera.id,card);return card;
 }
 function renderCameras(data){
@@ -55,14 +55,16 @@ article.querySelector('.camera-fps').textContent=Number.isFinite(camera.fps)?cam
 article.querySelector('.camera-state').textContent=camera.healthy?(camera.inference_enabled?'Live':'Live · preview only'):camera.status;
 article.querySelector('.camera-state').title=camera.status;
 article.querySelector('.image-placeholder').textContent=camera.status||'Waiting for camera';
-if(!card.available)card.img.classList.remove('loaded');
-else if(!document.hidden&&Date.now()-card.lastFrameRequest>=900){card.lastFrameRequest=Date.now();card.img.src='/api/frame?camera='+encodeURIComponent(camera.id)+'&t='+card.lastFrameRequest;}
+const streamKey=camera.source+':'+camera.stream_generation;
+if(!card.available||document.hidden){card.img.classList.remove('loaded');card.img.removeAttribute('src');card.streamKey=null;}
+else if(card.streamKey!==streamKey&&Date.now()>=card.retryAt){card.streamKey=streamKey;card.img.src='/api/stream?camera='+encodeURIComponent(camera.id)+'&t='+Date.now();card.img.classList.add('loaded');}
 }
-for(const [id,card] of cameraCards)if(!present.has(id)){card.article.remove();cameraCards.delete(id);}
+for(const [id,card] of cameraCards)if(!present.has(id)){card.img.removeAttribute('src');card.article.remove();cameraCards.delete(id);}
 }
 async function pollCameras(){
 try{const response=await fetch('/api/cameras');if(!response.ok)throw Error('Camera status unavailable');renderCameras(await response.json());}
-catch(e){for(const card of cameraCards.values()){card.available=false;card.img.classList.remove('loaded');card.article.dataset.healthy='false';card.article.querySelector('.camera-fps').textContent='— FPS';card.article.querySelector('.camera-state').textContent='Status unavailable';card.article.querySelector('.image-placeholder').textContent='Camera status unavailable';}}
+catch(e){for(const card of cameraCards.values()){card.available=false;card.streamKey=null;card.img.removeAttribute('src');card.img.classList.remove('loaded');card.article.dataset.healthy='false';card.article.querySelector('.camera-fps').textContent='— FPS';card.article.querySelector('.camera-state').textContent='Status unavailable';card.article.querySelector('.image-placeholder').textContent='Camera status unavailable';}}
 finally{setTimeout(pollCameras,document.hidden?2500:1000);}
 }
+document.addEventListener('visibilitychange',()=>{if(document.hidden)for(const card of cameraCards.values()){card.img.removeAttribute('src');card.img.classList.remove('loaded');card.streamKey=null;}});
 poll();pollCameras();

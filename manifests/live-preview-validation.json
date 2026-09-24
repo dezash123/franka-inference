@@ -1,0 +1,85 @@
+{
+  "updated_utc": "2026-09-24T21:43:23.087318+00:00",
+  "deployed_sha256": {
+    "franka_droid/camera_preview.py": "ba8fa94eab11b85ccffa116da5ab771b5353259ea07b88fccf8dc5e9906d354d",
+    "franka_droid/control_ui.py": "73cedb073cf0b843bda641606541a75467e80588999e5218bcd66fa529c7ecd6",
+    "franka_droid/ui/app.js": "927dbe412ba59778291313ba62dc07d68e6f4b2538d43a83a8dae20984ee3c7a",
+    "franka_droid/ui/index.html": "99775a4d5f2800e4bc83cdb32f50f43d5d3cfcd610790a2335f2830f1adc537f",
+    "camera/viewer.py": "ca9fe0eb96d6ef74f9edbdb8e3ff1d9ef847b44c3674ae35af7fe355c4df512f"
+  },
+  "capture_owner_streams": {
+    "measured_unix": 1790286061.440856,
+    "streams": [
+      {
+        "serial": "39338267",
+        "source": "capture",
+        "frames": 45,
+        "delivered_fps": 15.17,
+        "distinct_jpegs": 45,
+        "mean_jpeg_bytes": 43016
+      },
+      {
+        "serial": "37266581",
+        "source": "capture",
+        "frames": 45,
+        "delivered_fps": 15.3,
+        "distinct_jpegs": 45,
+        "mean_jpeg_bytes": 42517
+      },
+      {
+        "serial": "12607895",
+        "source": "capture",
+        "frames": 45,
+        "delivered_fps": 15.34,
+        "distinct_jpegs": 45,
+        "mean_jpeg_bytes": 30745
+      }
+    ]
+  },
+  "idle_viewer_streams": {
+    "measured_unix": 1790286184.099753,
+    "streams": [
+      {
+        "serial": "39338267",
+        "source": "viewer",
+        "frames": 45,
+        "delivered_fps": 15.29,
+        "distinct_jpegs": 45,
+        "mean_jpeg_bytes": 46275
+      },
+      {
+        "serial": "37266581",
+        "source": "viewer",
+        "frames": 45,
+        "delivered_fps": 15.4,
+        "distinct_jpegs": 45,
+        "mean_jpeg_bytes": 46883
+      },
+      {
+        "serial": "12607895",
+        "source": "viewer",
+        "frames": 45,
+        "delivered_fps": 15.43,
+        "distinct_jpegs": 45,
+        "mean_jpeg_bytes": 85203
+      }
+    ]
+  },
+  "validation": {
+    "browser": "All three images use /api/stream and display decoded frames; automatic reconnection after owner switch verified",
+    "syntax": "Python AST and node --check passed",
+    "offline_tests_run": false,
+    "robot_commands_sent": false,
+    "camera_capture_fps_changed": false,
+    "inference_settings_changed": false
+  },
+  "implementation": {
+    "transport": "MJPEG relayed from loopback camera owner",
+    "capture_owner_encoding_max_fps": 30,
+    "frame_buffer": "latest frame only per camera",
+    "disk_snapshot_frequency_hz": 1,
+    "slow_client_write_timeout_s": 2,
+    "no_frame_stream_timeout_s": 3
+  },
+  "removed_license_files": 11
+}

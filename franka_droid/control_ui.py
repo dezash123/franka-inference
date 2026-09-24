@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Tailnet-only DROID control panel, using the existing arm launcher."""
-import argparse,json,math,os,secrets,signal,statistics,subprocess,threading,time
+import argparse,json,math,os,secrets,signal,socket,statistics,subprocess,threading,time
 from http.server import BaseHTTPRequestHandler,ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import urlparse,parse_qs,urlencode
@@ -264,6 +264,7 @@ def camera_status():
                 frame_age=data.get('age_seconds')
                 row.update(source='capture',fps=data.get('fps',0.),healthy=bool(data.get('healthy')),
                            age_seconds=frame_age+age if frame_age is not None else None,
+                           stream_generation=str(pid),_stream_port=capture.get('stream_port'),
                            status=data.get('error') or ('Live' if data.get('healthy') else 'No fresh frames'))
                 image=f'camera-preview-{pid}-{row["serial"]}.jpg'
                 if data.get('image')==image and row['healthy']:
@@ -271,7 +272,7 @@ def camera_status():
         else:
             try:
                 with urlopen('http://127.0.0.1:8765/api/status',timeout=1) as response:
-                    viewer=json.load(response).get('cameras',[])
+                    viewer_status=json.load(response);viewer=viewer_status.get('cameras',[])
                 for row in rows:
                     data=next((x for x in viewer if str(x.get('serial'))==row['serial']),None)
                     # Some wrist UVC nodes lack a serial; the sole wrist is unambiguous.
@@ -282,6 +283,7 @@ def camera_status():
                     fresh=bool(data.get('healthy')) and not data.get('error')
                     row.update(source='viewer',fps=data.get('fps',0.) if fresh else 0.,healthy=fresh,
                                age_seconds=data.get('age_seconds'),frame_available=fresh,_viewer_id=data['id'],
+                               stream_generation=str(viewer_status.get('pid',data['id'])),
                                status=data.get('error') or ('Live' if fresh else 'No fresh frames'))
             except (OSError,ValueError):
                 for row in rows:row['status']='Waiting for camera owner'
@@ -323,6 +325,33 @@ def frame(view):
     return data
 
 class Handler(BaseHTTPRequestHandler):
+    def stream_camera(self,camera_id):
+        row=next((x for x in camera_status()['cameras'] if x['id']==camera_id),None)
+        if not row or not row['frame_available']:return self.reply({'error':'No fresh camera stream'},code=503)
+        if row['source']=='capture':
+            port=row.get('_stream_port')
+            if type(port) is not int or not 1<=port<=65535:return self.reply({'error':'Camera owner stream unavailable'},code=503)
+            upstream=f'http://127.0.0.1:{port}/stream.mjpg?'+urlencode({'camera':camera_id})
+        else:
+            upstream='http://127.0.0.1:8765/stream.mjpg?'+urlencode({'camera':row['_viewer_id'],'eye':row['eye']})
+        # Relay the owner's latest-frame stream with bounded socket buffers.
+        # This listener never opens a camera, queues video, or executes robot work.
+        try:response=urlopen(upstream,timeout=3)
+        except OSError:return self.reply({'error':'Camera stream unavailable'},code=503)
+        with response:
+            kind=response.headers.get('Content-Type','')
+            if not kind.startswith('multipart/x-mixed-replace;'):return self.reply({'error':'Invalid camera stream'},code=503)
+            self.connection.settimeout(2)
+            self.connection.setsockopt(socket.SOL_SOCKET,socket.SO_SNDBUF,131072)
+            self.send_response(200);self.send_header('Content-Type',kind)
+            self.send_header('Cache-Control','no-store');self.send_header('X-Content-Type-Options','nosniff')
+            self.send_header('Connection','close');self.end_headers();self.close_connection=True
+            try:
+                while True:
+                    chunk=response.read1(65536)
+                    if not chunk:break
+                    self.wfile.write(chunk);self.wfile.flush()
+            except (OSError,TimeoutError):pass
     def reply(self,body,kind='application/json',code=200):
         if isinstance(body,(dict,list)):body=json.dumps(body).encode()
         self.send_response(code);self.send_header('Content-Type',kind);self.send_header('Content-Length',str(len(body)))
@@ -339,6 +368,7 @@ class Handler(BaseHTTPRequestHandler):
                 data=camera_status()
                 return self.reply({'updated_unix':data['updated_unix'],
                                    'cameras':[{k:v for k,v in row.items() if not k.startswith('_')} for row in data['cameras']]})
+            if u.path=='/api/stream':return self.stream_camera(parse_qs(u.query).get('camera',[''])[0])
             if u.path=='/api/telemetry':
                 with LOCK:path,phase=RECEIPT,STATE['phase']
                 return self.reply(TELEMETRY.read(path,phase))
@@ -378,7 +408,7 @@ class Handler(BaseHTTPRequestHandler):
         except (ValueError,ProcessLookupError) as e:self.reply({'error':str(e)},code=409)
         except Exception as e:self.reply({'error':str(e)},code=500)
     def log_message(self,fmt,*args):
-        if args and any(p in str(args[0]) for p in ('/api/status','/api/telemetry','/api/cameras','/api/frame')):return
+        if args and any(p in str(args[0]) for p in ('/api/status','/api/telemetry','/api/cameras','/api/frame','/api/stream')):return
         super().log_message(fmt,*args)
 
 def restore_last_session():
