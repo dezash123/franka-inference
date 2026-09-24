@@ -444,20 +444,20 @@
   {
     "source": "/var/lib/spring-data/workloads/robo_run/franka_droid/ui/index.html",
     "path": "franka_droid/ui/index.html",
-    "bytes": 5969,
-    "sha256": "e493374de65504524ec0b6cc55870f01c5bbea109f8ebaa9ee932c38261af03e",
-    "published_sha256": "e493374de65504524ec0b6cc55870f01c5bbea109f8ebaa9ee932c38261af03e",
-    "published_bytes": 5969,
-    "verified_unix": 1790285405.825729
+    "bytes": 5673,
+    "sha256": "23eb89d197a2faf710c6bf348b1e47d0a89fea63d353eeb62739947239ac3a59",
+    "published_sha256": "23eb89d197a2faf710c6bf348b1e47d0a89fea63d353eeb62739947239ac3a59",
+    "published_bytes": 5673,
+    "verified_unix": 1790285722.5044549
   },
   {
     "source": "/var/lib/spring-data/workloads/robo_run/franka_droid/ui/app.js",
     "path": "franka_droid/ui/app.js",
-    "bytes": 8828,
-    "sha256": "0323b4ec55cc9fc82c8beb8cf42c7853c33552dc9ad6768873cdd3ea4f5d643c",
-    "published_sha256": "0323b4ec55cc9fc82c8beb8cf42c7853c33552dc9ad6768873cdd3ea4f5d643c",
-    "published_bytes": 8828,
-    "verified_unix": 1790285405.825729
+    "bytes": 8617,
+    "sha256": "f71217b803c2256b1915f9134c9a7a3566ee435db16a8baa59a6e656d5670ab9",
+    "published_sha256": "f71217b803c2256b1915f9134c9a7a3566ee435db16a8baa59a6e656d5670ab9",
+    "published_bytes": 8617,
+    "verified_unix": 1790285722.527461
   },
   {
     "source": "/var/lib/spring-data/workloads/robo_run/franka_droid/ui/style.css",
