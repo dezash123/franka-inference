@@ -75,3 +75,17 @@ The helper recreates the `checkpoints/` and `franka_droid/openvino_fp16/` layout
 `franka_droid/export_openvino.py` exports `vision`, `prefix`, and `denoise` IRs separately from that checkpoint, compressing weights to FP16. Run those named export stages in the correctly provisioned environment only when rebuilding the assets. Its separate `reference` stage is a historical offline comparison utility, uses saved observations and a different sample-step setting, and is not part of deployment or publication validation. The deployed adapters use five denoise steps.
 
 `runtime_contract.py` preserves checkpoint and action interpretation across model selection. The FP16 paths output normalized joint increments; both checkpoint-A paths apply their checkpoint-specific transforms and return absolute joint targets. All use an absolute gripper-closure channel. Matching tensor shapes alone is insufficient for switching models.
+
+## Kernel packages and OpenPI tokenizer
+
+`manifests/host-artifacts.json` records full SHA-256 hashes of Rome's exact `6.18.53-spring-rt` image/header/libc Debian packages (package version `6.18.53-1`) and the cached OpenPI tokenizer. Recover them without installation or reboot:
+
+```bash
+python3 scripts/fetch_host_assets.py root@100.95.186.107 /path/to/new-host-assets
+```
+
+The helper copies about 83 MB into `kernel/` and `openpi-cache/big_vision/`, verifies every file, and refuses an existing destination. Kernel packages are currently retained under `/var/lib/spring-data/kernel-rt-20260923`; they are not in the SSOG S3 prefix. Kernel installation, initramfs generation and boot selection are separate provisioning steps, and were not performed during publication.
+
+The FP16 adapters use OpenPI's `PaligemmaTokenizer`, which fetches `gs://big_vision/paligemma_tokenizer.model` anonymously if absent. Rome's cached file is `/home/spring/.cache/openpi/big_vision/paligemma_tokenizer.model`, SHA-256 `8986bb4f423f07f8c7f70d0dbe3526fb2316056c17bae71b1ea975e77a168fc6`. Restore the verified file to that cache path, or set `OPENPI_DATA_HOME` to the recovered `openpi-cache` directory for the service environment. This avoids an implicit first-load network dependency. SSOG and OpenVINO A have their own tokenizer copies in their recovered asset trees.
+
+`manifests/python-path-bridges.json` records the exact environment-linking `.pth` contents; it does not contain packages. `manifests/ssog-weight-inventory.json` records the archive index's expected served weight hashes and sizes. Its `unserved.safetensors` entry is explicitly not served and is absent from the deployed tree; it is not a missing inference dependency.

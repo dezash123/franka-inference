@@ -1,0 +1,56 @@
+{
+  "source": "/var/lib/spring-data/workloads/pi05-final/ssog-a-mc2/campaign13/share/weights-A/INDEX.json",
+  "verified_unix": 1790289672.668584,
+  "verification": "Expected hashes and sizes read from INDEX.json; existence checked; weights not rehashed during active arm session.",
+  "files": [
+    {
+      "file": "siglip.safetensors",
+      "sha256": "d49f5ee614e40bf776899bd161da1e700bc41f5e8d8891b65066d4ade92432f2",
+      "bytes": 415756136,
+      "present": true,
+      "served": true
+    },
+    {
+      "file": "projector.safetensors",
+      "sha256": "0d62f2820eb9ba88998cfee67a4ff0fc55b0d027cd7c3ef031646f9ac6969ea3",
+      "bytes": 2375928,
+      "present": true,
+      "served": true
+    },
+    {
+      "file": "gemma.safetensors",
+      "sha256": "996c5cd8692a7b610671d2d35db2693f597e1218fb1ceea2f25705177285fad8",
+      "bytes": 1984978216,
+      "present": true,
+      "served": true
+    },
+    {
+      "file": "gemma_embed.safetensors",
+      "sha256": "582089b8676500666defd3f7f3cb41d4a655fbf6c33e0fdfbef88ef6ca772237",
+      "bytes": 1053294688,
+      "present": true,
+      "served": true
+    },
+    {
+      "file": "expert.safetensors",
+      "sha256": "98a2393fbef3f19271f7163d56d4614069e0b7824cf4f1b2b99258ced3ae9b4f",
+      "bytes": 1297334320,
+      "present": true,
+      "served": true
+    },
+    {
+      "file": "flow.safetensors",
+      "sha256": "76417764b475e57ae6b2a54894f58b6133b1ad2a8538627635d60ed5d3d126b2",
+      "bytes": 2188536,
+      "present": true,
+      "served": true
+    },
+    {
+      "file": "unserved.safetensors",
+      "sha256": "aeee676cd9f2669b7ab7a8a023b426222ee3c1622070eef178f39a9207b526d4",
+      "bytes": 700616,
+      "present": false,
+      "served": false
+    }
+  ]
+}

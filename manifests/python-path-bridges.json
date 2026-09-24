@@ -1,0 +1,22 @@
+[
+  {
+    "path": "/var/lib/spring-data/workloads/robo_run/franka_droid/venv/lib/python3.12/site-packages/robo_convert_dependencies.pth",
+    "content": "import site; site.addsitedir('/var/lib/spring-data/workloads/robo_run/venvs/convert/lib/python3.12/site-packages')\n"
+  },
+  {
+    "path": "/var/lib/spring-data/workloads/robo_run/franka_droid/ov-venv/lib/python3.12/site-packages/reuse.pth",
+    "content": "import site; site.addsitedir('/home/spring/robo_run/franka_droid/venv/lib/python3.12/site-packages')\n"
+  },
+  {
+    "path": "/var/lib/spring-data/workloads/robo_run/venvs/convert/lib/python3.12/site-packages/_editable_impl_openpi.pth",
+    "content": "/home/spring/robo_run/openpi/src"
+  },
+  {
+    "path": "/var/lib/spring-data/workloads/robo_run/venvs/convert/lib/python3.12/site-packages/_editable_impl_openpi_client.pth",
+    "content": "/home/spring/robo_run/openpi/packages/openpi-client/src"
+  },
+  {
+    "path": "/var/lib/spring-data/workloads/robo_run/venvs/convert/lib/python3.12/site-packages/torch_xpu.pth",
+    "content": "/home/spring/pi05-up/venvs/torch-xpu/lib/python3.12/site-packages\n"
+  }
+]

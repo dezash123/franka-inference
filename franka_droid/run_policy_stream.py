@@ -57,6 +57,17 @@ def main():
            for i,c in enumerate(external_cfgs)]
     selection_seed=secrets.randbits(64);view_rng=random.Random(selection_seed)
     selected_view=views[0]
+    def form_target(q,action,absolute,hold):
+        """One step envelope for both action spaces: never more than 0.2 rad on any joint, direction kept, always dispatched.
+        Normalized (pi05_droid): 0.2 rad x normalized joint velocity, rescaled when a component exceeds 1 (unchanged formula).
+        Absolute (pi05_droid_jointpos): the delta from the current q to the absolute target, rescaled when it exceeds 0.2 rad.
+        Returns the target and the scale that was applied (1.0 = the model's step went through unchanged)."""
+        if hold:return q,1.
+        if absolute:
+            delta=action[:7]-q;scale=min(1.,.2/max(float(np.max(np.abs(delta))),1e-9))
+            return q+delta*scale,scale
+        peak=max(1.,float(np.max(np.abs(action[:7]))))
+        return q+.2*action[:7]/peak,1./peak
     p=argparse.ArgumentParser();p.add_argument('--execute-confirmed',action='store_true')
     p.add_argument('--hold-test',action='store_true');p.add_argument('--duration',type=float,default=0,help='0 runs continuously until paused or stopped; positive values request a timed session')
     p.add_argument('--horizon',type=int,default=cfg['policy'].get('execution_horizon',cfg['policy']['action_horizon']));p.add_argument('--prompt',default=cfg.get('task',{}).get('prompt'))
@@ -297,13 +308,10 @@ def main():
                 item=feedback.get();frames=cameras();next_tick=time.monotonic()
             if pause_requested:continue
             q=np.array(item['state']['q']);action=chunk[index]
-            delta=.2*action[:7]/max(1.,float(np.max(np.abs(action[:7]))))
-            target=action[:7].copy() if absolute_targets else q+delta
-            if a.hold_test:target=q
+            target,scale=form_target(q,action,absolute_targets,a.hold_test)
             rejected_target=False
             for recheck in range(3):
                 outside=(target<target_lower)|(target>target_upper)
-                if absolute_targets:outside |= np.abs(target-q)>.2
                 if np.any(outside):
                     # Keep the existing C++ margin. Hold and discard the chunk
                     # before dispatching an out-of-bounds policy target.
@@ -312,7 +320,7 @@ def main():
                     record('joint_limit_events',{
                         't':time.monotonic()-started,'joints':(np.flatnonzero(outside)+1).tolist(),
                         'q':q.tolist(),'rejected_target':target.tolist(),
-                        'reason':'joint range or existing 0.2 rad target increment'})
+                        'reason':'joint range'})
                     receipt['latest_controller']=feedback.get();save()
                     if time.monotonic()-last_progress>=10:
                         print(json.dumps({'elapsed_s':time.monotonic()-started,'steps':step,
@@ -328,7 +336,7 @@ def main():
                 # Discard its target, hold and validate a newly anchored target.
                 send('HOLD')
                 receipt['state_refreshes']=receipt.get('state_refreshes',0)+1
-                q=np.array(fresh['state']['q']);target=q if a.hold_test else action[:7].copy() if absolute_targets else q+delta
+                q=np.array(fresh['state']['q']);target,scale=form_target(q,action,absolute_targets,a.hold_test)
             else:
                 # The old path stopped the whole session after three moving-state
                 # retries. Keep HOLD active until measured motion settles, then
@@ -359,8 +367,9 @@ def main():
             if not a.hold_test:gripper.command_closure(float(action[7]))
             now=time.monotonic()
             record('actions',{'step':step,'chunk':receipt['chunk_count']-1,'index':index,'t':now-started,
-                                       'scale':1.,'dispatch_t':dispatched-started,
+                                       'scale':scale,'dispatch_t':dispatched-started,
                                        'normalized_action_clipped':bool(not absolute_targets and np.any(np.abs(action[:7])>1.)),
+                                       'absolute_target_clamped':bool(absolute_targets and scale<1.),
                                        'q':q.tolist(),'target':target.tolist(),'xyz':item['state']['xyz'],
                                        'gripper':gs['closure'],'applied':item.get('applied')})
             if now-last_snapshot>=2:

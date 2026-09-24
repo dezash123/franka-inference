@@ -5,14 +5,14 @@
     "device": "xpu",
     "denoise_steps": 2,
     "action_horizon": 15,
-    "control_hz": 60.0,
+    "control_hz": 15.0,
     "host": "127.0.0.1",
     "port": 8000,
     "backend": "ssog_mc2",
     "precision": "W8A8/W4A8",
     "openvino_device": "GPU.0",
     "openvino_model_directory": "openvino_fp16",
-    "execution_horizon": 5,
+    "execution_horizon": 10,
     "external_view_selection": "uniform_random_camera_left_eye_per_inference"
   },
   "external_camera": {
@@ -95,7 +95,7 @@
     "maximum_pair_skew_s": 0.1
   },
   "task": {
-    "prompt": "pick up the markers and put them in the bowl"
+    "prompt": "put all items on the desk in the bowl"
   },
   "external_cameras": [
     {

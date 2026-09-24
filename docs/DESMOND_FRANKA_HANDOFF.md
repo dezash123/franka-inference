@@ -1,4 +1,4 @@
-> Historical host snapshot. See the repository README and `manifests/snapshot.json` for the publication snapshot; current live state can differ.
+> Historical host snapshot. See [current operations](OPERATIONS.md) and the [latest audit](../manifests/setup-audit.json) for the later publication state. Original content below is preserved.
 
 # Desmond / Rome Franka handoff
 

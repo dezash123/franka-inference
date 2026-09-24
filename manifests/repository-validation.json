@@ -1,0 +1,38 @@
+{
+  "syntax": {
+    "python_ast_3_12": 82,
+    "shell_bash_n": 31,
+    "json": 203,
+    "javascript_node_check": 2
+  },
+  "local_markdown_links": 33,
+  "broken_links": [],
+  "checked_utc": "2026-09-24T22:45:21.755843+00:00",
+  "scope": "Publication verification; no offline tests, model or arm run",
+  "deployed_files": 367,
+  "source_revisions": 11,
+  "local_patches": 3,
+  "assets_checked": 36,
+  "read_only_audit_passed": true,
+  "host_asset_download": {
+    "files": 4,
+    "sha256": "All four fully verified after SSH download into a new local directory",
+    "installed": false
+  },
+  "source_secret_pattern_findings": [],
+  "large_binary_files_in_git": false,
+  "standalone_license_files_in_git": false,
+  "ov_a_pinned_source_inputs": 6,
+  "ov_a_tuning_kernel_paths_complete": true,
+  "offline_tests_run": false,
+  "robot_commands_sent": false,
+  "services_changed": false,
+  "native_build": "Not repeated: native sources unchanged since successful build in publication.json",
+  "limitations": [
+    "Large model weights use earlier checksum receipts; this audit checks presence and known size only for files above 16 MiB.",
+    "Fresh-machine installation and new absolute-target behavior were not exercised by this publication audit.",
+    "Remote configuration and source can change after this timestamp."
+  ],
+  "python_package_inventories": "All three installed environment inventories rechecked and match",
+  "installer_mapping_preview": "Passed; --apply was not used"
+}

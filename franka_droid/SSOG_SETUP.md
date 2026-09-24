@@ -1,3 +1,5 @@
+> Historical SSOG integration notes. See [current operations](../docs/OPERATIONS.md) for current prompt, playback and camera settings.
+
 # SSOG A MC2 MUX on Rome
 
 The requested archive is installed at

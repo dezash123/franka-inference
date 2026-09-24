@@ -1,0 +1,2992 @@
+{
+  "files": [
+    {
+      "path": "franka_droid/control_ui.py",
+      "exists": true,
+      "sha256": "73cedb073cf0b843bda641606541a75467e80588999e5218bcd66fa529c7ecd6",
+      "bytes": 28558,
+      "matches": true
+    },
+    {
+      "path": "franka_droid/live_telemetry.py",
+      "exists": true,
+      "sha256": "437b95594171da3d07984c125ec8aae557ff89cd49d2410f3f737cc06290dd23",
+      "bytes": 7153,
+      "matches": true
+    },
+    {
+      "path": "franka_droid/run_policy_stream.py",
+      "exists": true,
+      "sha256": "0ff9970fb3a45515b3ca59ddad77f1e49b22b70f914af2873949a7dbb32df828",
+      "bytes": 30101,
+      "matches": true
+    },
+    {
+      "path": "franka_droid/stream_fci.cpp",
+      "exists": true,
+      "sha256": "f49bdbaf7f1b0b06a45599eeb113ca35d3259d10f3768bc0cf9863ad7e6d0104",
+      "bytes": 14892,
+      "matches": true
+    },
+    {
+      "path": "franka_droid/droid_stream_common.hpp",
+      "exists": true,
+      "sha256": "3e267899a7d577aec6a7fc36cf78645b50c117abcb87f25ef6722d4f49b193a7",
+      "bytes": 1396,
+      "matches": true
+    },
+    {
+      "path": "franka_droid/droid_constraints.hpp",
+      "exists": true,
+      "sha256": "726d228975f688547c2e386bf4c5af000ed7392ddcd460da837c37797618a9bc",
+      "bytes": 7741,
+      "matches": true
+    },
+    {
+      "path": "franka_droid/franka_realtime.hpp",
+      "exists": true,
+      "sha256": "c325804da07af8a59c48f0b7d97bfb1e1456df834e5e3d840682375c62fe3ea5",
+      "bytes": 4093,
+      "matches": true
+    },
+    {
+      "path": "franka_droid/franka_collision_diagnostics.hpp",
+      "exists": true,
+      "sha256": "c4026c4061cc50f4e55e9d6ff3730dec92e71c57c59577329e91e398a2fee968",
+      "bytes": 1743,
+      "matches": true
+    },
+    {
+      "path": "franka_droid/camera_crop.py",
+      "exists": true,
+      "sha256": "2c1769335ca16f47a361ed3e6cfa995bfdf7cc58f81054711ebf8ac9b8315491",
+      "bytes": 552,
+      "matches": true
+    },
+    {
+      "path": "franka_droid/cameras.py",
+      "exists": true,
+      "sha256": "2cd073c9c59245f9f6520e758b53007a42066985c3be65d4ac42cb63031894e0",
+      "bytes": 12166,
+      "matches": true
+    },
+    {
+      "path": "franka_droid/contract.py",
+      "exists": true,
+      "sha256": "e484175690e4517a878de49d8fd0a9ef00395c82f7af6272c38ebebb1357b23c",
+      "bytes": 2896,
+      "matches": true
+    },
+    {
+      "path": "franka_droid/gripper.py",
+      "exists": true,
+      "sha256": "bbf9780fabb7c8aa62fae953b3edcd528455e5f24e680af0aaecbffe3ef467e8",
+      "bytes": 2216,
+      "matches": true
+    },
+    {
+      "path": "franka_droid/gripper_control.py",
+      "exists": true,
+      "sha256": "7f9b4a42c869eb57121bcc7e64bafbe62257d0f8183da4259ef17980345898ec",
+      "bytes": 3985,
+      "matches": true
+    },
+    {
+      "path": "franka_droid/runtime_contract.py",
+      "exists": true,
+      "sha256": "10f77b98c3b237842653b7a42e0b9261b993900493d8a57c2d7947c270491e52",
+      "bytes": 1494,
+      "matches": true
+    },
+    {
+      "path": "franka_droid/serve_policy.py",
+      "exists": true,
+      "sha256": "2d2993a3e017b6919aa31d04f02316f04dfaa42e5bc12e370d9c453d1df1d630",
+      "bytes": 2352,
+      "matches": true
+    },
+    {
+      "path": "franka_droid/serve_openvino.py",
+      "exists": true,
+      "sha256": "3f6311651d2039a4c43553b95d1e20cfb72465b943590b58acfb3070c40f3e4e",
+      "bytes": 737,
+      "matches": true
+    },
+    {
+      "path": "franka_droid/ssog_policy.py",
+      "exists": true,
+      "sha256": "8657474fa64929f83ab2eda4a31391482ed977e91e2944334d01c552ce11922b",
+      "bytes": 7280,
+      "matches": true
+    },
+    {
+      "path": "franka_droid/ov_a_policy.py",
+      "exists": true,
+      "sha256": "3fdaded645e1cf7a16bb18a487b3a9b58c1c7572c3954dd8ce4a39cb4b07b70d",
+      "bytes": 8357,
+      "matches": true
+    },
+    {
+      "path": "franka_droid/ov_common.py",
+      "exists": true,
+      "sha256": "3f0b6e668e40ae9a50aec436019fbb683a925ccb31fe140ec6beb88f2190bbab",
+      "bytes": 3634,
+      "matches": true
+    },
+    {
+      "path": "franka_droid/ov_policy.py",
+      "exists": true,
+      "sha256": "cf2762e75a0e1c526228d6914f37e26f54a0b1ba54c3a2c609deae40a0b47833",
+      "bytes": 5223,
+      "matches": true
+    },
+    {
+      "path": "franka_droid/torch_policy.py",
+      "exists": true,
+      "sha256": "824c1e11ce4291340ac81007159c515241b2ae67cb83bce214f249aa5df0f120",
+      "bytes": 6442,
+      "matches": true
+    },
+    {
+      "path": "franka_droid/warmup_policy_live.py",
+      "exists": true,
+      "sha256": "bb9a3326fd5921f32c48cab85c8bbe327b52ddf558df9cf6f5853101a4f6622f",
+      "bytes": 3594,
+      "matches": true
+    },
+    {
+      "path": "franka_droid/export_openvino.py",
+      "exists": true,
+      "sha256": "ef4dee10d1e66dfb05eb8200aa37176793e6004865e667f753a5d5ea1307629b",
+      "bytes": 5906,
+      "matches": true
+    },
+    {
+      "path": "franka_droid/capture_observation.py",
+      "exists": true,
+      "sha256": "01a1d0cefd80f4f0cb04f5414364bbb0098abcb01a5665de5c8355eb3af18648",
+      "bytes": 3599,
+      "matches": true
+    },
+    {
+      "path": "franka_droid/infer_observation.py",
+      "exists": true,
+      "sha256": "273b04cdea5827283eb1159649e2892240a55ca039669bb9311a264cdc67996b",
+      "bytes": 1141,
+      "matches": true
+    },
+    {
+      "path": "franka_droid/check_cameras.py",
+      "exists": true,
+      "sha256": "aa77f7ea3891ce964de7db1b844cd9e7935bf42ba436a490a8829f113dba989a",
+      "bytes": 2587,
+      "matches": true
+    },
+    {
+      "path": "franka_droid/raw_inference_only.py",
+      "exists": true,
+      "sha256": "5dbd95fa33b9d57fdf756f4c09dfdcf6581f06baddf35616c0d64fa751e35197",
+      "bytes": 3828,
+      "matches": true
+    },
+    {
+      "path": "franka_droid/benchmark_server.py",
+      "exists": true,
+      "sha256": "c371c062ece31a3354ecd600dac86ddf00532c20ef18edb243eea94e40162202",
+      "bytes": 1659,
+      "matches": true
+    },
+    {
+      "path": "franka_droid/read_fci_errors.cpp",
+      "exists": true,
+      "sha256": "3f93d25f93ad6238686eaf66ff4f381f984f919e873687ce4b75186a258d1e87",
+      "bytes": 418,
+      "matches": true
+    },
+    {
+      "path": "franka_droid/read_fci_snapshot.cpp",
+      "exists": true,
+      "sha256": "d0f4300162d1e89d3a7a67a4aac2c73058f7fd98f9a4b356e0e00f1376de829e",
+      "bytes": 762,
+      "matches": true
+    },
+    {
+      "path": "franka_droid/read_fci_realtime.cpp",
+      "exists": true,
+      "sha256": "18af1edd264e1a07533a05ee47f4bee1ef92cb04cea603fb4fb990d9ddac1892",
+      "bytes": 3042,
+      "matches": true
+    },
+    {
+      "path": "franka_droid/recover_fci.cpp",
+      "exists": true,
+      "sha256": "fbf7582b487b03cdbd24a8c8eb46c279b5f366c73cc962fe55255a0d907cca01",
+      "bytes": 641,
+      "matches": true
+    },
+    {
+      "path": "franka_droid/env.sh",
+      "exists": true,
+      "sha256": "b8b7f31ba5ec2185ed247f42caf94d1f475ff9603d8d696a2cfe423f335bd1c5",
+      "bytes": 463,
+      "matches": true
+    },
+    {
+      "path": "franka_droid/start-policy-service.sh",
+      "exists": true,
+      "sha256": "c38fbf0d4eac8120714db0974f4f6ff9e79a20df18cf0da5fa48a41fd3302f9a",
+      "bytes": 338,
+      "matches": true
+    },
+    {
+      "path": "franka_droid/run-policy-stream.sh",
+      "exists": true,
+      "sha256": "d3f980cb98af9c6bc512ec385e05a3dbac8afd4c6ec97232016013085e58db40",
+      "bytes": 1731,
+      "matches": true
+    },
+    {
+      "path": "franka_droid/capture-observation.sh",
+      "exists": true,
+      "sha256": "38f870f142c1136b410be258dbb19d4aaeb26c4b9bcb26d64c0083b9e0854b39",
+      "bytes": 448,
+      "matches": true
+    },
+    {
+      "path": "franka_droid/check-cameras.sh",
+      "exists": true,
+      "sha256": "d66ebfdb7206b86cfe8a2604e36ae7ccd60fa16e768bafa77273f82626a0be5b",
+      "bytes": 518,
+      "matches": true
+    },
+    {
+      "path": "franka_droid/raw-inference-only.sh",
+      "exists": true,
+      "sha256": "42aed40ca0c0eb7f4259de6afe720d6a45fb994ba83ef0f593f1e118c84ec45e",
+      "bytes": 663,
+      "matches": true
+    },
+    {
+      "path": "franka_droid/CONTROL_UI.md",
+      "exists": true,
+      "sha256": "19bdc703ab813b2c4efd90b48cdaf9eda6e574f90a5e090772d5f6239fd75bf3",
+      "bytes": 6739,
+      "matches": true
+    },
+    {
+      "path": "franka_droid/SSOG_SETUP.md",
+      "exists": true,
+      "sha256": "67ec3d8a9950b3870771339a7a10bff1e10bef476ac177f4dc153373f2edb7b0",
+      "bytes": 3727,
+      "matches": true
+    },
+    {
+      "path": "franka_droid/config/droid-robotiq-endeffector.json",
+      "exists": true,
+      "sha256": "7572aacaac1e5e44fc7c65f4e820cd06f8b1fcb90f4923c34a7efc577bc3e54b",
+      "bytes": 141,
+      "matches": true
+    },
+    {
+      "path": "franka_droid/config/setup.json",
+      "exists": true,
+      "sha256": "2053e4ea010d56d6248e1693f47dd4781fbdb5d566ac1c59f89f70600200deb7",
+      "bytes": 3555,
+      "matches": true
+    },
+    {
+      "path": "franka_droid/config/droid-fr3-active.json",
+      "exists": true,
+      "sha256": "b0ddd244efcfb88b8319fd43a41d740260da692702c319384e4814b860ba30b7",
+      "bytes": 3716,
+      "matches": true
+    },
+    {
+      "path": "franka_droid/config/calibration/SN37266581.conf",
+      "exists": true,
+      "sha256": "a9c79d4a501a6147da45e29ac114c650aea66c05bd23ffdf509dd8d2b2f1117a",
+      "bytes": 2606,
+      "matches": true
+    },
+    {
+      "path": "franka_droid/config/calibration/SN12607895.conf",
+      "exists": true,
+      "sha256": "ebd44110e84b548013b72f1f63f5f7564b6582c1e7d3715849d96644fffc37ed",
+      "bytes": 2600,
+      "matches": true
+    },
+    {
+      "path": "franka_droid/config/calibration/SN39338267.conf",
+      "exists": true,
+      "sha256": "1d6a630b96cf9d72c9fee966ae3c542a52b41efeac238ae39866b7653562e7da",
+      "bytes": 2578,
+      "matches": true
+    },
+    {
+      "path": "franka_droid/config/reference/droid-fr3-constraints.staged.json",
+      "exists": true,
+      "sha256": "879c7d82b52b1715fba31e14706ef2a66e7dbce9286372471e13dc10a49ef9b0",
+      "bytes": 3408,
+      "matches": true
+    },
+    {
+      "path": "franka_droid/config/reference/sources.json",
+      "exists": true,
+      "sha256": "fbffa985af1d4413a83d712f168305f418e169b5045effe5d90632ea8e488e52",
+      "bytes": 670,
+      "matches": true
+    },
+    {
+      "path": "franka_droid/ui/graphs.js",
+      "exists": true,
+      "sha256": "52c00a4d53614ee9c308fb223c395d88bd3847dc794e97450f087fe4806d800a",
+      "bytes": 9806,
+      "matches": true
+    },
+    {
+      "path": "franka_droid/ui/index.html",
+      "exists": true,
+      "sha256": "99775a4d5f2800e4bc83cdb32f50f43d5d3cfcd610790a2335f2830f1adc537f",
+      "bytes": 5657,
+      "matches": true
+    },
+    {
+      "path": "franka_droid/ui/app.js",
+      "exists": true,
+      "sha256": "927dbe412ba59778291313ba62dc07d68e6f4b2538d43a83a8dae20984ee3c7a",
+      "bytes": 9103,
+      "matches": true
+    },
+    {
+      "path": "franka_droid/ui/style.css",
+      "exists": true,
+      "sha256": "c11324b1b85782b4fd920212e48ad2a9d3a9e2b49bb46666f3d6c4334cff78c2",
+      "bytes": 8709,
+      "matches": true
+    },
+    {
+      "path": "docs/HISTORICAL_SETUP.md",
+      "exists": true,
+      "sha256": "d7060dd63939bc0d3908ffb1a37188d578f57330463cf80046a5bf8855c02698",
+      "bytes": 34794,
+      "matches": true
+    },
+    {
+      "path": "docs/DESMOND_FRANKA_HANDOFF.md",
+      "exists": true,
+      "sha256": "ca51ce855cba9d9e883f57c3f79b7f29af80236a7ce015479ab1ffa3306b92e8",
+      "bytes": 26685,
+      "matches": true
+    },
+    {
+      "path": "camera/viewer.py",
+      "exists": true,
+      "sha256": "ca9fe0eb96d6ef74f9edbdb8e3ff1d9ef847b44c3674ae35af7fe355c4df512f",
+      "bytes": 13188,
+      "matches": true
+    },
+    {
+      "path": "camera/capture.py",
+      "exists": true,
+      "sha256": "be30a35c6e15cf8c9c36d13dc89f8f718aaef92357f7b43df64a273e45fe7a7b",
+      "bytes": 1708,
+      "matches": true
+    },
+    {
+      "path": "camera/capture_v4l2.c",
+      "exists": true,
+      "sha256": "5f4db2564d533ae017c98c5ac3bcb7798eb801efebf551b1b1efa565848f4215",
+      "bytes": 4758,
+      "matches": true
+    },
+    {
+      "path": "camera/web/index.html",
+      "exists": true,
+      "sha256": "2ee7ebc9ce1a734aaf92f93cb5a6ce72ae4e11553af95c511feba784a0a61ad4",
+      "bytes": 6348,
+      "matches": true
+    },
+    {
+      "path": "camera/scripts/verify.py",
+      "exists": true,
+      "sha256": "f0c33e469636f15d15ea238bf3efb24cef4c6c73d34301177a0a63ff634a7503",
+      "bytes": 3086,
+      "matches": true
+    },
+    {
+      "path": "camera/scripts/build.sh",
+      "exists": true,
+      "sha256": "7b5641145e47576f90a642763665b82c660b5792d8c290d840ce22f063808172",
+      "bytes": 315,
+      "matches": true
+    },
+    {
+      "path": "camera/scripts/connect-viewer.sh",
+      "exists": true,
+      "sha256": "2eff8b26a61550cec5e93b1a2e64612eca0f0dc38bd111479316cf93b102bce9",
+      "bytes": 390,
+      "matches": true
+    },
+    {
+      "path": "camera/scripts/test_capture.c",
+      "exists": true,
+      "sha256": "5b4bd3b97eff8b2ee42fc4890904fde98399533318cc7e3e01cce5d6a8bfb243",
+      "bytes": 1911,
+      "matches": true
+    },
+    {
+      "path": "camera/scripts/doctor.sh",
+      "exists": true,
+      "sha256": "13600166530422d993a6302a3d501de3378372d29c8a6a110ddfa81ee279a6e9",
+      "bytes": 783,
+      "matches": true
+    },
+    {
+      "path": "camera/scripts/probe_v4l2.cpp",
+      "exists": true,
+      "sha256": "e6c94bedcfa0ec2bc5be8c9594f1cfcf378a3f5b552842ef05015fe5aa9ae0ae",
+      "bytes": 3706,
+      "matches": true
+    },
+    {
+      "path": "camera/scripts/install.sh",
+      "exists": true,
+      "sha256": "cf73f6a39292fdd0ad46181c900e499164ab7e23d995ac436d84d12ed8d9fbc0",
+      "bytes": 1293,
+      "matches": true
+    },
+    {
+      "path": "deploy/robot-network/read-franka.py",
+      "exists": true,
+      "sha256": "c142365c4f460eb3a0ba6ec5401246102911bbf97bf305448e607211d5d9cfa0",
+      "bytes": 2153,
+      "matches": true
+    },
+    {
+      "path": "deploy/robot-network/libfranka-mainline-rt.patch",
+      "exists": true,
+      "sha256": "d68d3bfdb5280f5494f75f35213bac721dde35dce39ae647fbc5cb5a32b2b5b9",
+      "bytes": 1339,
+      "matches": true
+    },
+    {
+      "path": "deploy/robot-network/robot-model.urdf",
+      "exists": true,
+      "sha256": "a4e4443caa57eb96dd06fd64f8dab36969a65a333799a37f6982bd41966160c3",
+      "bytes": 14647,
+      "matches": true
+    },
+    {
+      "path": "deploy/robot-network/ros/env.sh",
+      "exists": true,
+      "sha256": "5828d987d88b74ffdd44100698e9734d3fc95d41ebdc2c410aed2e051f1ad160",
+      "bytes": 262,
+      "matches": true
+    },
+    {
+      "path": "deploy/robot-network/ros/rome_moveit.launch.py",
+      "exists": true,
+      "sha256": "20d9afe81c0a1f03d9acf2fc30dfc103780752d92f8e58ebec52987d0f39dffc",
+      "bytes": 2944,
+      "matches": true
+    },
+    {
+      "path": "deploy/robot-network/ros/rome_hardware.launch.py",
+      "exists": true,
+      "sha256": "d22f06bceb4e72d0a2d4ffbc06717259ebbd878e4b8ecac4354dcfb27748cadd",
+      "bytes": 1380,
+      "matches": true
+    },
+    {
+      "path": "deploy/robot-network/ros/controllers.yaml",
+      "exists": true,
+      "sha256": "ca7082b6f9c6a3efb49c57c5faee85e0c512bb26fb8a93bd3aca60f693f7389f",
+      "bytes": 2437,
+      "matches": true
+    },
+    {
+      "path": "deploy/robot-network/ros/start-ros-moveit.sh",
+      "exists": true,
+      "sha256": "0c425e5412d987932b8fbe161cb1bce1431b7b0177e3f552a5466a00accaa14f",
+      "bytes": 170,
+      "matches": true
+    },
+    {
+      "path": "deploy/robot-network/ros/start-ros-franka.sh",
+      "exists": true,
+      "sha256": "8e29d2150ae7172a4f53a29b2fe19e43dc7dec03fae99aac673b7d703fbbcac5",
+      "bytes": 172,
+      "matches": true
+    },
+    {
+      "path": "deploy/robot-network/ros/debug.launch.py",
+      "exists": true,
+      "sha256": "12cfa3665101f26ccef1004f3be580bcd07aeedf19160edc20a1068dacecde1d",
+      "bytes": 11351,
+      "matches": true
+    },
+    {
+      "path": "deploy/host/etc/franka/c2-dhcp.conf",
+      "exists": true,
+      "sha256": "fe5821045c033f3cc093d2fc9ca7777042cb96bbb9a49717b42e989d7f9100ae",
+      "bytes": 365,
+      "matches": true
+    },
+    {
+      "path": "deploy/host/etc/franka/realtime.json",
+      "exists": true,
+      "sha256": "bb8faa06fc0a47e44896ab1a5b3ef67b353b973a25641735377f9ea1e846b4db",
+      "bytes": 443,
+      "matches": true
+    },
+    {
+      "path": "deploy/host/etc/franka/realtime.env",
+      "exists": true,
+      "sha256": "27c75bcf3b9e95594fc22557eaa0351690e83081ea32f0a33b43d6c29b7c77ce",
+      "bytes": 61,
+      "matches": true
+    },
+    {
+      "path": "deploy/host/etc/systemd/system.control/system.slice.d/50-AllowedCPUs.conf",
+      "exists": true,
+      "sha256": "21ea1d025c0e62ce9d4f5d10cce692a8bfe1c196787ae263ff724e66d19a0cfd",
+      "bytes": 162,
+      "matches": true
+    },
+    {
+      "path": "deploy/host/etc/systemd/system.control/user.slice.d/50-AllowedCPUs.conf",
+      "exists": true,
+      "sha256": "21ea1d025c0e62ce9d4f5d10cce692a8bfe1c196787ae263ff724e66d19a0cfd",
+      "bytes": 162,
+      "matches": true
+    },
+    {
+      "path": "deploy/host/etc/systemd/system/franka-control-ui.service",
+      "exists": true,
+      "sha256": "35a43c3e6b8552798ed545d8628162adf4c44551efd780eebc07b3923d621aa9",
+      "bytes": 475,
+      "matches": true
+    },
+    {
+      "path": "deploy/host/etc/systemd/system/franka-ros-moveit.service",
+      "exists": true,
+      "sha256": "dbaed0ec74f17830280decb1f63db488b58f18fa240c8c6f63fbbd995c143181",
+      "bytes": 553,
+      "matches": true
+    },
+    {
+      "path": "deploy/host/etc/systemd/system/franka-ros-state.service",
+      "exists": true,
+      "sha256": "a232d9a909f0850f6530c61a5e07f44b2640398d7e243636cf43fcd632d04140",
+      "bytes": 648,
+      "matches": true
+    },
+    {
+      "path": "deploy/host/etc/systemd/system/franka-realtime.service",
+      "exists": true,
+      "sha256": "024fc2e5c9390f4780684957474a61fa02ae1c3e014c2259656ab5167ef55d77",
+      "bytes": 310,
+      "matches": true
+    },
+    {
+      "path": "deploy/host/etc/systemd/system/franka-c2-dhcp.service",
+      "exists": true,
+      "sha256": "4fdac41cd7ae34546a1ff83c7561ca417a30a435f7205697791d8d25a744eb7d",
+      "bytes": 369,
+      "matches": true
+    },
+    {
+      "path": "deploy/host/etc/systemd/system/franka.slice",
+      "exists": true,
+      "sha256": "08dd7cafea63f93ea05ad3752d46aaf122aefa2718d491d7c58b7e680210799b",
+      "bytes": 76,
+      "matches": true
+    },
+    {
+      "path": "deploy/user-systemd/franka-droid-policy.service",
+      "exists": true,
+      "sha256": "4c1a09e5575b1e6ea306d31dc73b5b8ef7be0b52ce96c50ade1ed97a6a1a5bb3",
+      "bytes": 641,
+      "matches": true
+    },
+    {
+      "path": "deploy/user-systemd/zed-camera-viewer.service",
+      "exists": true,
+      "sha256": "b32527a8de26127fd057c89e118128176527e7a13212155f0683f7edcf2aa243",
+      "bytes": 401,
+      "matches": true
+    },
+    {
+      "path": "deploy/host/etc/security/limits.d/90-franka-realtime.conf",
+      "exists": true,
+      "sha256": "9f685652dbd7031285cf52c16275cf9be0205f26175cce1350930c3abaa955c8",
+      "bytes": 119,
+      "matches": true
+    },
+    {
+      "path": "deploy/host/usr/local/sbin/franka-realtime-setup",
+      "exists": true,
+      "sha256": "9528e2b2cf81fc3350f448eff24864b69d3c0b9deb05c8b3b53f3ecf59a1d5fa",
+      "bytes": 5396,
+      "matches": true
+    },
+    {
+      "path": "deploy/kernel/config-6.18.53-spring-rt",
+      "exists": true,
+      "sha256": "496de330aa7c80969fd975e50622a2668e3da7ce62c2babae9da69a611ba78dc",
+      "bytes": 261734,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ssog/SHA256SUMS",
+      "exists": true,
+      "sha256": "44ca0ab421b89ba474ee38f77f17108fe994ebc487302a9b3606ade3295ec0cd",
+      "bytes": 197,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ssog/DEPLOYMENT.json",
+      "exists": true,
+      "sha256": "dfc577ac0a1c125960edf9b3063574ce3d465ee4d79165405c6fd8928cdf104e",
+      "bytes": 1074,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ssog/TARGET-VERIFICATION.json",
+      "exists": true,
+      "sha256": "d04f84d413001294362abaef41be7daa66dbf4e7dc21b409222316cb8b5f4eb6",
+      "bytes": 957,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ssog/install.sh",
+      "exists": true,
+      "sha256": "d880d801150842429538d0483863946313740b0607a74e842b1cce7396484748",
+      "bytes": 1724,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ssog/CANONICAL.sha256",
+      "exists": true,
+      "sha256": "0376a60ab7c1833c6dcdfa7bd04281a8c1f0a2804e8c45743738a2c5001ff103",
+      "bytes": 52341,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ssog/run_mux_serve.sh",
+      "exists": true,
+      "sha256": "5240a95e4dd05f1301949b1c3c78b01a6787fff67253a9e1e2e8443aeef3aa42",
+      "bytes": 1264,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ssog/runtime/env/Dockerfile",
+      "exists": true,
+      "sha256": "87f724ba5c9f7cc2ebbb753c36bfee1731c962994946833045623d0611eb5ee5",
+      "bytes": 2647,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ssog/unit/requirements.txt",
+      "exists": true,
+      "sha256": "f7f9cd7fb3c4947cdf157023093eeb62a5bbc88be8cf00ac4dff0039f42cbf39",
+      "bytes": 95,
+      "matches": true
+    },
+    {
+      "path": "manifests/ssog-integration-summary.json",
+      "exists": true,
+      "sha256": "4a2bd3906cc5b3ffa4ee79234b4e6b19c4c87ff5f97d8b8754ef46e6f42b90b8",
+      "bytes": 4985,
+      "matches": true
+    },
+    {
+      "path": "manifests/ssog-install-receipt.json",
+      "exists": true,
+      "sha256": "4853f7f1ff1854ba243ff794af981265ddd7709b966bd6972bac0ff782e7b5ed",
+      "bytes": 388,
+      "matches": true
+    },
+    {
+      "path": "manifests/ssog-runtime-image-receipt.json",
+      "exists": true,
+      "sha256": "04e5f469961421b76e25b1391a0aa8e9a77b3db4570113b50d1e3c13e6c85067",
+      "bytes": 631,
+      "matches": true
+    },
+    {
+      "path": "docs/PI05_FINAL_SNAPSHOT.md",
+      "exists": true,
+      "sha256": "2487d3f133a182d760d99d5758596d174921ffc5f68b0e098f6358b181064d09",
+      "bytes": 7180,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/serve_ov_a.sh",
+      "exists": true,
+      "sha256": "06225c82a4beb4b0006c3b87fd68d5fb83ee537245f7456f52c8468d4f20027a",
+      "bytes": 2449,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/serve_local.sh",
+      "exists": true,
+      "sha256": "d0128042f3411cac640d3f01e03388ee86cc12fe5c15a4ab3ca3d8becf2c8b61",
+      "bytes": 1981,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/env-local.sh",
+      "exists": true,
+      "sha256": "cb2729e88a816c01932a69de88b0f30960e7cc2e4b474b477220306ac6726bbb",
+      "bytes": 1728,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/setup_venv.sh",
+      "exists": true,
+      "sha256": "3de7c5c12a123664565a22a2de392fd4f129b67ebf6276443c4e98911fd281ff",
+      "bytes": 1120,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/SHA256SUMS.pinned",
+      "exists": true,
+      "sha256": "6cca635ff6066db6ff9afafc54b4177b0289c661922d2ac6dc2d0fc05b743bb2",
+      "bytes": 1306,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/ovmux/c2t128-r11-tuning.json",
+      "exists": true,
+      "sha256": "27745bd6538ce5b445952239774a167999777b5af971340fb29e5e8c60526bfc",
+      "bytes": 2536,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/ovmux/c2t64-r11-tuning.json",
+      "exists": true,
+      "sha256": "ae24cc16863badc2f1bfb4e2fec195339d4647c601dfc8a39f87832bf8275c3c",
+      "bytes": 2536,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/ovmux/ov_mux_server.py",
+      "exists": true,
+      "sha256": "78f971a40313a9e34a3cea84d86e79e42437c20e7f111529a93fe2c77a0e3ea4",
+      "bytes": 21772,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/ovmux/verify_ir_weights.py",
+      "exists": true,
+      "sha256": "86b5f0e362ad671efa14f9c715924287529c9283cec1d0f0f8c684e29b66f663",
+      "bytes": 5958,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/ovmux/ov_mux_client.py",
+      "exists": true,
+      "sha256": "4a95a053e7fafd3a425f91d3600ad55a551460b85b762b94b090c35262db1a10",
+      "bytes": 8209,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/ovmux/c2t256-r11-tuning.json",
+      "exists": true,
+      "sha256": "45870c3c813644b37b55adc317b12c83dc9c6b2e86a45b956f3f8075afe8f716",
+      "bytes": 2536,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/unit/unit_ov.py",
+      "exists": true,
+      "sha256": "c72f8f704e1ed5acdcf4140367956ee056939c3ae1da2ec756f0048a3fd0ea3c",
+      "bytes": 46707,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/unit/assets_ckptA/norm_stats.json",
+      "exists": true,
+      "sha256": "57ce9956f9e07d65f8a8205aabec72d436a2c8927f53edb40c7a77b14a5a90c7",
+      "bytes": 4540,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/unit/src/sprilicim/__init__.py",
+      "exists": true,
+      "sha256": "3b8530d52d164ddb5375d7aa8633b8ba87a5e46fa4608452d1de2843fa894e77",
+      "bytes": 97,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/unit/src/sprilicim/policy/worker.py",
+      "exists": true,
+      "sha256": "12d0acad51290c19ff6f43f27d6f214a1c970d14a98bb4e978d352bb4facc5fb",
+      "bytes": 6123,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/unit/src/sprilicim/policy/__init__.py",
+      "exists": true,
+      "sha256": "f9c1e5b41b19f1a49bb418107debb9e980d64b39f89c2e3a174a2062f94fbe71",
+      "bytes": 248,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/unit/src/sprilicim/policy/transport.py",
+      "exists": true,
+      "sha256": "92318d5aadc577ee96e852443877aa94b196ac6b731a4b37aeee55cd1105f6e8",
+      "bytes": 1966,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/unit/src/sprilicim/policy/base.py",
+      "exists": true,
+      "sha256": "0632308c3c1aac9b0c9b1fb303a5292b5d5cc95b1394732ee6cc3c291557aa40",
+      "bytes": 1124,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/unit/src/sprilicim/protocol/schemas.py",
+      "exists": true,
+      "sha256": "3786a066aac1e69e1860b896e1f3aa5b662e538fa3d986b0bae7b239f4046b79",
+      "bytes": 4671,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/unit/src/sprilicim/protocol/__init__.py",
+      "exists": true,
+      "sha256": "548fb41343c754595452c0065d5884d59d15585bbe077d97ca161b367fd5f19c",
+      "bytes": 904,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/unit/src/sprilicim/protocol/codec.py",
+      "exists": true,
+      "sha256": "b541e64283e149ccecc46197568b4ee47816a4de5d444a9700a22f957aa64d1c",
+      "bytes": 2101,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-down-8x4.json",
+      "exists": true,
+      "sha256": "3fc4f4495368b962b2a368223d116f539709cb3d296fc73962cec5e1a7fb8bf6",
+      "bytes": 2436,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-flush8.json",
+      "exists": true,
+      "sha256": "3cb0ff4f062836a5587441a63c132e4b1ab45fdff98f2d6fc76f6a6db7805aae",
+      "bytes": 2550,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-vu1632w84.json",
+      "exists": true,
+      "sha256": "d80901cbedb8ad47b1559046ee40a236aac946b44c1778c412e16c676bd82337",
+      "bytes": 2526,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-mon.json",
+      "exists": true,
+      "sha256": "a00499fd3cf8f462126a21d4d1eb9ab9d6ead58d23d2812152ebecf1924cb137",
+      "bytes": 2523,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-dump.json",
+      "exists": true,
+      "sha256": "49e6c02d0275382e0f96d702bffddb8d1cf45eee5bc4dece0debdb1d76dcf87d",
+      "bytes": 2536,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-vis48-out.json",
+      "exists": true,
+      "sha256": "0fb3c3ac8bdd4b7c51a14e8f18f8b3caeb8110f6f62d81801a1e66ae43529a32",
+      "bytes": 2556,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-vs-4x8dm.json",
+      "exists": true,
+      "sha256": "5a72abcee5b5c5385aef488f52470bcd8d3882cfd60d034ce3571264eb7687b5",
+      "bytes": 2549,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-down-4x2.json",
+      "exists": true,
+      "sha256": "db464e8a7b251a0f0d85c135dbde44d12c5fb697da243c8e1ab9943d42133bda",
+      "bytes": 2436,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/analyze_ir.py",
+      "exists": true,
+      "sha256": "a5ce902870d79feb267e458524130b9b0ccda902d2ab17b8dbb47a2706918ca3",
+      "bytes": 5882,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/rms_quantize_shuffle.cl",
+      "exists": true,
+      "sha256": "48f0226f0e73cfc93278570407379e518bbc2739feea26a81c9aaed215588e64",
+      "bytes": 2736,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/sweep-targets-down-qkv-7.json",
+      "exists": true,
+      "sha256": "628fd7529c3f0c5db1cb2b1a0d5cb0a2a9479e521c23bc1f633f912cb9e7e80b",
+      "bytes": 2275,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/run_c2t64.sh",
+      "exists": true,
+      "sha256": "6a7b5c65ed530251bf98107ade3d1617f2ab53039ef757bc6e90e9d39585e046",
+      "bytes": 1661,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-vo.json",
+      "exists": true,
+      "sha256": "4e54a86a3d6dd132f2da78e3759a7384a67560afadfa6f455c8dbed81b0f1498",
+      "bytes": 2561,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-mvn4.json",
+      "exists": true,
+      "sha256": "e0b7f9530becd2aab9b45424dda31d6fcf23c35139228bc96c333e554a007924",
+      "bytes": 2531,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/sweep-prefetch-g8-mb5.json",
+      "exists": true,
+      "sha256": "f670161835c51b1033a12b0f35e676d48d08fa940216cf3f4c14969b2fb6ae03",
+      "bytes": 2235,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/tokens64-r11-down4x4-tuning.json",
+      "exists": true,
+      "sha256": "a3cf1f96912d1b846f34b2e5aaa0f03645285bf7f80b27f976b25041153f00b2",
+      "bytes": 2413,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-vw88.json",
+      "exists": true,
+      "sha256": "5e624633a4b73fbac9dab865a1feef6ef275cc73fa625feb3c90605a3b3f308b",
+      "bytes": 2526,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-b3-exp-slm1.json",
+      "exists": true,
+      "sha256": "1ffcd573da92792736d81a40e26d579744f993590fa384060e4a1dee44b0ae36",
+      "bytes": 2509,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-vu1616.json",
+      "exists": true,
+      "sha256": "14fe3af34cfde6bf0c4fcbcc77a59e0abad20a69427da3e98e616ae44b31deee",
+      "bytes": 2526,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/vision_sdpa.cl",
+      "exists": true,
+      "sha256": "89c0d3c1f0a63f3eca1d8928d2d562155c52f77c2d11d66eca8d4dc9ec316160",
+      "bytes": 5601,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-et1-tqc4.json",
+      "exists": true,
+      "sha256": "52181bcbdf63494a82907d16add68fd9c7b75315a0382063ce0cbba39737c92a",
+      "bytes": 2588,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-r11-tuning.json",
+      "exists": true,
+      "sha256": "701b9ed67c3e3a223e223b4b2493eeccc26a22f4945cb578c897d5f434d2f523",
+      "bytes": 2511,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-sdpa-32x64.json",
+      "exists": true,
+      "sha256": "694490bf492f085e2f21f61ab32e47f70daffec48a0fb565da908a5f0103d033",
+      "bytes": 2321,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-replay.json",
+      "exists": true,
+      "sha256": "fe24aa24ac656a3bd98f0f824521b4dbaf182f09a65ec7cf62178a332760ab23",
+      "bytes": 2553,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/qkv_rope_kv_block.cl",
+      "exists": true,
+      "sha256": "544b3dd53e6ffd07b44b4651ed539405f286fa52b663b1c1b43926a3533d7d5b",
+      "bytes": 3288,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/prefetch-r11-ooo-g8-tuning.json",
+      "exists": true,
+      "sha256": "de924f5d829e7c1e918777d5d12f4d5552c9b389a8cfd6ee37668b915703cafd",
+      "bytes": 2243,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/benchmark_mlp_chunk_graph.py",
+      "exists": true,
+      "sha256": "00426d8381a15a37aee473417b2b6e1650dba1f0fc5d3957b04d0d2ed5d9f37d",
+      "bytes": 11214,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/run_integrated_acc.py",
+      "exists": true,
+      "sha256": "8a91968c6d0a7b1d57c52923803443c0dc2be6b8068b75f86420d279fb169516",
+      "bytes": 7905,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/adaln_quantize.cl",
+      "exists": true,
+      "sha256": "0225e616ea491c3e4671a9259ea720d6530ad7a9b3ebbd15f5a9530be3d2deb1",
+      "bytes": 3150,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/profile_openvino.py",
+      "exists": true,
+      "sha256": "e314b015e9723bce08b321ec3917d9ed1b0c04a8fb019b239b0a8fc154b90e95",
+      "bytes": 21793,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/sdpa-prefetch-r11-tuning.json",
+      "exists": true,
+      "sha256": "96de87516cc1718afda99134117dbf52151920cee44bad64425bf5f5584d7867",
+      "bytes": 2236,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/export_cam_variant.py",
+      "exists": true,
+      "sha256": "abfc7e63b38884f346ee9deef416aca4cd5465f2cb62e266b226259eed551882",
+      "bytes": 7000,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/sweep-targets-o-gateup-5.json",
+      "exists": true,
+      "sha256": "df3d9dd08d8a5920ba76898d259328e4cfa0b3a6afb783d3d67f51e03e49bba4",
+      "bytes": 2275,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/generate_validation_cases.py",
+      "exists": true,
+      "sha256": "5667968c7bc1ba2ca0eb1a9b3d179a303408d83a8f607d6ccf5948642b774f06",
+      "bytes": 900,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/probe_expert_sdpa.py",
+      "exists": true,
+      "sha256": "60932e9f64ae52b27b07f2bd90fa8bd41e6c58524c76427f412aa24f6c8fc334",
+      "bytes": 5320,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-b3-vis-slm3.json",
+      "exists": true,
+      "sha256": "eff3bd75cc50236c3cf6a40874c00cf74335ce8b1a6ea31d2e830d30f7622edf",
+      "bytes": 2509,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-vis-slm1.json",
+      "exists": true,
+      "sha256": "9ed0dfe4439e176c35cad0950a003d317a6874cc46b7e1f2b01da2038eda6bb4",
+      "bytes": 2509,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/packed_rope_native_launch.cl",
+      "exists": true,
+      "sha256": "5f52be608d89052e251d7f1db7eeb6428fb8ca2d843e352c57728fe1631d5aa0",
+      "bytes": 1083,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/selected-tuning.json",
+      "exists": true,
+      "sha256": "72e7d12d8706fe60b095843b76c1826958e965bed1088a5c80ed21edcb816788",
+      "bytes": 2144,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-ou3232w88.json",
+      "exists": true,
+      "sha256": "0923fead69a0d94fdc05efc2a9877dc12e70964e765a0721910fab0e88dc4147",
+      "bytes": 2556,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-flush128.json",
+      "exists": true,
+      "sha256": "fd743ae358ea34ce5f534724060177a3be63a61fed561a29f6444f14d20a3855",
+      "bytes": 2552,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-exp-qkv-8x1.json",
+      "exists": true,
+      "sha256": "750c79e1e7e512469e8a46b5df3598c69e0586ec2d9aa3919ffa9c74ce3602fd",
+      "bytes": 2465,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-gq64.json",
+      "exists": true,
+      "sha256": "b9bee50acd0ab24d534b7343b5c1a5b4cbca1751b6fd78a7983e802219a268e7",
+      "bytes": 2443,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/run_c2t64_profile.sh",
+      "exists": true,
+      "sha256": "c58d49258a9948650156b033b5c399bc9bcd198bf41c34591c736632b8428e22",
+      "bytes": 634,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-down4x4-o-4x2.json",
+      "exists": true,
+      "sha256": "88d0b8f1a9963aac121d910b64fa98455282c1a209f9dc787f6c70c41008379c",
+      "bytes": 2466,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/sweep-prefetch-g12-mb6.json",
+      "exists": true,
+      "sha256": "9589a648d3edbd0a40cfcfb7cd187a39d381b2feea75345547184619cf1d3221",
+      "bytes": 2236,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-ctrl2.json",
+      "exists": true,
+      "sha256": "4c6def5976a7bcca8130046ad4c54d5214b677c0915799f837746b46854c6c2e",
+      "bytes": 2496,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-replay-clean.json",
+      "exists": true,
+      "sha256": "a00499fd3cf8f462126a21d4d1eb9ab9d6ead58d23d2812152ebecf1924cb137",
+      "bytes": 2523,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/run_reproduce_39ms.sh",
+      "exists": true,
+      "sha256": "46eb71bf795a2d65de249712558a7d608e88cb346caa4b59c6fafb82f4cc42f3",
+      "bytes": 940,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-sdpa-hints0.json",
+      "exists": true,
+      "sha256": "696fd9c3af7760cf288552c002c9d071bbed2589dd901a6390ca82186b607d7a",
+      "bytes": 2321,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-b3-vis-hints-blk.json",
+      "exists": true,
+      "sha256": "4de18b4ca9295474efbbe5cf3c5aa0213ff0f3f022e2510be3b60f9df9187e10",
+      "bytes": 2511,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/vision_quantize.cl",
+      "exists": true,
+      "sha256": "36c789ddc7717b5d92708e5f1ccd8d6457a941c60ffb6c15cf257bad2c2ad8da",
+      "bytes": 2345,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/sweep-gateup-pf-mb16-g8.json",
+      "exists": true,
+      "sha256": "041ca1a2938e6ca1b145b53339844b1fde68429eee5edff7473eecfe5a827054",
+      "bytes": 2309,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/sweep-gateup-pf-mb16-sched.json",
+      "exists": true,
+      "sha256": "b9905c9bac61b8233c6683a28eb06b6bd04f3780596af0d944d87d0ac26de5c0",
+      "bytes": 2302,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-kr-visfc2.json",
+      "exists": true,
+      "sha256": "09a3d25f9854cc42cc711d4efb1455740322a02642441776e073d857698788bb",
+      "bytes": 2529,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/tokens64-r11-tuning.json",
+      "exists": true,
+      "sha256": "2e7d15a0d70bb30199190a9cb2a877df7fa1149b812c50fa3c0cdde551cd125f",
+      "bytes": 2267,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/run_bisect.sh",
+      "exists": true,
+      "sha256": "d47930213a700586ecde1ecc80b94f4da02e3032abf8101cd9724aa5a671071c",
+      "bytes": 2132,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-b3-pre-slm3.json",
+      "exists": true,
+      "sha256": "549d22fa4b97d88519aa57589c869d1a86f2ef2cfb94e4ced07dc91401c5d1eb",
+      "bytes": 2496,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/sweep-tails-D-rope2-attn-gateup7.json",
+      "exists": true,
+      "sha256": "94d019fcc76b03716275dbb13d598e5898506d34ca41d8c871b6400b34404ef3",
+      "bytes": 2305,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-ou1616.json",
+      "exists": true,
+      "sha256": "473bd30e3799ab396784a6413946f95f263d4776e467e1b1d1e4e6b148759640",
+      "bytes": 2556,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-vis-mem8.json",
+      "exists": true,
+      "sha256": "e2253d11ac630a044953f2d0230e5992e277053f76d92397ba45084f44239b04",
+      "bytes": 2511,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/sweep-prefetch-g12-mb10.json",
+      "exists": true,
+      "sha256": "428c9d96a6366e626c593d67213637ab9bc3d4c387c13c69b41f5d97718b73f5",
+      "bytes": 2237,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/sweep-tails-C-attn-o-gateup5-adaln1.json",
+      "exists": true,
+      "sha256": "b8471b80189e3c23a257f4c62f234cf2b496047c6378795903d5ee0e0aa9570b",
+      "bytes": 2269,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-ou1632.json",
+      "exists": true,
+      "sha256": "375aa6b9571c6f5e57aab99b7065ce2f1484f0b5c2a08995e8ee3febd3e65440",
+      "bytes": 2556,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-b3-rope-256.json",
+      "exists": true,
+      "sha256": "ab49ee117f17fa7ad4cbf2a3968a7183064ea2292f7bbbd73d8259b561e81f6b",
+      "bytes": 2497,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/mvn_quantize_reduce.cl",
+      "exists": true,
+      "sha256": "1c8e619749e10aa491d23a30864c6b980b03e5a02ee76f816d32a83e965e5f24",
+      "bytes": 2506,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/run_selected.sh",
+      "exists": true,
+      "sha256": "71988793e5dd96b3b7e689fa460d76454f45ee62f053684440b6976ae9c5825c",
+      "bytes": 596,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-mvn2.json",
+      "exists": true,
+      "sha256": "bde12741d18ba4141181f97a33e41f2a3be0c8a4221bd9317c5f1d58e88f4916",
+      "bytes": 2531,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-vis-fc1-8x4.json",
+      "exists": true,
+      "sha256": "cc11666c782015727bdaf40eb79545d49d4b276965660ca099f0cdef445635af",
+      "bytes": 2526,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-down-64x16-4x8.json",
+      "exists": true,
+      "sha256": "78662764ab2999513443b96afecf4f3001859d2b1e5a449fca2fa8fa5841a91e",
+      "bytes": 2436,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-nosched.json",
+      "exists": true,
+      "sha256": "b04d8dc0e35fd32c3f8fccc32f39541ea2ca5b139d5469de9654b3aa3bf5be68",
+      "bytes": 2290,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-vu1632.json",
+      "exists": true,
+      "sha256": "dffef552fdea427923ae5054622640a8bfacec3784199c01c9ae82548384ef78",
+      "bytes": 2526,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-kr-o.json",
+      "exists": true,
+      "sha256": "50c3e6557e02bdd9f0e6ea54c6cc6886783221c9d16ba2b1f4af6191950747ec",
+      "bytes": 2559,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/split4-r11-tuning.json",
+      "exists": true,
+      "sha256": "bbffcb4db9720e81453c90ed30048b4ba28b5915fadc46e7ea76bed233ec2357",
+      "bytes": 2269,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/tokens64-r11-sched-tuning.json",
+      "exists": true,
+      "sha256": "9c6e0d6abc0ebf8035e66f859b88a92da5c1b69ddd198a69fb19559d9dbf6e7d",
+      "bytes": 2298,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-dqg64.json",
+      "exists": true,
+      "sha256": "b6a90aca63b4545ade08346c69c267f4030b39dc1af4ba58931137b1850e49b5",
+      "bytes": 2309,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/sweep-targets-o-gateup-down-9.json",
+      "exists": true,
+      "sha256": "621a610747efae8683e20f2c9e1fc8a72c2e47a1d59e83d929a2385e6a39f8eb",
+      "bytes": 2280,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-dm96-v3216.json",
+      "exists": true,
+      "sha256": "29c3668b16235837b0e0bb7dac98c818e053cfe0b2b1704ca708c08631f7eef5",
+      "bytes": 2555,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-gemm-2x8.json",
+      "exists": true,
+      "sha256": "4e377a1ddbf67cd743a944e4ab075be37848b93bce5c7f6246fd35d1d8d9b894",
+      "bytes": 2436,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-down-64x32-4x4.json",
+      "exists": true,
+      "sha256": "ae28e5aec22520637b8f3aa6547df52fc816a130facaed41646bbed52a35557d",
+      "bytes": 2436,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/probe_launch_gap.py",
+      "exists": true,
+      "sha256": "0a1f30a3cbbd5f8e313229f421ca87e692a121facdfb12f62daa950475c52725",
+      "bytes": 2229,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-tqc4.json",
+      "exists": true,
+      "sha256": "26616fea40f9bdfcfbf62ebfe3936d4bf619b6f79065589e7f402e2aeeda8c2d",
+      "bytes": 2555,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-noreplay-bd.json",
+      "exists": true,
+      "sha256": "87d3e9e49205838599f92925dfc664c73a4f0f3bdcb9f033d4a372fcd72b4d1c",
+      "bytes": 2526,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-split2-nocombine.json",
+      "exists": true,
+      "sha256": "1718e428534f401fee51938279e0648686a471d0fdcbb5cb1618261154ddc942",
+      "bytes": 2529,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/qkv_rope_kv.cl",
+      "exists": true,
+      "sha256": "9e64f35c547b2761cd3aad7c7689334e548f50af27e3085eda6071349190c1ea",
+      "bytes": 2142,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-hq-control.json",
+      "exists": true,
+      "sha256": "4c6def5976a7bcca8130046ad4c54d5214b677c0915799f837746b46854c6c2e",
+      "bytes": 2496,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-tqc8.json",
+      "exists": true,
+      "sha256": "0fc4f2252d87eecf37f6f9bcef09369de27bfae99959d9f9c2a43e65424cfa92",
+      "bytes": 2555,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-vis-exp0.json",
+      "exists": true,
+      "sha256": "6dcd95ca77465c00bf994be8bc12f9f5b26c8c541c7ebbc2bfb5f9f864550cf8",
+      "bytes": 2483,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-pf-g8-mb5.json",
+      "exists": true,
+      "sha256": "ba6858114c2ff1e6d5eeaa7e7a2047564aab00763cda67a96d86d9c6b3d10118",
+      "bytes": 2320,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/sweep-prefetch-g12-mb3.json",
+      "exists": true,
+      "sha256": "3a0be91e27e2d84f28f32dc059d84ad6d0bcc08fa33781b12134b1b0aa3ba50a",
+      "bytes": 2236,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/split2-r11-tuning.json",
+      "exists": true,
+      "sha256": "78104bf73d9dd1a17a2fdc6ff07af836fcd242b16cb894c5efd7ef2a9d443ff9",
+      "bytes": 2269,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-b3-exp-slm3.json",
+      "exists": true,
+      "sha256": "70c2515ee6ed622eca4eaa750a32528610a22022d96a40393ad7469ab272f04b",
+      "bytes": 2509,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-vis-blk0.json",
+      "exists": true,
+      "sha256": "c07a8b12a6a79c563a42de38347cab1cf0cc0be29c5988d227fb166b3eab2983",
+      "bytes": 2483,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/sweep-prefetch-g20-mb7.json",
+      "exists": true,
+      "sha256": "b2725f5cff83f8880735baf7888320e08a66c8123e4af927d81a11c7da2a135d",
+      "bytes": 2236,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-float-gate-envelope.json",
+      "exists": true,
+      "sha256": "9d5c19702cd4910eb87491ceb097a7f61cb0cd0760dba35b16509a1a2158854e",
+      "bytes": 1679,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-vs-4x8kr.json",
+      "exists": true,
+      "sha256": "9b3f1cb7d57a58186fb1050665dd850968812a22da2a034115248ef4bfcb6e2a",
+      "bytes": 2555,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-dqg128.json",
+      "exists": true,
+      "sha256": "a90a439519161bccc0120e23a187f6bd7d1db10ce3d50528fe8f1ebc9eb8e815",
+      "bytes": 2310,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/run_tokens_profile.sh",
+      "exists": true,
+      "sha256": "82780f41c5222c63e5a37ad883357d399bb63095a4e9c044c15fbc22cccc327d",
+      "bytes": 679,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/large_quantize.cl",
+      "exists": true,
+      "sha256": "7f6b2575439249db3b90d8022f3b511e52dd0e69ec05023061e35c2920d33f43",
+      "bytes": 2155,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/qkv_rope_kv_subgroup.cl",
+      "exists": true,
+      "sha256": "6d612a89f812996bfedd0468877bef6023450fcd69888fa57abf95e4b5ec7c1e",
+      "bytes": 3018,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-b3-et4.json",
+      "exists": true,
+      "sha256": "849fdb73c558a2c3bd1bc0b2cceb8ed0a8c7b8411e7e6cfa747342a3714e633a",
+      "bytes": 2529,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-dmax96.json",
+      "exists": true,
+      "sha256": "d7e3a624615ddfa8cd3e590943776d23f136775806957d9d6429f742fb63388a",
+      "bytes": 2524,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-hq-bd.json",
+      "exists": true,
+      "sha256": "87d3e9e49205838599f92925dfc664c73a4f0f3bdcb9f033d4a372fcd72b4d1c",
+      "bytes": 2526,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-b3-fc1-32x64-2x4.json",
+      "exists": true,
+      "sha256": "d0bc87c0e8d59d18771af36066bded4607332bd40186b1fdc9c2c8b792b8da69",
+      "bytes": 2526,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/make_token_variant_inputs.py",
+      "exists": true,
+      "sha256": "99229e30926faf5f7f3fe02b3fda6f5ebadb761e8794d1f97d8d054268953f6e",
+      "bytes": 1786,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/probe_l2_residency.py",
+      "exists": true,
+      "sha256": "2c104a752fb41d4941352d75cb51022cb32042f7bb9b097f5022f40cb90946f4",
+      "bytes": 3873,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-b3-vis-exp5.json",
+      "exists": true,
+      "sha256": "5a24127ef0a932fa4a181a39823c18a4b8b51a3e7902c32dfc9b8610bbd97815",
+      "bytes": 2496,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-dm96-v1616.json",
+      "exists": true,
+      "sha256": "1a037409c101084da4f5d6e3f5895372a20627c825a75da58c32e4934e7deea8",
+      "bytes": 2555,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-ou3216.json",
+      "exists": true,
+      "sha256": "09c5f11876b223b9560f8823e680957b2861006a6e8ed39dc7834e55572ee9d9",
+      "bytes": 2556,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/qkv_split_packed_rope.cl",
+      "exists": true,
+      "sha256": "6e243fba836e14da2d85bf408428c577f8f022be2edf45530e3fbae7ce373662",
+      "bytes": 1183,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/float-gate-envelope.json",
+      "exists": true,
+      "sha256": "7c6af8a8f05b87a34d2adc684e63d87de02dbe2779d8d5073dbb27092b538f5b",
+      "bytes": 1680,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-b3-rope-sub.json",
+      "exists": true,
+      "sha256": "e99cebbd478340e7ff09b3ab102afc7385af0eba51263c0887e6e696e770d821",
+      "bytes": 2535,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-down-4x4-64x16.json",
+      "exists": true,
+      "sha256": "d20945ae793e9e5b94d02b0909ca7a4f6006f67d40a56243548d64e139fdc459",
+      "bytes": 2436,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-combo.json",
+      "exists": true,
+      "sha256": "701b9ed67c3e3a223e223b4b2493eeccc26a22f4945cb578c897d5f434d2f523",
+      "bytes": 2511,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-pf-g12-mb7.json",
+      "exists": true,
+      "sha256": "4e37e25c73c05414d49d16bd840116af244cf28f74f509e8a717554e3b0aae5a",
+      "bytes": 2321,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-gupf-mb16-g8.json",
+      "exists": true,
+      "sha256": "44cb3635b588b5ae9d9f98e4fdf1a15db888c6bb649cc8e371e0062d11ce5bb5",
+      "bytes": 2394,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/expert_sdpa.cl",
+      "exists": true,
+      "sha256": "3433e1f4d450080fc77764d8d270d0a60a9cb58088d163749988c4a2e46eef4f",
+      "bytes": 8517,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-lq64.json",
+      "exists": true,
+      "sha256": "9bfcaf0e09e0fe83f9919b0cd4ce8f1d09531dacc452a46bfaaac15dd2b76479",
+      "bytes": 2494,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/sweep-tails-E-rope2-g4-attn-gateup5.json",
+      "exists": true,
+      "sha256": "53855e5caeb34356d36b0fa2db3f187352bd34d9ac8706141f88f79c32353278",
+      "bytes": 2341,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-b3-pre-exp5.json",
+      "exists": true,
+      "sha256": "a95f868bf15bde9dc8a6567242c55b693e7b2a0dfe7da295be6588b3ed89d1fe",
+      "bytes": 2496,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-down-32x64-4x2.json",
+      "exists": true,
+      "sha256": "0a369dbd564f425f08f958a6b63ba90e4b1562a7e8d302029ddab8f28bbda517",
+      "bytes": 2436,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-vis-fc2qkv.json",
+      "exists": true,
+      "sha256": "4c6def5976a7bcca8130046ad4c54d5214b677c0915799f837746b46854c6c2e",
+      "bytes": 2496,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/sweep-tails-A-rope2-attn-gateup5.json",
+      "exists": true,
+      "sha256": "fdf4c9fa75bf918f978391e3be278a465d04e8786b9d4b213f5822371c185ad8",
+      "bytes": 2305,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-down-8x1.json",
+      "exists": true,
+      "sha256": "82fe8a13f60a27cd2ad8777fbdf8853b250edc928951d81800f17d061ef0c8ad",
+      "bytes": 2436,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/run_c2t64_lane.sh",
+      "exists": true,
+      "sha256": "a39ca0ccc3f48548a2b15db0ef91a185971da4d084b36a89015cfaa3ecf8b5bf",
+      "bytes": 856,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/tokens64-r11-vis48-tuning.json",
+      "exists": true,
+      "sha256": "98ed1d3e91fd0d95c31f984a97b8117ce2c19fd7daf59d99900182fe51d60d3b",
+      "bytes": 2503,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-vs-2x8.json",
+      "exists": true,
+      "sha256": "9afdf183d63e391fa880b2b03d792333f7f64d7c29c96c325cc942a26e95f0bf",
+      "bytes": 2540,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-down-8x2.json",
+      "exists": true,
+      "sha256": "063fefc6315a97d70ea31a4fce03b95ae37937ede3d42cb8f231a699b5614da2",
+      "bytes": 2436,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-vis-fc1-4x4.json",
+      "exists": true,
+      "sha256": "8845a40f36a627a330ae6e13439cc56db2fb2411dbcb825b07d022cb91a7d284",
+      "bytes": 2526,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/probe_grid_barrier.py",
+      "exists": true,
+      "sha256": "4479f81795dda153345c9a10ecf8fe45cd5648a56935a7a6079f28097a059d57",
+      "bytes": 3563,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-hq-host.json",
+      "exists": true,
+      "sha256": "4c6def5976a7bcca8130046ad4c54d5214b677c0915799f837746b46854c6c2e",
+      "bytes": 2496,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-vis-mix.json",
+      "exists": true,
+      "sha256": "fabade983ad83c59a451c5c5e5f56756fc8992d76bb5e7464bd4a8a4d29aaeeb",
+      "bytes": 2526,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/xmx-bandwidth-probe.json",
+      "exists": true,
+      "sha256": "b38d7f513e84c6745bf56aa2d822dfccbbd56ac34dfb3c971c24574bf9faf387",
+      "bytes": 4318,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/schedule-vis48-r11-tuning.json",
+      "exists": true,
+      "sha256": "2b6fbcb8993295080f23e2f8ecc8adaa759dccdb390f9c37339804cd13e51684",
+      "bytes": 2472,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-vu3216.json",
+      "exists": true,
+      "sha256": "ef609614827a0a4941954a3e186e6a8a3e95f5aa241901abb85abf1153fcb585",
+      "bytes": 2526,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/sweep-prefetch-g16-mb5.json",
+      "exists": true,
+      "sha256": "c1660c4506aaa116cd59055faeffacf99474002dc09ff19e7a0cf0572894b597",
+      "bytes": 2236,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-b3-exp-blk7.json",
+      "exists": true,
+      "sha256": "92c6fb116a0cfd015730e5deea8e7942f762222cb24c5bd1956ee6a70e859d83",
+      "bytes": 2509,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-sdpa-32x32.json",
+      "exists": true,
+      "sha256": "a694526bd898e9e67cdeb660a212ef1160735133d84f7527328b1242726d986b",
+      "bytes": 2321,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-pf-g12-mb4.json",
+      "exists": true,
+      "sha256": "c95c2d185b7f93f7ba1fb7a18c5054a563cb0a0a4c9c44bc54795a4d8f27add2",
+      "bytes": 2321,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-b3-vis-slm1.json",
+      "exists": true,
+      "sha256": "9ed0dfe4439e176c35cad0950a003d317a6874cc46b7e1f2b01da2038eda6bb4",
+      "bytes": 2509,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/graph_fusions.py",
+      "exists": true,
+      "sha256": "f4ee8f7dcd2ea13d54650b460b824047b137d759649f4dc912be31fee0b55859",
+      "bytes": 10098,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-vis-fc1-2x8.json",
+      "exists": true,
+      "sha256": "3bcc9e451c70122bde18df68cc2d71c788433e9090b2b34319069c102d265d9b",
+      "bytes": 2526,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-exp-o-8x1.json",
+      "exists": true,
+      "sha256": "6e3e325d14ba2cb949ce7af53654835bc6135f79154767eec46f357b83aea115",
+      "bytes": 2465,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-gemm-4x4.json",
+      "exists": true,
+      "sha256": "f0e975a26e26b06979d40596e5fcd7ee7ce9ee31d7836c152e2c0ff57bf5edc3",
+      "bytes": 2436,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-pf-g12-mb6.json",
+      "exists": true,
+      "sha256": "63b3cf493c8485a15bdb0adb121f7f116a702625f7275360335304616262778d",
+      "bytes": 2321,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/run_tokens.sh",
+      "exists": true,
+      "sha256": "676215ec9936a08994a48757481dae23e9538ffc2e4687facba9cdb474975c7f",
+      "bytes": 2057,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-b3-control.json",
+      "exists": true,
+      "sha256": "4c6def5976a7bcca8130046ad4c54d5214b677c0915799f837746b46854c6c2e",
+      "bytes": 2496,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/probe_gap_env.py",
+      "exists": true,
+      "sha256": "f4871a48b638950fd07f488d826c0c91ddd98183d9a296f581c20da82e219deb",
+      "bytes": 1504,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/prefetch-r11-ooo2-tuning.json",
+      "exists": true,
+      "sha256": "1ffd7ecd4b985782e2a7c6cc209a6fd3b0acf0b2a04adea642ca5a8f57011ed0",
+      "bytes": 2212,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-vis-mem01.json",
+      "exists": true,
+      "sha256": "490a5b8d62d120d000c3950a7347a14fa011257dba594bf67d576d04faee1979",
+      "bytes": 2511,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/qkv_rope_subgroup.cl",
+      "exists": true,
+      "sha256": "6354f32c642d300af6bd45b2bf8d65a0f1293a8713eb22c050f5d2996ad4f306",
+      "bytes": 1834,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/roofline_inventory.py",
+      "exists": true,
+      "sha256": "8a49a0a169eeb024685d55f7a290b78f769c6c2fc52c8b913d6867e943860719",
+      "bytes": 3864,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/prefetch-r11-tuning.json",
+      "exists": true,
+      "sha256": "2e3ff9ec485a4dcab3418623517861d2b4aefb85f01be722bc25754973c74551",
+      "bytes": 2212,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/sweep-prefetch-g20-mb12.json",
+      "exists": true,
+      "sha256": "9cfddcf2c1fa4af55c46079b86223842b214a2aac56329626e4a12444728fb27",
+      "bytes": 2237,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-veo.json",
+      "exists": true,
+      "sha256": "0e0e9b1e3275e269953a4557c744e4606a4f06938f4d79574b55ee5cad5cc1e6",
+      "bytes": 2572,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/sweep-prefetch-g12-mb4.json",
+      "exists": true,
+      "sha256": "f59bcd885c13214c63fa3b80389985ecf6783b9f7003618f85aa45160f7ff8bb",
+      "bytes": 2236,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-b3-exp-hints4.json",
+      "exists": true,
+      "sha256": "433878ad55ff8e4eba88d1d5c8b20ca76e7d9d94f561b71eb3eb701f8d02e809",
+      "bytes": 2496,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/sweep-gateup-pf-mb8-g8.json",
+      "exists": true,
+      "sha256": "66baadc9a9439217b54633fee33f121318282067c139a523b51b055c3aef302f",
+      "bytes": 2308,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/run_integrated.py",
+      "exists": true,
+      "sha256": "2a3e2cda87f3272afce2f8a46a688a7c24a1abc3b8e449708c7f635f94a1b4c0",
+      "bytes": 6701,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/sweep-prefetch-g12-mb5.json",
+      "exists": true,
+      "sha256": "96de87516cc1718afda99134117dbf52151920cee44bad64425bf5f5584d7867",
+      "bytes": 2236,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-final-b4.json",
+      "exists": true,
+      "sha256": "4c6def5976a7bcca8130046ad4c54d5214b677c0915799f837746b46854c6c2e",
+      "bytes": 2496,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-lq256.json",
+      "exists": true,
+      "sha256": "b73b745326af380f230b6690c46c87bf88b0c81935333a78b83c0f654f20aff5",
+      "bytes": 2496,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/ooo-only-r11-tuning.json",
+      "exists": true,
+      "sha256": "130f12c05c0fc5bd920e2bd0a9f663c57ec42e71e08f0ff1cc7a3bc5693c6564",
+      "bytes": 2143,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-vs-4x8sm.json",
+      "exists": true,
+      "sha256": "83b6c0301ad2ea9305a9b68e3171f7002415a23a0bb749cc7a83d3550193e3b6",
+      "bytes": 2558,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-vs-8x4.json",
+      "exists": true,
+      "sha256": "b3883e8b98563283982ebb637550720e0800fcc7ae9d054eac214266cf855804",
+      "bytes": 2540,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/sweep-gateup-pf-mb16-g16.json",
+      "exists": true,
+      "sha256": "b3b91194861461a1d9a04319116ce4d4c9e19c42b7a7d95bbf7109817ceeacd4",
+      "bytes": 2310,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/mvn_quantize_multirow.cl",
+      "exists": true,
+      "sha256": "c0b7bf4301e9f66c3b459c16264922cea14a320cd118c8ac9c7c7ddcea980c8f",
+      "bytes": 2700,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/schedule-fc2qkv-r11-tuning.json",
+      "exists": true,
+      "sha256": "de7acb01f4167cf04a634a7f999c9313ae61ac1b0ef47ff968a43eb49366ee78",
+      "bytes": 2442,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-lq128.json",
+      "exists": true,
+      "sha256": "a367ca28babb324ef28712c287667cabda1eeda36f96cb355334f9e6eb297628",
+      "bytes": 2496,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/tokens61-r11-tuning.json",
+      "exists": true,
+      "sha256": "c4105685cced085609a47b3930cce50db422f03b6084052b457fe858e487e833",
+      "bytes": 2267,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/transpose_quantize.cl",
+      "exists": true,
+      "sha256": "6dbd933772262e54fca9db1d8cbc7717d7c643535e50a9ee40d1054e3434f954",
+      "bytes": 3151,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-csr1.json",
+      "exists": true,
+      "sha256": "a00499fd3cf8f462126a21d4d1eb9ab9d6ead58d23d2812152ebecf1924cb137",
+      "bytes": 2523,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/sweep-gateup-pf-mb32-g16.json",
+      "exists": true,
+      "sha256": "dc54a336e5acc4498828213130ea3c44988b15c1176e5b6d6bae70218751652e",
+      "bytes": 2310,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/reproduce-39ms-tuning.json",
+      "exists": true,
+      "sha256": "a919b899656d64feadd4c4dcefed45a9de251074e5d5d927f191603148f19867",
+      "bytes": 2144,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/sweep-targets-o-down-5.json",
+      "exists": true,
+      "sha256": "f26f7f1e7f08d0d3b4f19b24c6d06ea883aff46bb97ea14c63a155f53710d453",
+      "bytes": 2273,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-gupf-mb32-g8.json",
+      "exists": true,
+      "sha256": "e69e627a1d7bd7c5146beec2b9135049e868a363e6b44826673c99525112555c",
+      "bytes": 2394,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-b3-o-64x16-4x8.json",
+      "exists": true,
+      "sha256": "b1f93d9be77357cce5f385848e4ed69bcd471eef098b303ea972a5112476e00d",
+      "bytes": 2526,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/sweep-prefetch-g8-mb7.json",
+      "exists": true,
+      "sha256": "d39ea7d20864b6a9fe51418c477c9f43d75eeb4122693407a789a27c5317e21c",
+      "bytes": 2235,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-ooo.json",
+      "exists": true,
+      "sha256": "1e5eedbf5433e088610891f9d71bdc3fbe01234b31027f4bec3b8acb6cb2526b",
+      "bytes": 2321,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-exp-down-8x1.json",
+      "exists": true,
+      "sha256": "73000a5c69323347e1a5fd6a1075b0a2e14f7400e48b8ea85905b60bc451cb4b",
+      "bytes": 2465,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-vis48.json",
+      "exists": true,
+      "sha256": "93ce02b183de5fea1c9eb2aa5c61d22d9ab9eb9f89f31a3ccc2465cde4054f78",
+      "bytes": 2526,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/schedule-critical-r11-tuning.json",
+      "exists": true,
+      "sha256": "636eecbc49ad799089e9dc7056ce9aa0e556a509a24a546eb49e96bdad84ff7a",
+      "bytes": 2267,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/pending-gpu-runs.sh",
+      "exists": true,
+      "sha256": "a22ed1c4125c2a09890263c5c56f4de9ba090e74dd172932a778ae0a0a942f33",
+      "bytes": 984,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/export_token_variant.py",
+      "exists": true,
+      "sha256": "2f94321f8759b88663d509958d87c21c6de32062c1fc09e247cd0f40e0a788f4",
+      "bytes": 3640,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/schedule-et1-r11-tuning.json",
+      "exists": true,
+      "sha256": "d08d1cd7b3845c4b18917df2ecde73a12dc6ded8adb8f4e0ae7ef6f4b73e77b6",
+      "bytes": 2300,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/prefetch-r11-ooo-tuning.json",
+      "exists": true,
+      "sha256": "83d4a010df0d51966aad201c6c2ac8b2e90b68d7a39e1a1f96780953792e541a",
+      "bytes": 2212,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/host.cl",
+      "exists": true,
+      "sha256": "30deac03b7dfe6490aca02bb0ba1bde988f028fe66d11d1fabbee56a48af286a",
+      "bytes": 8094,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/sweep-tails-B-rope2-attn-gateup5-adaln1.json",
+      "exists": true,
+      "sha256": "773d03ac55057727f96b1d2abe5176ac787857c62f55cb2773d4c4858fda73ee",
+      "bytes": 2338,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-b3-exp-exp1.json",
+      "exists": true,
+      "sha256": "0440147f55fa9c7b8cd9e6b4c29712d63f73d173a5b3a8f42beae21fdb252086",
+      "bytes": 2509,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-kr-down.json",
+      "exists": true,
+      "sha256": "f95996577027a50fa6d93c8a03ab1f228669710131fb36a44023c1e02c37e448",
+      "bytes": 2529,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/sweep-targets-o-down-7.json",
+      "exists": true,
+      "sha256": "c1cfba73474d393fb6b3251e675dc3fa13214dce89e342f3480f0db63bd6e504",
+      "bytes": 2273,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-tqc2.json",
+      "exists": true,
+      "sha256": "b371f5c9ab30eb794e690fd8426fce2b5bc3ad37d24bd0e520e7563583fe82bb",
+      "bytes": 2555,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/sweep-targets-o-down-qkv-9.json",
+      "exists": true,
+      "sha256": "a4b0733232edfc6ededb78d02ba4f1c8c06b165f7b73f33b01e84126663cc05d",
+      "bytes": 2277,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-b3-vis-hints.json",
+      "exists": true,
+      "sha256": "e2253d11ac630a044953f2d0230e5992e277053f76d92397ba45084f44239b04",
+      "bytes": 2511,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-b3-exp-exp5.json",
+      "exists": true,
+      "sha256": "122c00a26c3ca28786f29b9073d7ef519f32824b9567bf927bad80299703ea11",
+      "bytes": 2509,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-kr-down-4x8.json",
+      "exists": true,
+      "sha256": "110de65b063951ba67b17d11cfba653f1daba13770e5723b812646684d7b185a",
+      "bytes": 2529,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-down4x4-qkv-4x4.json",
+      "exists": true,
+      "sha256": "2de9fc9fc42d9ce22d5e6ad900375446746d0ac0de18457d407679938b81db2c",
+      "bytes": 2466,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-down-4x4.json",
+      "exists": true,
+      "sha256": "f0e975a26e26b06979d40596e5fcd7ee7ce9ee31d7836c152e2c0ff57bf5edc3",
+      "bytes": 2436,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/generate_float_references.py",
+      "exists": true,
+      "sha256": "71e48833a3fd74435f5f4850e9768070750cdcc2a34e54485777d96227492270",
+      "bytes": 3393,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-exp-down-4x1-64x16.json",
+      "exists": true,
+      "sha256": "88a98bb6a1434290e7f0315104a9f67fc54869273063dd1dadcc5b31d0b80567",
+      "bytes": 2465,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-b3-et1.json",
+      "exists": true,
+      "sha256": "39238cf9cd8b5f334ddcbe63bc1f8d2d823c3233afa91346155589a672695ef2",
+      "bytes": 2529,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-down4x4-o-4x4.json",
+      "exists": true,
+      "sha256": "f5169d707df9894bec567b4acab6eff422e88d227b3d6d8c119184d0d5c3e764",
+      "bytes": 2466,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-sdpa-16x16.json",
+      "exists": true,
+      "sha256": "b31579206eb25249c2635955ff520ab739c9dc796d58a1f6139a6e17526be060",
+      "bytes": 2321,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-down-2x4.json",
+      "exists": true,
+      "sha256": "a7a50167cf65306af980d8bc5b2b2285083301f63128eccd25c6628b316fcd3a",
+      "bytes": 2436,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/r5-vision-quant-w128-c1.json",
+      "exists": true,
+      "sha256": "c1313bb60873b4c0a528d449fc8a6e6202bef5f9b1d801cf5f6816634fe9bcbc",
+      "bytes": 2116,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-b3-fc1-64x16-4x8.json",
+      "exists": true,
+      "sha256": "90c7fecfbcea1bdb59ab3d665167835f65eb347c56e7cc17d98a500e6c5d4399",
+      "bytes": 2526,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-flush32.json",
+      "exists": true,
+      "sha256": "e89fba7a65c94ed04b3f86b4b6533e576aa54fe1af045271dd244a90541ecfcd",
+      "bytes": 2551,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-tbase.json",
+      "exists": true,
+      "sha256": "4c6def5976a7bcca8130046ad4c54d5214b677c0915799f837746b46854c6c2e",
+      "bytes": 2496,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-b3-qkv-64x32-2x4.json",
+      "exists": true,
+      "sha256": "00b74d279f13c76fded0df65b46c0b183c873956dfb9205c1b6d929bb684cc56",
+      "bytes": 2526,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/c2t64-et1-tqc2.json",
+      "exists": true,
+      "sha256": "98eb27935fb5d5eb1cdd89cea6acada758b5018d03dc508b7000e0e501b511dd",
+      "bytes": 2588,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/optimization/pi05_prefetch.cl",
+      "exists": true,
+      "sha256": "9ae20f8a714e476e9cf556c3a0fd650030260afed6458a37ba4cdabc04d42f91",
+      "bytes": 1162,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/gateup-probes/expert-epi-exact15/gateup.h",
+      "exists": true,
+      "sha256": "6bd037078179c83779ebbdd57a4b93298a01a994b38b00fe7ecaecbc040d97ce",
+      "bytes": 20509,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/gateup-probes/expert-epi-exact15/host.cl",
+      "exists": true,
+      "sha256": "4866256dd810b2b133bee480f66d10d7d47307105bc8cb32e9d604d23b504d45",
+      "bytes": 5113,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/gateup-probes/c2t64-geometry/summary.json",
+      "exists": true,
+      "sha256": "1274ae6cda2ffa11c1920a58ee732d8962f47753cd6586e09e467d8f4effb26a",
+      "bytes": 1978,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/gateup-probes/c2t64-geometry/c2t64-w2x2/gateup.h",
+      "exists": true,
+      "sha256": "aa57b09aa3594989f2a745b5624e2701d76c2e04cab63dfa7e682220c9730429",
+      "bytes": 30361,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/gateup-probes/c2t64-geometry/c2t64-w2x2/host.cl",
+      "exists": true,
+      "sha256": "30deac03b7dfe6490aca02bb0ba1bde988f028fe66d11d1fabbee56a48af286a",
+      "bytes": 8094,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/gateup-probes/c2t64-geometry/c2t64-w4x2/gateup.h",
+      "exists": true,
+      "sha256": "d94e2e9a35df2750f7646b31f68ea19f528ef104864939ba137caf482b90963f",
+      "bytes": 30361,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/gateup-probes/c2t64-geometry/c2t64-w4x2/host.cl",
+      "exists": true,
+      "sha256": "30deac03b7dfe6490aca02bb0ba1bde988f028fe66d11d1fabbee56a48af286a",
+      "bytes": 8094,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/gateup-probes/c2t64-geometry/c2t64-w4x1/gateup.h",
+      "exists": true,
+      "sha256": "ed8254f03d9f03cbd8dd348ffcc59081337139cca77feb0fa9683af7cb62921d",
+      "bytes": 30745,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/gateup-probes/c2t64-geometry/c2t64-w4x1/host.cl",
+      "exists": true,
+      "sha256": "30deac03b7dfe6490aca02bb0ba1bde988f028fe66d11d1fabbee56a48af286a",
+      "bytes": 8094,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/gateup-probes/c2t64-geometry/c2t64-w1x4/gateup.h",
+      "exists": true,
+      "sha256": "ac3a60463c42c828dbfb57d0d9c015a9e6e5ebd3dd815fda962a9c070e75f9f9",
+      "bytes": 30169,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/gateup-probes/c2t64-geometry/c2t64-w1x4/host.cl",
+      "exists": true,
+      "sha256": "30deac03b7dfe6490aca02bb0ba1bde988f028fe66d11d1fabbee56a48af286a",
+      "bytes": 8094,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/gateup-probes/c2t64-geometry/c2t64-w2x4/gateup.h",
+      "exists": true,
+      "sha256": "bb42f2d9204dae684e08f44fe3cc2ada0b7953beb34d7fb1d32baa5348fda718",
+      "bytes": 30170,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/gateup-probes/c2t64-geometry/c2t64-w2x4/host.cl",
+      "exists": true,
+      "sha256": "30deac03b7dfe6490aca02bb0ba1bde988f028fe66d11d1fabbee56a48af286a",
+      "bytes": 8094,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/prefix-geometry-resume/prefix-geometry-w2x4/gateup.h",
+      "exists": true,
+      "sha256": "bb42f2d9204dae684e08f44fe3cc2ada0b7953beb34d7fb1d32baa5348fda718",
+      "bytes": 30170,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/prefix-geometry-resume/prefix-geometry-w2x4/host_q64.cl",
+      "exists": true,
+      "sha256": "7bd707d66c1cf41fc1e353c62e56bbbb4abdeb20ec71bc43d98d7fa968314984",
+      "bytes": 5101,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/prefix-geometry-resume/prefix-geometry-w2x4/host.cl",
+      "exists": true,
+      "sha256": "30deac03b7dfe6490aca02bb0ba1bde988f028fe66d11d1fabbee56a48af286a",
+      "bytes": 8094,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/tools/gpu_probe.py",
+      "exists": true,
+      "sha256": "5189e3d1f616b25b7cccd46faeb800bfbdf95459804cc27c0a8dc1445df08077",
+      "bytes": 2824,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/tools/rename_ports.py",
+      "exists": true,
+      "sha256": "1ca5ca64211f71de90ab5acded1c3f6180935c263a56d6f892282053070e39ef",
+      "bytes": 478,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/tools/acc_compare.py",
+      "exists": true,
+      "sha256": "e958c9a1e7591331f494fd5a71ed8706a0ee799277414c8d77a25f71363a9b1e",
+      "bytes": 5591,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/tools/cumsum.py",
+      "exists": true,
+      "sha256": "48956eaa7a09b048f4683995d1f8186f8ac148cd02018094811678b4c3734516",
+      "bytes": 1112,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/tools/make_gate.py",
+      "exists": true,
+      "sha256": "6f7fe4d4e73a47b33245cd31fd030461ecf4a9b0b765477d85709aab27ff0f0b",
+      "bytes": 5614,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ov-a/tools/make_accA_safetensors.py",
+      "exists": true,
+      "sha256": "d4be91cc89568bc5fdb2794c1f52c76cd8666e9537fecf4d17896a9b263ebcaf",
+      "bytes": 3689,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ssog/unit/unit_b580.py",
+      "exists": true,
+      "sha256": "21e14f82b8a183543e12131c8a55a05737880ce52cb3ca5ecef5b86df012db22",
+      "bytes": 38362,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ssog/unit/src/sprilicim/__init__.py",
+      "exists": true,
+      "sha256": "3b8530d52d164ddb5375d7aa8633b8ba87a5e46fa4608452d1de2843fa894e77",
+      "bytes": 97,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ssog/unit/src/sprilicim/policy/worker.py",
+      "exists": true,
+      "sha256": "12d0acad51290c19ff6f43f27d6f214a1c970d14a98bb4e978d352bb4facc5fb",
+      "bytes": 6123,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ssog/unit/src/sprilicim/policy/__init__.py",
+      "exists": true,
+      "sha256": "f9c1e5b41b19f1a49bb418107debb9e980d64b39f89c2e3a174a2062f94fbe71",
+      "bytes": 248,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ssog/unit/src/sprilicim/policy/transport.py",
+      "exists": true,
+      "sha256": "92318d5aadc577ee96e852443877aa94b196ac6b731a4b37aeee55cd1105f6e8",
+      "bytes": 1966,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ssog/unit/src/sprilicim/policy/base.py",
+      "exists": true,
+      "sha256": "0632308c3c1aac9b0c9b1fb303a5292b5d5cc95b1394732ee6cc3c291557aa40",
+      "bytes": 1124,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ssog/unit/src/sprilicim/protocol/schemas.py",
+      "exists": true,
+      "sha256": "3786a066aac1e69e1860b896e1f3aa5b662e538fa3d986b0bae7b239f4046b79",
+      "bytes": 4671,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ssog/unit/src/sprilicim/protocol/__init__.py",
+      "exists": true,
+      "sha256": "548fb41343c754595452c0065d5884d59d15585bbe077d97ca161b367fd5f19c",
+      "bytes": 904,
+      "matches": true
+    },
+    {
+      "path": "artifacts/ssog/unit/src/sprilicim/protocol/codec.py",
+      "exists": true,
+      "sha256": "b541e64283e149ccecc46197568b4ee47816a4de5d444a9700a22f957aa64d1c",
+      "bytes": 2101,
+      "matches": true
+    },
+    {
+      "path": "franka_droid/camera_preview.py",
+      "exists": true,
+      "sha256": "ba8fa94eab11b85ccffa116da5ab771b5353259ea07b88fccf8dc5e9906d354d",
+      "bytes": 8628,
+      "matches": true
+    }
+  ],
+  "sources": {
+    "openpi": {
+      "commit": "215abfb217dbac7d5f1273282331b9b1866c0479",
+      "status": [],
+      "matches": true
+    },
+    "libfranka": {
+      "commit": "85912fe02258d8cb811d3eff1f11e52ce89e3217",
+      "status": [
+        " M src/control_loop.cpp",
+        " M src/control_loop.h",
+        " M src/control_tools.cpp"
+      ],
+      "matches": true
+    },
+    "ros2/franka_ros2": {
+      "commit": "6cedf7f1a2ca280c433f643eae697be23eb2a15e",
+      "status": [
+        " M franka_hardware/include/franka_hardware/robot.hpp"
+      ],
+      "matches": true
+    },
+    "ros2/gz_ros2_control": {
+      "commit": "7937b3093ffed51a20c9b638df0061c9bb82e610",
+      "status": [],
+      "matches": true
+    },
+    "ros2/ros2_control": {
+      "commit": "24aecb3b3eb36512c2ac07a9383de5e063cdc26e",
+      "status": [
+        "?? ros2controlcli/ros2controlcli/__pycache__/",
+        "?? ros2controlcli/ros2controlcli/api/__pycache__/",
+        "?? ros2controlcli/ros2controlcli/command/__pycache__/",
+        "?? ros2controlcli/ros2controlcli/verb/__pycache__/"
+      ],
+      "matches": true
+    },
+    "ros2/franka_description": {
+      "commit": "7aeeddc449edf8d62b594f9e36a81da53e7796f9",
+      "status": [],
+      "matches": true
+    },
+    "ros2/libfranka": {
+      "commit": "3cc708cafa1cdba49ceaab536a14216dfb7bf48a",
+      "status": [
+        " M src/control_tools.cpp"
+      ],
+      "matches": true
+    },
+    "ros2/ros2_robotiq_gripper": {
+      "commit": "a74d007d8f2f06dc6a503ad21038ba869d4999a6",
+      "status": [],
+      "matches": true
+    },
+    "ros2/serial": {
+      "commit": "d8d160678aa0b31cdf467c052b954fa287cc6cdf",
+      "status": [],
+      "matches": true
+    },
+    "ros2/olvx_descriptions_module": {
+      "commit": "c3444ed7742305ecda813433371ee2113abc7a44",
+      "status": [],
+      "matches": true
+    },
+    "ros2/zed_description": {
+      "commit": "1aa88b319897311d2f33882a4abbc40da8d75ace",
+      "status": [],
+      "matches": true
+    }
+  },
+  "assets": [
+    {
+      "path": "/var/lib/spring-data/workloads/robo_run/checkpoints/pi05_droid_pytorch/assets/droid/norm_stats.json",
+      "exists": true,
+      "bytes": 4460,
+      "size_matches": true,
+      "sha256": "403b3a22f897e9ae5dd617966a3c8f7d1835ac79dfd5a8993179514be26a3b8b",
+      "hash_matches": true
+    },
+    {
+      "path": "/var/lib/spring-data/workloads/robo_run/checkpoints/pi05_droid_pytorch/config.json",
+      "exists": true,
+      "bytes": 149,
+      "size_matches": true,
+      "sha256": "b6307dc69bbcf4bc5932d39e9b8b6bfa1fbffd7dec30e0fcca0648259485ade7",
+      "hash_matches": true
+    },
+    {
+      "path": "/var/lib/spring-data/workloads/robo_run/checkpoints/pi05_droid_pytorch/model.safetensors",
+      "exists": true,
+      "bytes": 7233650408,
+      "size_matches": true,
+      "hash_check": "Not rehashed: large asset or no pinned digest"
+    },
+    {
+      "path": "/var/lib/spring-data/workloads/robo_run/franka_droid/openvino_fp16/denoise-export.json",
+      "exists": true,
+      "bytes": 756,
+      "size_matches": true,
+      "sha256": "8431dd86a2f2f83a89a20b3d2834e371c2d570bf688f06f571e882104d9907e6",
+      "hash_matches": true
+    },
+    {
+      "path": "/var/lib/spring-data/workloads/robo_run/franka_droid/openvino_fp16/denoise.bin",
+      "exists": true,
+      "bytes": 860198981,
+      "size_matches": true,
+      "hash_check": "Not rehashed: large asset or no pinned digest"
+    },
+    {
+      "path": "/var/lib/spring-data/workloads/robo_run/franka_droid/openvino_fp16/denoise.xml",
+      "exists": true,
+      "bytes": 1499516,
+      "size_matches": true,
+      "sha256": "96256c620000695120578f8c2eb47bbb3ce397ada0942086ffd50fdcf157223a",
+      "hash_matches": true
+    },
+    {
+      "path": "/var/lib/spring-data/workloads/robo_run/franka_droid/openvino_fp16/prefix-export.json",
+      "exists": true,
+      "bytes": 553,
+      "size_matches": true,
+      "sha256": "706d13bcf9e9087c1cc7f5e6baa596102e172d92f1aa40bc2ccaa51cf1723117",
+      "hash_matches": true
+    },
+    {
+      "path": "/var/lib/spring-data/workloads/robo_run/franka_droid/openvino_fp16/prefix.bin",
+      "exists": true,
+      "bytes": 4798951984,
+      "size_matches": true,
+      "hash_check": "Not rehashed: large asset or no pinned digest"
+    },
+    {
+      "path": "/var/lib/spring-data/workloads/robo_run/franka_droid/openvino_fp16/prefix.xml",
+      "exists": true,
+      "bytes": 1032607,
+      "size_matches": true,
+      "sha256": "34a7b56ccba6792e87b6ff2ca1572b8cfe46878e917efd08d9da28f971a0e704",
+      "hash_matches": true
+    },
+    {
+      "path": "/var/lib/spring-data/workloads/robo_run/franka_droid/openvino_fp16/vision-export.json",
+      "exists": true,
+      "bytes": 361,
+      "size_matches": true,
+      "sha256": "6ee86249907396990ccee65fe6a1d741d24c63d391e01c8ee06e15fa094a1a72",
+      "hash_matches": true
+    },
+    {
+      "path": "/var/lib/spring-data/workloads/robo_run/franka_droid/openvino_fp16/vision.bin",
+      "exists": true,
+      "bytes": 829607508,
+      "size_matches": true,
+      "hash_check": "Not rehashed: large asset or no pinned digest"
+    },
+    {
+      "path": "/var/lib/spring-data/workloads/robo_run/franka_droid/openvino_fp16/vision.xml",
+      "exists": true,
+      "bytes": 1072535,
+      "size_matches": true,
+      "sha256": "c331a01cfbaeef663d837b03d42755deb80fd99ea97334f059a92ff2f56b153e",
+      "hash_matches": true
+    },
+    {
+      "path": "/var/lib/spring-data/kernel-rt-20260923/linux-headers-6.18.53-spring-rt_6.18.53-1_amd64.deb",
+      "exists": true,
+      "bytes": 9722900,
+      "size_matches": true,
+      "sha256": "a1fdff85a603491463db35990a5706d2c7776aca549fb5e7c4c55c7a28347ce5",
+      "hash_matches": true
+    },
+    {
+      "path": "/var/lib/spring-data/kernel-rt-20260923/linux-image-6.18.53-spring-rt_6.18.53-1_amd64.deb",
+      "exists": true,
+      "bytes": 67623988,
+      "size_matches": true,
+      "hash_check": "Not rehashed: large asset or no pinned digest"
+    },
+    {
+      "path": "/var/lib/spring-data/kernel-rt-20260923/linux-libc-dev_6.18.53-1_amd64.deb",
+      "exists": true,
+      "bytes": 1466548,
+      "size_matches": true,
+      "sha256": "7fd957c9fd29e3f53898af9c5986394638360fec95f9a67e547586a50334b7ab",
+      "hash_matches": true
+    },
+    {
+      "path": "/home/spring/.cache/openpi/big_vision/paligemma_tokenizer.model",
+      "exists": true,
+      "bytes": 4264023,
+      "size_matches": true,
+      "sha256": "8986bb4f423f07f8c7f70d0dbe3526fb2316056c17bae71b1ea975e77a168fc6",
+      "hash_matches": true
+    },
+    {
+      "path": "/var/lib/spring-data/workloads/pi05-final/ov-a/model/t64/pi05_droid_dynamic_w8a8.xml",
+      "exists": true,
+      "bytes": 11077572,
+      "size_matches": true,
+      "sha256": "12ce852195a82564c3ef8f4804a1f069a5f2df9e245efe4547e9675b3a8748f8",
+      "hash_matches": true
+    },
+    {
+      "path": "/var/lib/spring-data/workloads/pi05-final/ov-a/model/t64/pi05_droid_dynamic_w8a8.bin",
+      "exists": true,
+      "bytes": 3776269399,
+      "size_matches": true,
+      "hash_check": "Not rehashed: large asset or no pinned digest"
+    },
+    {
+      "path": "/var/lib/spring-data/workloads/pi05-final/ov-a/model/t256/pi05_droid_dynamic_w8a8.xml",
+      "exists": true,
+      "bytes": 11077586,
+      "size_matches": true,
+      "sha256": "3895ab861e9c70d544e0d09652fe627e2ed71c28d69ed5a0ee235385722c3f95",
+      "hash_matches": true
+    },
+    {
+      "path": "/var/lib/spring-data/workloads/pi05-final/ov-a/model/t256/pi05_droid_dynamic_w8a8.bin",
+      "exists": true,
+      "bytes": 3776269591,
+      "size_matches": true,
+      "hash_check": "Not rehashed: large asset or no pinned digest"
+    },
+    {
+      "path": "/var/lib/spring-data/workloads/pi05-final/ov-a/custom-plugin-cams-r11/libopenvino_intel_gpu_plugin.so",
+      "exists": true,
+      "bytes": 49999120,
+      "size_matches": true,
+      "hash_check": "Not rehashed: large asset or no pinned digest"
+    },
+    {
+      "path": "/var/lib/spring-data/workloads/pi05-final/ov-a/custom-plugin-cams-r11/plugins.xml",
+      "exists": true,
+      "bytes": 137,
+      "size_matches": true,
+      "sha256": "1e1d4d7452a0cc324ab0face76f0582556f74b8abfbc53995cdc995196b26f6c",
+      "hash_matches": true
+    },
+    {
+      "path": "/var/lib/spring-data/workloads/pi05-final/ov-a/ovmux/ov_mux_server.py",
+      "exists": true,
+      "bytes": 21772,
+      "size_matches": true,
+      "sha256": "78f971a40313a9e34a3cea84d86e79e42437c20e7f111529a93fe2c77a0e3ea4",
+      "hash_matches": true
+    },
+    {
+      "path": "/var/lib/spring-data/workloads/pi05-final/ov-a/ovmux/c2t64-r11-tuning.json",
+      "exists": true,
+      "bytes": 2536,
+      "size_matches": true,
+      "sha256": "ae24cc16863badc2f1bfb4e2fec195339d4647c601dfc8a39f87832bf8275c3c",
+      "hash_matches": true
+    },
+    {
+      "path": "/var/lib/spring-data/workloads/pi05-final/ov-a/ovmux/c2t256-r11-tuning.json",
+      "exists": true,
+      "bytes": 2536,
+      "size_matches": true,
+      "sha256": "45870c3c813644b37b55adc317b12c83dc9c6b2e86a45b956f3f8075afe8f716",
+      "hash_matches": true
+    },
+    {
+      "path": "/var/lib/spring-data/workloads/pi05-final/ov-a/optimization/graph_fusions.py",
+      "exists": true,
+      "bytes": 10098,
+      "size_matches": true,
+      "sha256": "f4ee8f7dcd2ea13d54650b460b824047b137d759649f4dc912be31fee0b55859",
+      "hash_matches": true
+    },
+    {
+      "path": "/var/lib/spring-data/workloads/pi05-final/ov-a/unit/assets_ckptA/norm_stats.json",
+      "exists": true,
+      "bytes": 4540,
+      "size_matches": true,
+      "sha256": "57ce9956f9e07d65f8a8205aabec72d436a2c8927f53edb40c7a77b14a5a90c7",
+      "hash_matches": true
+    },
+    {
+      "path": "/var/lib/spring-data/workloads/pi05-final/ov-a/unit/assets_ckptA/paligemma_tokenizer.model",
+      "exists": true,
+      "bytes": 4264023,
+      "size_matches": true,
+      "sha256": "8986bb4f423f07f8c7f70d0dbe3526fb2316056c17bae71b1ea975e77a168fc6",
+      "hash_matches": true
+    },
+    {
+      "path": "/var/lib/spring-data/workloads/pi05-final/ov-a/unit/unit_ov.py",
+      "exists": true,
+      "bytes": 46707,
+      "size_matches": true,
+      "sha256": "c72f8f704e1ed5acdcf4140367956ee056939c3ae1da2ec756f0048a3fd0ea3c",
+      "hash_matches": true
+    },
+    {
+      "path": "/var/lib/spring-data/workloads/pi05-final/ssog-a-mc2/campaign13/share/weights-A/siglip.safetensors",
+      "exists": true,
+      "bytes": 415756136,
+      "size_matches": true,
+      "hash_check": "Not rehashed: large asset or no pinned digest"
+    },
+    {
+      "path": "/var/lib/spring-data/workloads/pi05-final/ssog-a-mc2/campaign13/share/weights-A/projector.safetensors",
+      "exists": true,
+      "bytes": 2375928,
+      "size_matches": true,
+      "sha256": "0d62f2820eb9ba88998cfee67a4ff0fc55b0d027cd7c3ef031646f9ac6969ea3",
+      "hash_matches": true
+    },
+    {
+      "path": "/var/lib/spring-data/workloads/pi05-final/ssog-a-mc2/campaign13/share/weights-A/gemma.safetensors",
+      "exists": true,
+      "bytes": 1984978216,
+      "size_matches": true,
+      "hash_check": "Not rehashed: large asset or no pinned digest"
+    },
+    {
+      "path": "/var/lib/spring-data/workloads/pi05-final/ssog-a-mc2/campaign13/share/weights-A/gemma_embed.safetensors",
+      "exists": true,
+      "bytes": 1053294688,
+      "size_matches": true,
+      "hash_check": "Not rehashed: large asset or no pinned digest"
+    },
+    {
+      "path": "/var/lib/spring-data/workloads/pi05-final/ssog-a-mc2/campaign13/share/weights-A/expert.safetensors",
+      "exists": true,
+      "bytes": 1297334320,
+      "size_matches": true,
+      "hash_check": "Not rehashed: large asset or no pinned digest"
+    },
+    {
+      "path": "/var/lib/spring-data/workloads/pi05-final/ssog-a-mc2/campaign13/share/weights-A/flow.safetensors",
+      "exists": true,
+      "bytes": 2188536,
+      "size_matches": true,
+      "sha256": "76417764b475e57ae6b2a54894f58b6133b1ad2a8538627635d60ed5d3d126b2",
+      "hash_matches": true
+    },
+    {
+      "path": "/var/lib/spring-data/workloads/pi05-final/ssog-a-mc2/muxfinal/bin/fused_mux_droid",
+      "exists": true,
+      "bytes": 74802120,
+      "size_matches": true,
+      "hash_check": "Not rehashed: large asset or no pinned digest"
+    }
+  ],
+  "live": {
+    "ui": {
+      "phase": "stopped",
+      "busy": false,
+      "ready": true,
+      "settings": {
+        "prompt": "put all items on the desk in the bowl",
+        "actions": 10,
+        "backend": "ssog_mc2",
+        "action_hz": 15.0
+      },
+      "server_unix": 1790289921.6868587,
+      "robot": {
+        "operating_mode": "Execution",
+        "fci_active": true,
+        "robot_errors": []
+      }
+    },
+    "cameras": {
+      "cameras": [
+        {
+          "serial": "39338267",
+          "role": "external",
+          "eye": "left",
+          "inference_enabled": true,
+          "fps": 14.98,
+          "healthy": true,
+          "source": "viewer"
+        },
+        {
+          "serial": "37266581",
+          "role": "external",
+          "eye": "left",
+          "inference_enabled": false,
+          "fps": 14.98,
+          "healthy": true,
+          "source": "viewer"
+        },
+        {
+          "serial": "12607895",
+          "role": "wrist",
+          "eye": "left",
+          "inference_enabled": true,
+          "fps": 14.99,
+          "healthy": true,
+          "source": "viewer"
+        }
+      ]
+    }
+  },
+  "services": {
+    "returncode": 0,
+    "stdout": "Id=franka-control-ui.service\nActiveState=active\nSubState=running\nFragmentPath=/etc/systemd/system/franka-control-ui.service\nDropInPaths=\nUnitFileState=enabled\n\nId=franka-ros-state.service\nActiveState=inactive\nSubState=dead\nFragmentPath=/etc/systemd/system/franka-ros-state.service\nDropInPaths=\nUnitFileState=disabled\n\nId=franka-ros-moveit.service\nActiveState=active\nSubState=running\nFragmentPath=/etc/systemd/system/franka-ros-moveit.service\nDropInPaths=\nUnitFileState=disabled\n\nId=franka-realtime.service\nActiveState=active\nSubState=exited\nFragmentPath=/etc/systemd/system/franka-realtime.service\nDropInPaths=\nUnitFileState=enabled\n\nId=franka-c2-dhcp.service\nActiveState=active\nSubState=running\nFragmentPath=/etc/systemd/system/franka-c2-dhcp.service\nDropInPaths=\nUnitFileState=enabled\n",
+    "stderr": ""
+  },
+  "user_services": {
+    "returncode": 0,
+    "stdout": "Id=franka-droid-policy.service\nActiveState=active\nSubState=running\nFragmentPath=/home/spring/.config/systemd/user/franka-droid-policy.service\nDropInPaths=\nUnitFileState=enabled\n\nId=zed-camera-viewer.service\nActiveState=active\nSubState=running\nFragmentPath=/home/spring/.config/systemd/user/zed-camera-viewer.service\nDropInPaths=\nUnitFileState=enabled\n",
+    "stderr": ""
+  },
+  "kernel": "6.18.53-spring-rt",
+  "controller_threads": [],
+  "checked_utc": "2026-09-24T22:45:21.755843+00:00",
+  "host": "root@100.95.186.107",
+  "problems": {
+    "local_manifest_mismatches": [],
+    "remote_file_changes": [],
+    "source_revision_or_patch_changes": [],
+    "artifact_problems": []
+  },
+  "source_and_asset_checks_passed": true,
+  "scope": "Read-only file/revision comparison, asset presence/small hashes, existing UI status and process scheduling. No offline tests, model execution, device access, service changes or robot commands. Large asset hashes retain their original verification dates."
+}
