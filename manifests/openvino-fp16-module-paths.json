@@ -1,0 +1,8 @@
+{
+  "torch": "/home/spring/pi05-up/venvs/torch-xpu/lib/python3.12/site-packages/torch/__init__.py",
+  "transformers": "/var/lib/spring-data/workloads/robo_run/venvs/convert/lib/python3.12/site-packages/transformers/__init__.py",
+  "numpy": "/var/lib/spring-data/workloads/robo_run/franka_droid/ov-venv/lib/python3.12/site-packages/numpy/__init__.py",
+  "openpi": "/home/spring/robo_run/openpi/src/openpi/__init__.py",
+  "openpi_client": "/home/spring/robo_run/openpi/packages/openpi-client/src/openpi_client/__init__.py",
+  "cv2": "/var/lib/spring-data/workloads/robo_run/venvs/convert/lib/python3.12/site-packages/cv2/__init__.py"
+}

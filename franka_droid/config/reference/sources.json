@@ -1,0 +1,9 @@
+{
+  "droid_commit": "33ae6a67274f36d2e29525b86f23a56616ef43a7",
+  "fairo_commit": "0a01a7fa7a7c65b2f9a3aebf5e79040940daf9d2",
+  "sources": {
+    "franka_hardware.yaml": "https://raw.githubusercontent.com/droid-dataset/droid/33ae6a67274f36d2e29525b86f23a56616ef43a7/config/fr3/franka_hardware.yaml",
+    "franka_panda_client.cpp": "https://raw.githubusercontent.com/facebookresearch/fairo/0a01a7fa7a7c65b2f9a3aebf5e79040940daf9d2/polymetis/polymetis/src/clients/franka_panda_client/franka_panda_client.cpp",
+    "robot_ik_solver.py": "https://raw.githubusercontent.com/droid-dataset/droid/33ae6a67274f36d2e29525b86f23a56616ef43a7/droid/robot_ik/robot_ik_solver.py"
+  }
+}

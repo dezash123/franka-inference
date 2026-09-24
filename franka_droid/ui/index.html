@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Rome — Arm control</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/graphs.js" defer></script><script src="/app.js" defer></script>
+</head>
+<body><main>
+  <header><div class="identity"><h1>Rome <span>/ Arm control</span></h1><p id="model-summary">Franka FR3 · π0.5</p></div><div class="connection"><i id="connection"></i><span id="connected">Connecting</span></div></header>
+  <div class="workspace">
+    <aside class="controls panel">
+      <h2>Session</h2>
+      <label for="prompt">Prompt</label><textarea id="prompt" disabled rows="3" maxlength="1000" spellcheck="false"></textarea>
+      <label for="backend">Model</label><select id="backend" disabled><option value="torch_eager">Torch eager FP16</option><option value="torch_compile">torch.compile FP16</option><option value="openvino">OpenVINO FP16</option><option value="ssog_mc2">SSOG MC2 · INT8/INT4</option><option value="ov_a_w8a8">OpenVINO W8A8 ckpt-A</option></select>
+      <div class="fields"><div><label for="actions">Actions / inference</label><input id="actions" disabled type="number" min="1" max="15" step="1" value="8"></div><div><label for="action-hz">Playback Hz</label><input id="action-hz" disabled type="number" step="any" value="15"></div></div>
+      <p class="hint" id="timing-hint">Synchronous action playback.</p><button id="save" disabled class="secondary full">Save settings</button><p id="saved" class="hint">Loading settings…</p>
+      <div class="transport"><button id="start" disabled class="primary">Start</button><button id="pause" class="secondary" disabled>Pause</button><button id="stop" class="danger" disabled>Stop</button></div>
+      <p class="hint">Pause holds position. Play starts a fresh chunk.</p>
+      <div class="robot"><span>Robot</span><strong id="robot">Checking…</strong></div>
+      <div id="error" role="alert" hidden></div>
+    </aside>
+    <div class="monitor">
+      <section class="panel live">
+        <div class="session-head"><div class="state-line"><i id="phase-dot"></i><h2 id="phase">IDLE</h2><span id="elapsed">00:00</span></div><p id="message" role="status">Connecting to Rome…</p></div>
+        <div class="stats"><div><strong id="action-count">0</strong><span>Actions</span><small><b id="action-rate">0.0</b> /s average</small></div><div><strong id="inference-count">0</strong><span>Inferences</span><small><b id="inference-rate">0.0</b> /s average</small></div><div><strong id="hold-count">0 / 0</strong><span>Target / camera holds</span><small>Since session start</small></div><div class="latency-stat"><strong><span id="latency-latest">—</span><em>ms</em></strong><span>Model latency</span><small>Median <b id="latency-median">—</b> · p95 <b id="latency-p95">—</b></small></div></div>
+        <div class="latency-detail"><span id="latency-status">Waiting for inference</span><span id="latency-detail">No measurements</span></div>
+      </section>
+      <section class="panel plots" aria-labelledby="activity-title">
+        <div class="plot-heading"><h2 id="activity-title">Activity</h2><div class="plot-tools"><span id="graph-status">Waiting for data</span><label class="sr-only" for="graph-window">Graph time window</label><select id="graph-window"><option value="10">10 seconds</option><option value="30" selected>30 seconds</option><option value="60">60 seconds</option></select></div></div>
+        <div class="legend"><span><i class="key inference"></i>Inference round trip</span><span><i class="key action"></i>Action sent</span><span><i class="key rejection"></i>Target rejected / validation hold</span><span><i class="key paused"></i>Paused</span></div>
+        <div class="canvas-wrap timeline-wrap"><canvas id="timeline" aria-label="Timeline of inference requests, action dispatches, target rejections and pauses" role="img"></canvas><div id="graph-empty">Start a session to see activity.</div></div>
+        <div class="trajectory-heading"><h2>Joint position <span>rad</span></h2><div class="legend"><span><i class="key measured"></i>Measured</span><span><i class="key target"></i>Commanded target</span></div></div>
+        <div class="joint-tabs" role="group" aria-label="Select joint"><button type="button" data-joint="0" aria-pressed="true">J1 <span>—</span></button><button type="button" data-joint="1" aria-pressed="false">J2 <span>—</span></button><button type="button" data-joint="2" aria-pressed="false">J3 <span>—</span></button><button type="button" data-joint="3" aria-pressed="false">J4 <span>—</span></button><button type="button" data-joint="4" aria-pressed="false">J5 <span>—</span></button><button type="button" data-joint="5" aria-pressed="false">J6 <span>—</span></button><button type="button" data-joint="6" aria-pressed="false">J7 <span>—</span></button></div>
+        <div class="canvas-wrap trajectory-wrap"><canvas id="trajectory" aria-label="Measured and commanded joint position over time" role="img"></canvas></div>
+        <div class="graph-caption"><span id="graph-readout">Move over a graph to inspect a sample.</span><span id="graph-source">Measured feedback · dispatched targets</span></div>
+        <p class="plot-note">Targets are sent setpoints. Gaps indicate holds, unavailable samples, or no commands; raw model predictions are not plotted.</p>
+      </section>
+      <section class="cameras"><article class="panel"><div class="section-title"><h2>External</h2><span id="external-label" class="camera-label">Left eye</span></div><div class="image-wrap"><img id="external" alt="External left-eye camera preview"><span class="image-placeholder">Waiting for camera</span></div></article><article class="panel"><div class="section-title"><h2>Wrist</h2><span class="camera-label">ZED Mini · left</span></div><div class="image-wrap"><img id="wrist" alt="Wrist camera preview"><span class="image-placeholder">Waiting for camera</span></div></article></section>
+      <p class="hint preview-note" id="preview-note">Camera observations update about every 2 seconds.</p>
+      <details class="panel"><summary>Session log</summary><p id="receipt" class="hint"></p><button id="refresh-log" class="secondary small">Refresh</button><pre id="log"></pre><p class="hint">Model latency excludes image preparation. Round trip includes preparation and transport.</p></details>
+    </div>
+  </div>
+</main></body></html>

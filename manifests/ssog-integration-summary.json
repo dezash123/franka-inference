@@ -1,0 +1,174 @@
+{
+  "archive": "s3://old-local-compute-archives/jason/2026-09-23/pi05-ssog-a-mc2-mux-t64-t128-t256/",
+  "install_root": "/var/lib/spring-data/workloads/pi05-ssog-reproduction/install",
+  "archive_sha256_verified": true,
+  "binary_sha256": "db89756ca6b0451040cbbf6e3490d28606d5ed510de3d4cc371bfce3259d6edb",
+  "benchmark_complete": true,
+  "archived_output_hash_match": true,
+  "benchmark": {
+    "64": {
+      "fresh_episode": {
+        "server_ms": {
+          "n": 100,
+          "min": 17.457,
+          "median": 17.7135,
+          "mean": 17.9569,
+          "p95": 20.586,
+          "max": 21.966
+        },
+        "client_wall_ms": {
+          "n": 100,
+          "min": 17.71086200096761,
+          "median": 17.999927500568447,
+          "mean": 19.748417070222786,
+          "p95": 21.423826001409907,
+          "max": 147.77766500264988
+        },
+        "unique_action_hashes": 1
+      },
+      "carried_history": {
+        "server_ms": {
+          "n": 100,
+          "min": 17.772,
+          "median": 18.0045,
+          "mean": 18.02063,
+          "p95": 18.203,
+          "max": 18.538
+        },
+        "client_wall_ms": {
+          "n": 100,
+          "min": 18.08069899925613,
+          "median": 18.32216999900993,
+          "mean": 18.357328870151832,
+          "p95": 18.672587000764906,
+          "max": 19.583043998864014
+        },
+        "unique_action_hashes": 1
+      }
+    },
+    "128": {
+      "fresh_episode": {
+        "server_ms": {
+          "n": 100,
+          "min": 20.491,
+          "median": 20.686500000000002,
+          "mean": 20.68936,
+          "p95": 20.861,
+          "max": 20.977
+        },
+        "client_wall_ms": {
+          "n": 100,
+          "min": 20.76545499949134,
+          "median": 20.971518499209196,
+          "mean": 20.978426999972726,
+          "p95": 21.13329799976782,
+          "max": 21.3091199984774
+        },
+        "unique_action_hashes": 1
+      },
+      "carried_history": {
+        "server_ms": {
+          "n": 100,
+          "min": 20.721,
+          "median": 20.9665,
+          "mean": 20.96642,
+          "p95": 21.149,
+          "max": 21.338
+        },
+        "client_wall_ms": {
+          "n": 100,
+          "min": 21.029351999459323,
+          "median": 21.287359499183367,
+          "mean": 21.504461679978704,
+          "p95": 21.462328997586155,
+          "max": 43.89859600269119
+        },
+        "unique_action_hashes": 1
+      }
+    },
+    "256": {
+      "fresh_episode": {
+        "server_ms": {
+          "n": 100,
+          "min": 25.373,
+          "median": 25.5845,
+          "mean": 25.61008,
+          "p95": 25.798,
+          "max": 26.595
+        },
+        "client_wall_ms": {
+          "n": 100,
+          "min": 25.648315997386817,
+          "median": 25.875815001199953,
+          "mean": 25.89811803012708,
+          "p95": 26.101620998815633,
+          "max": 26.869260000239592
+        },
+        "unique_action_hashes": 1
+      },
+      "carried_history": {
+        "server_ms": {
+          "n": 100,
+          "min": 25.583,
+          "median": 25.842,
+          "mean": 25.84786,
+          "p95": 26.068,
+          "max": 26.274
+        },
+        "client_wall_ms": {
+          "n": 100,
+          "min": 25.88461200139136,
+          "median": 26.147167500312207,
+          "mean": 26.176559619998443,
+          "p95": 26.419641999382293,
+          "max": 27.76867700231378
+        },
+        "unique_action_hashes": 1
+      }
+    }
+  },
+  "timing_boundary": "Server-reported ms: NPY read, conversion, H2D, graph replay, D2H, actions file write. Client wall: JSON request/response only. Neither includes camera capture, tokenization, normalization, embedding preparation, or output unnormalization.",
+  "live_readiness": {
+    "backend": "ssog_mc2",
+    "live_cameras": true,
+    "robot_commands_sent": false,
+    "started_unix": 1790245208.4946823,
+    "metadata": {
+      "config": "pi05_droid_jointpos",
+      "backend": "ssog_mc2",
+      "precision": "W8A8/W4A8",
+      "action_space": "absolute_joint_position_radians_7_and_absolute_gripper_0_open_1_closed",
+      "device": "Intel Arc B580",
+      "checkpoint": "pi05_droid_jointpos",
+      "action_horizon": 15,
+      "action_dimensions": 8,
+      "denoise_steps": 2,
+      "robot_commands_enabled": false,
+      "pid": 136429
+    },
+    "inference_ms": [
+      523.1402540011914,
+      25.96872100184555,
+      25.78605599774164,
+      24.510018000000855,
+      23.948899997776607,
+      23.714347000350244,
+      23.953187999723013,
+      23.15459099918371
+    ],
+    "ready": true,
+    "finished_unix": 1790245260.5224254
+  },
+  "live_warm_median_ms": 23.948899997776607,
+  "ui_url": "http://100.95.186.107:8787/",
+  "selected_settings": {
+    "prompt": "put the marker in the bowl",
+    "actions": 8,
+    "backend": "ssog_mc2"
+  },
+  "continuous": true,
+  "robot_mode": "Programming",
+  "arm_motion_validated": false,
+  "status": "ready_waiting_for_execution_mode",
+  "completed_unix": 1790245333.7590034
+}

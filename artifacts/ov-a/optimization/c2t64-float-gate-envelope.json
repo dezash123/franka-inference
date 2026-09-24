@@ -1,0 +1,55 @@
+{
+  "reference": "torch-eager-fp32",
+  "workload": "cams2-tokens64",
+  "rule": "rmse <= 1.05*max(per-token, group-128); cosine >= min - 5e-5",
+  "samples": {
+    "zero": {
+      "rmse_max": 0.03935955039787105,
+      "cosine_min": 0.9994305905194505,
+      "selected_rmse": 0.03748528609321052,
+      "ovdyn_rmse": 0.03375426644164941
+    },
+    "random": {
+      "rmse_max": 0.09384179714218076,
+      "cosine_min": 0.9990252858097558,
+      "selected_rmse": 0.08937314013541024,
+      "ovdyn_rmse": 0.08778472915516743
+    },
+    "validation-0": {
+      "rmse_max": 0.10337786076188032,
+      "cosine_min": 0.9984144733166593,
+      "selected_rmse": 0.09845510548750507,
+      "ovdyn_rmse": 0.09626080492989376
+    },
+    "validation-1": {
+      "rmse_max": 0.09900461647374208,
+      "cosine_min": 0.9985496750097274,
+      "selected_rmse": 0.0942901109273734,
+      "ovdyn_rmse": 0.09323291376725393
+    },
+    "validation-2": {
+      "rmse_max": 0.06311476410383414,
+      "cosine_min": 0.9993273919292828,
+      "selected_rmse": 0.060109299146508706,
+      "ovdyn_rmse": 0.056364208382304624
+    },
+    "validation-3": {
+      "rmse_max": 0.12355057896313659,
+      "cosine_min": 0.9984740178474296,
+      "selected_rmse": 0.11766721806013009,
+      "ovdyn_rmse": 0.11180482948747682
+    },
+    "validation-4": {
+      "rmse_max": 0.2466117742401394,
+      "cosine_min": 0.9974430195874754,
+      "selected_rmse": 0.2304815363341697,
+      "ovdyn_rmse": 0.23486835641918036
+    },
+    "validation-5": {
+      "rmse_max": 0.2921082843257632,
+      "cosine_min": 0.997169244668839,
+      "selected_rmse": 0.27819836602453635,
+      "ovdyn_rmse": 0.274077117214772
+    }
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "verified_unix": 1790284646.5212672,
+  "files": [
+    {
+      "path": "/var/lib/spring-data/workloads/robo_run/checkpoints/pi05_droid_pytorch/assets/droid/norm_stats.json",
+      "bytes": 4460,
+      "sha256": "403b3a22f897e9ae5dd617966a3c8f7d1835ac79dfd5a8993179514be26a3b8b"
+    },
+    {
+      "path": "/var/lib/spring-data/workloads/robo_run/checkpoints/pi05_droid_pytorch/config.json",
+      "bytes": 149,
+      "sha256": "b6307dc69bbcf4bc5932d39e9b8b6bfa1fbffd7dec30e0fcca0648259485ade7"
+    },
+    {
+      "path": "/var/lib/spring-data/workloads/robo_run/checkpoints/pi05_droid_pytorch/model.safetensors",
+      "bytes": 7233650408,
+      "sha256": "df9f24518b24ea340e74866e0a8059855b5d0041880d335472a498875450dc50"
+    },
+    {
+      "path": "/var/lib/spring-data/workloads/robo_run/franka_droid/openvino_fp16/denoise-export.json",
+      "bytes": 756,
+      "sha256": "8431dd86a2f2f83a89a20b3d2834e371c2d570bf688f06f571e882104d9907e6"
+    },
+    {
+      "path": "/var/lib/spring-data/workloads/robo_run/franka_droid/openvino_fp16/denoise.bin",
+      "bytes": 860198981,
+      "sha256": "6f002bff7527763da94d45d8650eaaa45c37996df7a78cbf9a751fdf0f6d8d17"
+    },
+    {
+      "path": "/var/lib/spring-data/workloads/robo_run/franka_droid/openvino_fp16/denoise.xml",
+      "bytes": 1499516,
+      "sha256": "96256c620000695120578f8c2eb47bbb3ce397ada0942086ffd50fdcf157223a"
+    },
+    {
+      "path": "/var/lib/spring-data/workloads/robo_run/franka_droid/openvino_fp16/prefix-export.json",
+      "bytes": 553,
+      "sha256": "706d13bcf9e9087c1cc7f5e6baa596102e172d92f1aa40bc2ccaa51cf1723117"
+    },
+    {
+      "path": "/var/lib/spring-data/workloads/robo_run/franka_droid/openvino_fp16/prefix.bin",
+      "bytes": 4798951984,
+      "sha256": "b28ccd3adfff662c68869522950634cc8125d5253412fa8231430708ced7e8c4"
+    },
+    {
+      "path": "/var/lib/spring-data/workloads/robo_run/franka_droid/openvino_fp16/prefix.xml",
+      "bytes": 1032607,
+      "sha256": "34a7b56ccba6792e87b6ff2ca1572b8cfe46878e917efd08d9da28f971a0e704"
+    },
+    {
+      "path": "/var/lib/spring-data/workloads/robo_run/franka_droid/openvino_fp16/vision-export.json",
+      "bytes": 361,
+      "sha256": "6ee86249907396990ccee65fe6a1d741d24c63d391e01c8ee06e15fa094a1a72"
+    },
+    {
+      "path": "/var/lib/spring-data/workloads/robo_run/franka_droid/openvino_fp16/vision.bin",
+      "bytes": 829607508,
+      "sha256": "7eeafde1aa3820867a6b648649ba00a0f9883a77151fea1c375f9b49944f0624"
+    },
+    {
+      "path": "/var/lib/spring-data/workloads/robo_run/franka_droid/openvino_fp16/vision.xml",
+      "bytes": 1072535,
+      "sha256": "c331a01cfbaeef663d837b03d42755deb80fd99ea97334f059a92ff2f56b153e"
+    }
+  ]
+}

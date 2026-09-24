@@ -1,0 +1,17 @@
+[Unit]
+Description=DROID selected FP16 policy runtime
+After=network.target
+[Service]
+Type=exec
+WorkingDirectory=/var/lib/spring-data/workloads/robo_run/franka_droid
+ExecStart=/bin/bash /var/lib/spring-data/workloads/robo_run/franka_droid/start-policy-service.sh
+CPUAffinity=0-3 6-9
+Environment=PYTHONUNBUFFERED=1
+Environment=OMP_NUM_THREADS=6
+Environment=MKL_NUM_THREADS=6
+TimeoutStopSec=15
+StandardOutput=append:/var/lib/spring-data/workloads/robo_run/franka_droid/evidence/policy-service.log
+StandardError=append:/var/lib/spring-data/workloads/robo_run/franka_droid/evidence/policy-service.log
+Restart=no
+[Install]
+WantedBy=default.target

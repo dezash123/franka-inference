@@ -1,0 +1,8 @@
+{
+  "installed_unix": 1790244670.6777582,
+  "install_root": "/var/lib/spring-data/workloads/pi05-ssog-reproduction/install",
+  "base_manifest_files_verified": 753,
+  "overlay_sha256": "fd419f9fa98d306e24a73adefcd8e437418d0edbba8b53afe883c53cea0e3579",
+  "restored_absolute_container_symlinks": 1218,
+  "binary_sha256": "db89756ca6b0451040cbbf6e3490d28606d5ed510de3d4cc371bfce3259d6edb"
+}

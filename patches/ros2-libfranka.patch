@@ -1,0 +1,51 @@
+diff --git a/src/control_tools.cpp b/src/control_tools.cpp
+index 817f22a5..138e330c 100644
+--- a/src/control_tools.cpp
++++ b/src/control_tools.cpp
+@@ -5,6 +5,7 @@
+ #include <cstring>
+ #include <exception>
+ #include <fstream>
++#include <sstream>
+ #include <string>
+ 
+ #include "platform.h"
+@@ -13,6 +14,7 @@
+ #include <Windows.h>
+ #else
+ #include <pthread.h>
++#include <sys/utsname.h>
+ #endif
+ 
+ // `using std::string_literals::operator""s` produces a GCC warning that cannot be disabled, so we
+@@ -27,9 +29,27 @@ bool hasRealtimeKernel() {
+   return true;
+ #else
+   std::ifstream realtime("/sys/kernel/realtime", std::ios_base::in);
+-  bool is_realtime{};
+-  realtime >> is_realtime;
+-  return is_realtime;
++  if (realtime.is_open()) {
++    bool is_realtime{};
++    realtime >> is_realtime;
++    return is_realtime;
++  }
++
++  // Mainline PREEMPT_RT kernels may omit the downstream /sys/kernel/realtime
++  // attribute. The running kernel's UTS version identifies its preemption model;
++  // do not infer realtime support from a user-selected kernel release name.
++  struct utsname kernel {};
++  if (uname(&kernel) != 0) {
++    return false;
++  }
++  std::istringstream version(kernel.version);
++  std::string token;
++  while (version >> token) {
++    if (token == "PREEMPT_RT") {
++      return true;
++    }
++  }
++  return false;
+ #endif
+ }
+ 

@@ -1,0 +1,61 @@
+{
+  "host": {
+    "os": "Ubuntu 24.04.4 derivative (Spring Edge OS 0.1.2)",
+    "architecture": "x86_64",
+    "python": "3.12.3",
+    "compiler": "g++ 13.3.0",
+    "cmake": "3.28.3"
+  },
+  "franka_direct": {
+    "repository": "https://github.com/frankarobotics/libfranka.git",
+    "source_path": "/var/lib/spring-data/workloads/robo_run/vendor/libfranka",
+    "tag": "0.21.3",
+    "commit": "85912fe02258d8cb811d3eff1f11e52ce89e3217",
+    "common_submodule_commit": "2e090a65e51c94a98f9fc82b6ec3d1aa54d0f85f",
+    "install_path": "/var/lib/spring-data/workloads/robo_run/vendor/franka_install",
+    "build_path": "/var/lib/spring-data/workloads/robo_run/vendor/libfranka/build",
+    "build_options": {
+      "BUILD_EXAMPLES": true,
+      "BUILD_TESTS": false,
+      "GENERATE_PYLIBFRANKA": false
+    },
+    "communication_test": "/var/lib/spring-data/workloads/robo_run/vendor/franka_install/bin/communication_test",
+    "python_binding": {
+      "package": "pylibfranka",
+      "version": "0.21.3",
+      "source": "PyPI wheel",
+      "python_abi": "cp312",
+      "platform": "manylinux_2_34_x86_64"
+    },
+    "source_dependencies": {
+      "pinocchio": {
+        "tag": "v3.4.0",
+        "commit": "187afafcfe22d7ac16a26241c0b13a76d04d82c1",
+        "install_path": "/var/lib/spring-data/workloads/robo_run/vendor/franka_install",
+        "patch": "libfranka 0.21.3 .ci/pinocchio.patch"
+      },
+      "urdfdom": {
+        "tag": "4.0.0",
+        "commit": "29426ec119e9c3a9df9fc705d08c262a97b7f285",
+        "patch": "libfranka 0.21.3 .ci/urdfdom.patch"
+      },
+      "urdfdom_headers": {
+        "tag": "1.0.5",
+        "commit": "a15d906ff16a7fcbf037687b9c63b946c0cc04a1"
+      }
+    }
+  },
+  "native_dependencies": {
+    "libeigen3-dev": "3.4.0-4build0.1",
+    "libpoco-dev": "1.11.0-4.1build2",
+    "libfmt-dev": "9.1.0+ds1-2",
+    "libtinyxml2-dev": "10.0.0+dfsg-2",
+    "libconsole-bridge-dev": "1.0.1+dfsg2-3build1",
+    "libboost-dev": "1.83.0.1ubuntu2",
+    "libassimp-dev": "5.3.1+ds-2build1"
+  },
+  "nonfatal_incompatibilities": [
+    "Pinocchio was built with BUILD_SHARED_LIBS=OFF while using the host Assimp, console_bridge, and TinyXML2 CMake targets; CMake emitted non-fatal imported-target shared/static developer warnings and completed successfully.",
+    "The host identifies as Spring Edge OS 0.1.2, an Ubuntu 24.04.4 derivative; libfranka 0.21.3's documented noble-compatible source configuration was used rather than installing its Debian package system-wide."
+  ]
+}

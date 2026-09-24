@@ -1,0 +1,31 @@
+{
+  "phase": "warming",
+  "busy": true,
+  "ready": false,
+  "message": "Warming the runtime with live cameras. First load may take several minutes.",
+  "settings": {
+    "prompt": "pick up the markers and put them in the bowl",
+    "actions": 10,
+    "backend": "ssog_mc2",
+    "action_hz": 60.0
+  },
+  "server_unix": 1790284105.0281887,
+  "robot": {
+    "operating_mode": "Programming",
+    "robot_errors": [],
+    "fci_active": true
+  },
+  "kernel": "6.18.53-spring-rt",
+  "publication_recheck": {
+    "phase": "idle",
+    "busy": false,
+    "ready": true,
+    "settings": {
+      "prompt": "pick up the markers and put them in the bowl",
+      "actions": 5,
+      "backend": "ssog_mc2",
+      "action_hz": 60.0
+    },
+    "server_unix": 1790284614.3320343
+  }
+}

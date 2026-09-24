@@ -1,0 +1,37 @@
+# Rome DROID control
+
+Open http://100.95.186.107:8787 on the tailnet. The panel is hosted by `franka-control-ui.service` and starts with Rome.
+
+- Edit the task prompt, actions per inference (1–15), and action playback frequency (any finite value greater than 0 Hz, with no configured upper bound), then save. Settings can be changed while stopped.
+- Choose Torch eager FP16, torch.compile FP16, OpenVINO FP16, SSOG A MC2, or OpenVINO W8A8 ckpt-A (`ov_a_w8a8`: the custom-plugin W8A8 IRs of the archived pi05_droid_jointpos checkpoint, T = 64 + 256 resident, five Euler steps inside the graph, absolute joint targets like SSOG; installed under `/var/lib/spring-data/workloads/pi05-final/ov-a`). The FP16 runtimes use the same pi05_droid checkpoint and five denoising steps. SSOG uses the archived pi05_droid_jointpos checkpoint, INT8/INT4 quantization, and two model passes; see SSOG_SETUP.md. Loading warms the selected runtime using live cameras and read-only robot/gripper observations. It sends no motion commands.
+- Start begins a continuous real-arm session with no duration limit using the existing launcher and controller. Start requires a warmed runtime and an Execution-ready robot.
+- Pause sends HOLD to the arm and stops the gripper at its current position. The panel shows Pausing until the controller acknowledges HOLD and joint velocities settle. The arm and gripper remain held until Play or Stop, unless a fault ends the session.
+- Play discards any remaining action chunk, captures a fresh observation, and resumes inference.
+- Stop ends the session. Native faults do not trigger an automatic retry.
+
+The configured number of the model's 15 generated actions is dispatched at the selected nominal playback frequency. This is stored as policy.control_hz; the launcher also accepts --action-hz as a session override. Inference remains synchronous: for example, eight actions nominally take 267 ms at 30 Hz, followed by a hold for the next inference. Inference refills and controller validation reduce the effective action rate. The panel displays average delivered actions/s and inferences/s, including holds and pauses; these are not the configured playback frequency. The existing camera streams remain at 15 fps. One of the two external cameras' left eyes is selected for each inference; the wrist image is always included. Torch skips the masked, unused third image slot; eager Torch also omits masked trailing prompt padding. It verifies the compact result against the full padded path on a live observation before readiness.
+
+If path validation outlives the measured starting posture on three attempts, the client holds until the measured joint speeds stay below 0.02 rad/s for 50 ms, then discards that chunk and takes a new observation. This wait is bounded to two seconds; camera freshness, gripper status, and controller feedback remain checked throughout. Validation holds appear in the panel’s target-hold count.
+
+The existing 250 ms inference deadline, native Franka constraints, FCI watchdog, self-collision validation, rate limiter, and filter are retained. A runtime may load successfully but remain unavailable for arm execution if its warmed live inference exceeds this deadline. Cold torch.compile is completed before motion; the panel displays Warming until it finishes.
+
+During arm sessions, previews come from saved controller observations and update about every two seconds. At idle, previews come from the existing camera viewer. The viewer and arm client never intentionally capture the cameras simultaneously.
+
+Services and receipts:
+
+- Root: `systemctl status franka-control-ui.service`
+- Spring user: `systemctl --user status franka-droid-policy.service`
+- `evidence/policy-readiness-*.json`: live runtime warm-up results
+- `evidence/policy-runtime.json`: active runtime/precision evidence
+- `evidence/stream-policy-*.json`: recent arm session entries, total counters and pause events; continuous sessions preserve the full action/chunk history in adjacent `.events.jsonl` journals
+- `evidence/ui-arm-*.log`, `evidence/ui-runtime-*.log`, `evidence/policy-service.log`: logs
+
+The web listener is bound to Rome's Tailscale address. State-changing requests require the panel's session token and an allowed same-origin host. Settings and runtime switches are rejected while an arm session is active.
+
+The live session panel shows the latest model execution latency and median/p95 across up to 32 recent inferences. These use policy_timing.infer_ms: backend execution excluding image preparation, including backend-specific invocation/output overhead. The separate round-trip measurement uses the arm client RPC duration, including preparation and transport. Neither includes camera capture or action playback. Metrics refresh with the receipt about every two seconds; paused and stopped readings are labeled, and readings from a different selected backend are hidden.
+
+Playback frequency has no artificial 5–30 Hz range or fixed input step. Actual throughput is bounded by inference, validation and the controller. At slow rates, the client checks feedback, cameras and gripper and sends KEEPALIVE about every 100 ms while waiting between actions. This updates command liveness without changing the validated target or advancing the action chunk; the 350 ms command watchdog remains active. Pause and Stop interrupt the wait.
+
+Live activity and trajectories: `/api/telemetry` incrementally reads existing event and feedback journals on the UI service's housekeeping CPUs. It retains at most 60 seconds (bounded sample counts), reads at most 2 MiB per journal per refresh, and caches responses for 250 ms. The frontend polls every 400 ms while visible. Select J1–J7 and a 10/30/60-second window. Purple intervals are inference RPC time; green ticks are dispatched actions; amber marks are rejected joint targets or validation holds. Target steps are dispatched joint positions in radians, not raw normalized model outputs. Measured positions come from timestamp-aligned controller feedback, sampled about 20 Hz; older receipts fall back to measurements at action dispatch. Pauses and known holds break target traces. Cameras still update independently at about two seconds. UI telemetry never commands the robot.
+
+Fault reporting: native errors are published before the libfranka history dump. The client latches the first controller error before log I/O and reconciles secondary feedback-timeout failures with the final native error after shutdown. Fault records remain separate from live feedback. The UI also resolves legacy stale-feedback errors from the matching session's stderr. Watchdog deadlines, PREEMPT_RT scheduling, motion constraints, and native reflex thresholds are unchanged.

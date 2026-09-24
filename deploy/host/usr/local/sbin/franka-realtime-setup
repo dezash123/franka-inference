@@ -1,0 +1,72 @@
+#!/usr/bin/python3
+"""Apply Rome's CPU and Ethernet scheduling configuration. Never commands the robot."""
+import datetime,json,os,pathlib,socket,subprocess,time
+P=pathlib.Path
+cfg=json.loads(P('/etc/franka/realtime.json').read_text())
+if os.geteuid()!=0:raise SystemExit('Root is required')
+if socket.gethostname()!=cfg['hostname']:raise SystemExit('Unexpected host')
+for command in (['pgrep','-x','stream_fci'],['pgrep','-f',r'(^|/)run_policy_stream[.]py([[:space:]]|$)']):
+    if subprocess.run(command,capture_output=True).returncode!=1:raise SystemExit('Refusing tuning while arm controller is active')
+hk=cfg['housekeeping_cpus'];irq_cpu=cfg['network_cpu'];nic=cfg['network_interface']
+mask=sum(1<<c for c in hk);cpu_list=','.join(map(str,hk))
+# init.scope is transient: systemd stores its properties under /run, so reapply
+# PID 1's housekeeping cpuset on every boot as well as each controller launch.
+subprocess.run(['systemctl','set-property','--runtime','init.scope',
+                'AllowedCPUs='+' '.join(map(str,hk))],check=True)
+report={'applied_at':datetime.datetime.now().astimezone().isoformat(),'config':cfg,'irq_changes':[], 'unmovable_irqs':[], 'network_threads':[], 'warnings':[]}
+for cpu,expected in [(cfg['control_cpu'],cfg['control_siblings']), (irq_cpu,cfg['network_siblings'])]:
+    actual=P(f'/sys/devices/system/cpu/cpu{cpu}/topology/thread_siblings_list').read_text().strip()
+    if actual!=','.join(map(str,expected)):raise SystemExit('CPU sibling topology changed')
+if subprocess.run(['systemctl','is-active','--quiet','irqbalance.service']).returncode==0:
+    raise SystemExit('irqbalance must be inactive before applying the explicit IRQ layout')
+net=P('/sys/class/net')/nic
+if not net.exists():raise SystemExit('Robot Ethernet device is missing')
+irqs={p.name for p in (net/'device/msi_irqs').iterdir()}
+state_paths=[P('/proc/irq/default_smp_affinity'),P('/sys/devices/virtual/workqueue/cpumask'),net/'threaded']
+state_paths+=list(P('/sys/devices/system/cpu').glob('cpu[0-9]*/cpufreq/scaling_governor'))
+state_paths+=list(P('/proc/irq').glob('[0-9]*/smp_affinity_list'))
+backup=P('/var/lib/franka-realtime');backup.mkdir(parents=True,exist_ok=True)
+if not (backup/'initial-kernel-settings.json').exists():
+    values={str(p):p.read_text().strip() for p in state_paths if p.exists()}
+    (backup/'initial-kernel-settings.json').write_text(json.dumps(values,indent=2)+'\n')
+P('/proc/irq/default_smp_affinity').write_text(f'{mask:x}\n')
+for path in P('/proc/irq').glob('[0-9]*/smp_affinity_list'):
+    irq=path.parent.name;desired=str(irq_cpu) if irq in irqs else cpu_list
+    try:
+        path.write_text(desired+'\n')
+        effective=(path.parent/'effective_affinity_list').read_text().strip()
+        report['irq_changes'].append({'irq':int(irq),'effective':effective,'robot_nic':irq in irqs})
+    except OSError as error:
+        report['unmovable_irqs'].append({'irq':int(irq),'error':str(error),'effective':(path.parent/'effective_affinity_list').read_text().strip()})
+        if irq in irqs:raise
+workqueue=P('/sys/devices/virtual/workqueue/cpumask')
+if workqueue.exists():workqueue.write_text(f'{mask:x}\n')
+for path in P('/sys/devices/system/cpu').glob('cpu[0-9]*/cpufreq/scaling_governor'):path.write_text('performance\n')
+for path in (net/'queues').glob('rx-*/rps_cpus'):path.write_text('0\n')
+for name in ['gro_flush_timeout','napi_defer_hard_irqs']:
+    path=net/name
+    if path.exists():path.write_text('0\n')
+(net/'threaded').write_text('1\n')
+for _ in range(20):
+    found=[]
+    for proc in P('/proc').glob('[0-9]*'):
+        try:
+            comm=(proc/'comm').read_text().strip()
+            if comm.startswith('napi/'+nic) or any(comm.startswith('irq/'+irq+'-') for irq in irqs):
+                pid=int(proc.name);os.sched_setaffinity(pid,{irq_cpu});os.sched_setscheduler(pid,os.SCHED_FIFO,os.sched_param(cfg['network_fifo_priority']))
+                found.append({'pid':pid,'name':comm,'cpus':sorted(os.sched_getaffinity(pid)),'priority':os.sched_getparam(pid).sched_priority})
+        except (FileNotFoundError,ProcessLookupError):pass
+    if any(p['name'].startswith('napi/'+nic) for p in found):report['network_threads']=found;break
+    time.sleep(.05)
+if not report['network_threads']:raise SystemExit('Dedicated Ethernet receive thread did not appear')
+eee=subprocess.run(['ethtool','--show-eee',nic],capture_output=True,text=True)
+if eee.returncode==0 and 'EEE status: disabled' not in eee.stdout:
+    result=subprocess.run(['ethtool','--set-eee',nic,'eee','off'],capture_output=True,text=True)
+    if result.returncode:report['warnings'].append(result.stderr.strip())
+report['threaded_napi']=(net/'threaded').read_text().strip()
+report['workqueue_cpumask']=workqueue.read_text().strip() if workqueue.exists() else None
+report['governors']={p.parent.parent.name:p.read_text().strip() for p in P('/sys/devices/system/cpu').glob('cpu[0-9]*/cpufreq/scaling_governor')}
+P('/run/franka').mkdir(exist_ok=True)
+P('/run/franka/realtime-applied.json').write_text(json.dumps(report,indent=2)+'\n')
+P(cfg['evidence_directory']+'/realtime-host-profile.json').write_text(json.dumps(report,indent=2)+'\n')
+print(json.dumps({'applied':True,'control_cpu':cfg['control_cpu'],'network_cpu':irq_cpu,'network_threads':report['network_threads'],'housekeeping_cpus':hk,'unmovable_irq_count':len(report['unmovable_irqs']),'warnings':report['warnings']}))

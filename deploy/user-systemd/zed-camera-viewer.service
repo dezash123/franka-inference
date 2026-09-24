@@ -1,0 +1,16 @@
+[Unit]
+Description=Camera browser viewer (ZED and RealSense, loopback)
+After=default.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/spring/zed_camera_setup
+ExecStart=/usr/bin/python3 /home/spring/zed_camera_setup/viewer.py --bind 127.0.0.1 --port 8765 --resolution auto --fps 15
+Restart=on-failure
+RestartSec=3
+TimeoutStopSec=5
+NoNewPrivileges=true
+UMask=0077
+
+[Install]
+WantedBy=default.target

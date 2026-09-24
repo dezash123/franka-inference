@@ -1,0 +1,27 @@
+{
+  "hostname": "spring-edge-20260910003703",
+  "control_cpu": 5,
+  "control_siblings": [
+    5,
+    11
+  ],
+  "network_cpu": 4,
+  "network_siblings": [
+    4,
+    10
+  ],
+  "housekeeping_cpus": [
+    0,
+    1,
+    2,
+    3,
+    6,
+    7,
+    8,
+    9
+  ],
+  "control_fifo_priority": 80,
+  "network_fifo_priority": 90,
+  "network_interface": "enp15s0",
+  "evidence_directory": "/var/lib/spring-data/workloads/robo_run/franka_droid/evidence"
+}

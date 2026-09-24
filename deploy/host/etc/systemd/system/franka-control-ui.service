@@ -1,0 +1,15 @@
+[Unit]
+Description=Rome DROID control panel (Tailscale only)
+After=network-online.target tailscaled.service
+Wants=network-online.target
+[Service]
+Type=exec
+WorkingDirectory=/var/lib/spring-data/workloads/robo_run/franka_droid
+ExecStart=/usr/bin/python3 -u /var/lib/spring-data/workloads/robo_run/franka_droid/control_ui.py --bind 100.95.186.107 --port 8787
+CPUAffinity=0-3 6-9
+Restart=on-failure
+RestartSec=3
+TimeoutStopSec=10
+UMask=0022
+[Install]
+WantedBy=multi-user.target

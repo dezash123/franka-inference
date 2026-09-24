@@ -1,0 +1,10 @@
+{
+  "created_unix": 1790245104.9353683,
+  "image_id": "sha256:501b3a554f1ba4814e247f2f12c3fe6d08da24ec3edd305c509ced6547282d47",
+  "tag": "ssog-b580:neo2513",
+  "size_bytes": 4236370377,
+  "versions": "# ssog-b580:neo2513 built 2026-09-24T10:17:24Z\nintel-opencl-icd 25.13.33276.22-1133~24.04\nlibigdgmm12 22.7.1-1120~24.04\nlibze-dev 1.21.1.0-1123~24.04\nlibze-intel-gpu1 25.13.33276.22-1133~24.04\nlibze1 1.21.1.0-1123~24.04\nicpx Intel(R) oneAPI DPC++/C++ Compiler 2025.2.0 (2025.2.0.20250605)\n",
+  "dockerfile": "install/runtime/env/Dockerfile",
+  "build_log": "results/docker-build.log",
+  "gpu_access_during_build": false
+}

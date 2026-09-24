@@ -1,0 +1,132 @@
+{
+  "status": "staged_inactive",
+  "reason": "Confirmed fingertip-table contact; tool clearance is not yet measured or modeled. Current native joint impedance does not implement DROID torque safety feedback.",
+  "sources": {
+    "droid_commit": "33ae6a67274f36d2e29525b86f23a56616ef43a7",
+    "fairo_commit": "0a01a7fa7a7c65b2f9a3aebf5e79040940daf9d2",
+    "sources": {
+      "franka_hardware.yaml": "https://raw.githubusercontent.com/droid-dataset/droid/33ae6a67274f36d2e29525b86f23a56616ef43a7/config/fr3/franka_hardware.yaml",
+      "franka_panda_client.cpp": "https://raw.githubusercontent.com/facebookresearch/fairo/0a01a7fa7a7c65b2f9a3aebf5e79040940daf9d2/polymetis/polymetis/src/clients/franka_panda_client/franka_panda_client.cpp",
+      "robot_ik_solver.py": "https://raw.githubusercontent.com/droid-dataset/droid/33ae6a67274f36d2e29525b86f23a56616ef43a7/droid/robot_ik/robot_ik_solver.py"
+    }
+  },
+  "limits": {
+    "cartesian_pos_upper": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "cartesian_pos_lower": [
+      -1.0,
+      -1.0,
+      -1.0
+    ],
+    "joint_pos_upper": [
+      2.65,
+      1.68,
+      2.8,
+      -0.16,
+      2.7,
+      4.4,
+      2.9
+    ],
+    "joint_pos_lower": [
+      -2.65,
+      -1.68,
+      -2.8,
+      -2.95,
+      -2.7,
+      0.45,
+      -2.9
+    ],
+    "joint_vel": [
+      2.075,
+      2.075,
+      2.075,
+      2.075,
+      2.51,
+      2.51,
+      2.51
+    ],
+    "elbow_vel": 2.075,
+    "joint_torques": [
+      86.0,
+      86.0,
+      86.0,
+      86.0,
+      11.5,
+      11.5,
+      11.5
+    ]
+  },
+  "collision_behavior": {
+    "lower_torque": [
+      40.0,
+      40.0,
+      40.0,
+      40.0,
+      40.0,
+      40.0,
+      40.0
+    ],
+    "upper_torque": [
+      40.0,
+      40.0,
+      40.0,
+      40.0,
+      40.0,
+      40.0,
+      40.0
+    ],
+    "lower_force": [
+      40.0,
+      40.0,
+      40.0,
+      40.0,
+      40.0,
+      40.0
+    ],
+    "upper_force": [
+      40.0,
+      40.0,
+      40.0,
+      40.0,
+      40.0,
+      40.0
+    ]
+  },
+  "safety_controller": {
+    "is_active": true,
+    "margins": {
+      "cartesian_pos": 0.05,
+      "joint_pos": 0.2,
+      "joint_vel": 0.5
+    },
+    "stiffness": {
+      "cartesian_pos": 200.0,
+      "joint_pos": 50.0,
+      "joint_vel": 20.0
+    }
+  },
+  "limit_rate": true,
+  "lpf_cutoff_frequency": 100,
+  "additional_ruckig_caps": null,
+  "normalized_action_max_joint_increment_rad": 0.2,
+  "semantics": {
+    "hard_state_limits": "Throw on measured workspace, joint position, joint velocity or elbow velocity violations.",
+    "soft_feedback": "Add restoring Cartesian/Jacobian and joint torques within each margin; this is not target clipping.",
+    "commanded_torques": "Clamp policy torque plus safety torque per joint before the native rate limiter and filter.",
+    "collision_thresholds": "Apply all four arrays via native setCollisionBehavior before control.",
+    "controller": "DROID uses an external torque callback. The active Rome native joint-impedance velocity callback cannot reproduce the safety torque feedback by changing constants.",
+    "table": "The published workspace box does not exclude this setup tabletop or account for the custom fingertip geometry."
+  },
+  "next_requested_run": {
+    "prompt": "pick up the marker",
+    "duration_s": 300,
+    "denoise_steps": 5,
+    "precision": "FP16",
+    "backend": "openvino",
+    "real_arm_motion": true,
+    "started": false
+  }
+}

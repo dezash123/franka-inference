@@ -1,0 +1,148 @@
+diff --git a/src/control_loop.cpp b/src/control_loop.cpp
+index 567963a..91ce5da 100644
+--- a/src/control_loop.cpp
++++ b/src/control_loop.cpp
+@@ -7,6 +7,7 @@
+ #include <cstring>
+ #include <exception>
+ #include <fstream>
++#include <limits>
+ 
+ #include <franka/control_tools.h>
+ #include <franka/control_types.h>
+@@ -197,12 +198,45 @@ void ControlLoop<JointPositions>::convertMotion(
+     research_interface::robot::MotionGeneratorCommand& command) {
+   command.q_c = motion.q;
+   std::array<double, 7> reference_position{};
++  auto reference_velocity = robot_state.dq_d;
++  auto reference_acceleration = robot_state.ddq_d;
+   if (!initialized_filter_) {
+     reference_position = command.q_c;
+     initialized_filter_ = true;
+   } else {
+     reference_position = robot_state.q_d;
+   }
++  if (limit_rate_ && joint_command_history_valid_) {
++    // Do not use precise history after a missing/late command: the robot may
++    // have extrapolated a different trajectory. Fail before sending another
++    // position instead of silently integrating from an unconfirmed state.
++    if (robot_state.time.toMSec() != joint_command_state_ms_ + 1) {
++      throw ControlException("Joint command precision history: missing robot tick");
++    }
++    for (size_t i = 0; i < 7; ++i) {
++      const auto matches_float = [](double observed, double expected, double arithmetic_error) {
++        const float rounded = static_cast<float>(expected);
++        const double spacing = std::abs(double(std::nextafter(rounded, INFINITY)) - rounded);
++        return std::isfinite(observed) && std::isfinite(expected) &&
++               std::abs(observed - expected) <= 2 * spacing + arithmetic_error;
++      };
++      // Differencing positions magnifies double arithmetic roundoff by 1/dt
++      // and 1/dt^2. At rest, float ULPs of a zero derivative cannot represent
++      // that error budget (a captured hold produced only 5.6e-11 rad/s^2).
++      const double position_roundoff = 8 * std::numeric_limits<double>::epsilon() *
++                                      std::max(1.0, std::abs(joint_command_position_[i]));
++      if (!matches_float(robot_state.q_d[i], joint_command_position_[i], position_roundoff) ||
++          !matches_float(robot_state.dq_d[i], joint_command_velocity_[i],
++                         position_roundoff / kDeltaT) ||
++          !matches_float(robot_state.ddq_d[i], joint_command_acceleration_[i],
++                         position_roundoff / (kDeltaT * kDeltaT))) {
++        throw ControlException("Joint command precision history: robot did not confirm last command");
++      }
++    }
++    reference_position = joint_command_position_;
++    reference_velocity = joint_command_velocity_;
++    reference_acceleration = joint_command_acceleration_;
++  }
+   if (cutoff_frequency_ < kMaxCutoffFrequency) {
+     for (size_t i = 0; i < 7; i++) {
+       command.q_c[i] =
+@@ -213,9 +247,19 @@ void ControlLoop<JointPositions>::convertMotion(
+     command.q_c = limitRate(robot_.getUpperJointVelocityLimits(reference_position),
+                             robot_.getLowerJointVelocityLimits(reference_position),
+                             kMaxJointAcceleration, kMaxJointJerk, command.q_c, reference_position,
+-                            robot_state.dq_d, robot_state.ddq_d);
++                            reference_velocity, reference_acceleration);
+   }
+   checkFinite(command.q_c);
++  if (limit_rate_) {
++    for (size_t i = 0; i < 7; ++i) {
++      joint_command_velocity_[i] = (command.q_c[i] - reference_position[i]) / kDeltaT;
++      joint_command_acceleration_[i] =
++          (joint_command_velocity_[i] - reference_velocity[i]) / kDeltaT;
++    }
++    joint_command_position_ = command.q_c;
++    joint_command_state_ms_ = robot_state.time.toMSec();
++    joint_command_history_valid_ = true;
++  }
+ }
+ 
+ template <>
+diff --git a/src/control_loop.h b/src/control_loop.h
+index 109c4ba..815e88a 100644
+--- a/src/control_loop.h
++++ b/src/control_loop.h
+@@ -118,6 +118,13 @@ class ControlLoop {
+                                      readability-identifier-naming) */
+   uint32_t motion_id_ = 0;
+   bool initialized_filter_{false};
++  // Protocol 10 returns q_d/dq_d/ddq_d as floats. Preserve the precise
++  // command history when the next state confirms that command was accepted.
++  bool joint_command_history_valid_{false};
++  uint64_t joint_command_state_ms_{0};
++  std::array<double, 7> joint_command_position_{};
++  std::array<double, 7> joint_command_velocity_{};
++  std::array<double, 7> joint_command_acceleration_{};
+ 
+   void convertMotion(const MotionControlType& motion,
+                      const RobotState& robot_state,
+diff --git a/src/control_tools.cpp b/src/control_tools.cpp
+index 817f22a..138e330 100644
+--- a/src/control_tools.cpp
++++ b/src/control_tools.cpp
+@@ -5,6 +5,7 @@
+ #include <cstring>
+ #include <exception>
+ #include <fstream>
++#include <sstream>
+ #include <string>
+ 
+ #include "platform.h"
+@@ -13,6 +14,7 @@
+ #include <Windows.h>
+ #else
+ #include <pthread.h>
++#include <sys/utsname.h>
+ #endif
+ 
+ // `using std::string_literals::operator""s` produces a GCC warning that cannot be disabled, so we
+@@ -27,9 +29,27 @@ bool hasRealtimeKernel() {
+   return true;
+ #else
+   std::ifstream realtime("/sys/kernel/realtime", std::ios_base::in);
+-  bool is_realtime{};
+-  realtime >> is_realtime;
+-  return is_realtime;
++  if (realtime.is_open()) {
++    bool is_realtime{};
++    realtime >> is_realtime;
++    return is_realtime;
++  }
++
++  // Mainline PREEMPT_RT kernels may omit the downstream /sys/kernel/realtime
++  // attribute. The running kernel's UTS version identifies its preemption model;
++  // do not infer realtime support from a user-selected kernel release name.
++  struct utsname kernel {};
++  if (uname(&kernel) != 0) {
++    return false;
++  }
++  std::istringstream version(kernel.version);
++  std::string token;
++  while (version >> token) {
++    if (token == "PREEMPT_RT") {
++      return true;
++    }
++  }
++  return false;
+ #endif
+ }
+ 

@@ -1,0 +1,27 @@
+{
+  "artifact": "pi05-droid-ssog-A-mc2-mux-t64-t128-t256",
+  "checkpoint": "pi05_droid_jointpos",
+  "checkpoint_sha256": "4889f718c4dd953c8955dba26e755c2c5b7bcb5a640e7ff5759b52b1260295b5",
+  "s3_prefix": "s3://old-local-compute-archives/jason/2026-09-23/pi05-ssog-a-mc2-mux-t64-t128-t256/",
+  "base_archive": {
+    "name": "pi05-b580-ssog-a-mc2.tar.zst",
+    "bytes": 4174582105,
+    "sha256": "75faa985d62d03d4a2ffd91310c46be655b211b861fc0045f828de3893511d66"
+  },
+  "mux_overlay": {
+    "name": "pi05-ssog-a-mc2-mux-overlay.tar.zst",
+    "bytes": 330333353,
+    "sha256": "fd419f9fa98d306e24a73adefcd8e437418d0edbba8b53afe883c53cea0e3579"
+  },
+  "kernel_binary": {
+    "path": "muxfinal/bin/fused_mux_droid",
+    "windows": [64, 128, 256],
+    "bytes": 74802120,
+    "sha256": "db89756ca6b0451040cbbf6e3490d28606d5ed510de3d4cc371bfce3259d6edb"
+  },
+  "canonical_manifest_sha256": "0376a60ab7c1833c6dcdfa7bd04281a8c1f0a2804e8c45743738a2c5001ff103",
+  "target": {
+    "ssh": "sentradel@spring-20260923002126",
+    "install_path": "/home/sentradel/pi05-ssog-a-mc2-mux"
+  }
+}

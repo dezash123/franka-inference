@@ -1,0 +1,12 @@
+[Unit]
+Description=Rome Franka CPU and Ethernet scheduling
+Wants=network-online.target
+Requires=franka.slice
+After=network-online.target franka.slice
+Before=franka-ros-state.service
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/franka-realtime-setup
+RemainAfterExit=yes
+[Install]
+WantedBy=multi-user.target

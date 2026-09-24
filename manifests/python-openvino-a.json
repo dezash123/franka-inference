@@ -1,0 +1,22 @@
+[
+  {
+    "name": "numpy",
+    "version": "2.2.6"
+  },
+  {
+    "name": "openvino",
+    "version": "2026.3.1"
+  },
+  {
+    "name": "openvino-telemetry",
+    "version": "2025.2.0"
+  },
+  {
+    "name": "pip",
+    "version": "24.0"
+  },
+  {
+    "name": "safetensors",
+    "version": "0.8.0"
+  }
+]

@@ -1,0 +1,129 @@
+{
+  "policy": {
+    "config_name": "pi05_droid",
+    "checkpoint": "/home/spring/robo_run/checkpoints/pi05_droid_pytorch",
+    "device": "xpu",
+    "denoise_steps": 2,
+    "action_horizon": 15,
+    "control_hz": 60.0,
+    "host": "127.0.0.1",
+    "port": 8000,
+    "backend": "ssog_mc2",
+    "precision": "W8A8/W4A8",
+    "openvino_device": "GPU.0",
+    "openvino_model_directory": "openvino_fp16",
+    "execution_horizon": 5,
+    "external_view_selection": "uniform_random_camera_left_eye_per_inference"
+  },
+  "external_camera": {
+    "backend": "zed_uvc",
+    "serial": "39338267",
+    "eye": "left",
+    "width_per_eye": 672,
+    "height": 376,
+    "fps": 15,
+    "rotation_degrees": 0,
+    "calibration": "config/calibration/SN39338267.conf"
+  },
+  "wrist_camera": {
+    "backend": "zed_uvc",
+    "model": "ZED-M",
+    "serial": "12607895",
+    "eye": "left",
+    "width_per_eye": 1280,
+    "height": 720,
+    "fps": 15,
+    "rotation_degrees": 0,
+    "calibration": "config/calibration/SN12607895.conf",
+    "digital_zoom": 1.0
+  },
+  "robot": {
+    "serial": "309969-2662311",
+    "model": "fr3v2_1",
+    "joint_state_topic": "/franka/franka_robot_state_broadcaster/measured_joint_states",
+    "joints": [
+      "fr3v2_1_joint1",
+      "fr3v2_1_joint2",
+      "fr3v2_1_joint3",
+      "fr3v2_1_joint4",
+      "fr3v2_1_joint5",
+      "fr3v2_1_joint6",
+      "fr3v2_1_joint7"
+    ],
+    "gripper": {
+      "model": "Robotiq 2F-85",
+      "max_width_m": 0.085,
+      "verified": true,
+      "closure_convention": "0=open, 1=closed; 1 - measured_width / max_width",
+      "backend": "modbus_rtu",
+      "port": "/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_BG04SJCN-if00-port0",
+      "baud": 115200,
+      "slave_id": 9,
+      "position_register_open": 3,
+      "position_register_closed": 230
+    },
+    "motion_enabled": true,
+    "controller_validation_complete": true,
+    "validated_transport": "direct_libfranka_droid_hybrid_torque",
+    "execution_requires_explicit_cli_flag": true,
+    "task_success_verified": false,
+    "configured_transport": "direct_libfranka_droid_hybrid_torque",
+    "constraint_profile": "config/droid-fr3-active.json",
+    "tool_measurement": {
+      "flange_to_farthest_fingertip_m": 0.215,
+      "gripper_state": "closed",
+      "source": "user measurement",
+      "used_as_motion_boundary": false
+    },
+    "validation_receipt": "evidence/stream-policy-1790238680322140996.json"
+  },
+  "workspace": {
+    "type": "box",
+    "lower_m": [
+      -1,
+      -1,
+      -1
+    ],
+    "upper_m": [
+      1,
+      1,
+      1
+    ]
+  },
+  "freshness": {
+    "maximum_age_s": 0.25,
+    "maximum_pair_skew_s": 0.1
+  },
+  "task": {
+    "prompt": "pick up the markers and put them in the bowl"
+  },
+  "external_cameras": [
+    {
+      "backend": "zed_uvc",
+      "serial": "39338267",
+      "width_per_eye": 672,
+      "height": 376,
+      "fps": 15,
+      "rotation_degrees": 0,
+      "calibration": "config/calibration/SN39338267.conf",
+      "eyes": [
+        "left"
+      ]
+    }
+  ],
+  "external_cameras_disabled": [
+    {
+      "backend": "zed_uvc",
+      "serial": "37266581",
+      "width_per_eye": 672,
+      "height": 376,
+      "fps": 15,
+      "rotation_degrees": 0,
+      "calibration": "config/calibration/SN37266581.conf",
+      "eyes": [
+        "left"
+      ]
+    }
+  ],
+  "external_cameras_note": "2026-09-24: 37266581 taken out of the active set; both ZED 2i share the ASM1074 hub's single USB 2.0 upstream and cannot stream together (each is clean alone). Put it back in external_cameras once it has its own link."
+}

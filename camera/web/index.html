@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rome · Cameras</title>
+<style>
+:root{color-scheme:dark;font-family:system-ui,sans-serif;background:#0e131b;color:#edf1f7}*{box-sizing:border-box}body{margin:0;padding:30px;max-width:1700px;margin:auto}header{display:flex;justify-content:space-between;gap:20px;align-items:center;margin-bottom:25px}h1{font-size:28px;margin:0 0 7px;letter-spacing:-.5px}p{color:#a5b2c5;margin:0;line-height:1.5}.badge{padding:7px 12px;background:#18352e;color:#8ef1c6;border-radius:20px;white-space:nowrap;font-size:13px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(420px,100%),1fr));gap:22px}.card{background:#171f2b;border:1px solid #2a374b;border-radius:15px;overflow:hidden}.top,.bottom{padding:17px 20px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px}h2{font-size:18px;margin:0}.live{color:#8ef1c6;font-size:13px;white-space:nowrap}.feed{background:#080c12;min-height:180px;display:flex;align-items:center;justify-content:center}.feed img{display:block;width:100%;height:auto}.bottom{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}.buttons{display:flex;gap:6px}button,a{font:inherit;font-size:13px;color:#d5dfed;background:#253146;border:1px solid #344562;border-radius:7px;padding:7px 10px;text-decoration:none;cursor:pointer}button.active{background:#c4f4de;color:#10241d;border-color:#c4f4de}.detail{font-size:12px;color:#a5b2c5}.warning{padding:12px 20px;background:#42361b;color:#ffe2a0;font-size:13px;line-height:1.4}.empty{border:1px dashed #3a475b;padding:45px;border-radius:14px;text-align:center}footer{margin-top:22px;font-size:13px;color:#8594aa}.error{color:#ffadad}
+</style>
+<header><div><h1>Rome · Cameras</h1><p>Live external and wrist camera feeds</p></div><span class="badge" id="summary">Connecting…</span></header>
+<main class="grid" id="cameras"></main><p id="empty" class="empty">Waiting for a supported video camera. Connected cameras appear automatically.</p>
+<footer>Color preview only. ZED left and right views are the physical stereo eyes; RealSense shows its full color image. No robot motion or video recording.</footer>
+<script>
+const cards = new Map();
+let disconnected = false;
+const labels = {left:'Left eye', right:'Right eye', stereo:'Stereo pair', color:'Color'};
+function source(id, eye) {
+  return `/stream.mjpg?camera=${encodeURIComponent(id)}&eye=${encodeURIComponent(eye)}`;
+}
+function remove(id, v) { v.img.src=''; v.card.remove(); cards.delete(id); }
+function add(c) {
+  const card = document.createElement('section');
+  card.className = 'card';
+  card.innerHTML = '<div class="top"><h2></h2><span class="live">Connecting</span></div><div class="feed"><img alt="Live camera feed"></div><div class="bottom"><div class="buttons"></div><span class="detail"></span><a target="_blank">Snapshot</a></div><div class="warning" hidden></div><div class="detail integrity" style="padding:0 20px 14px"></div>';
+  let eye = c.default_view;
+  const img = card.querySelector('img');
+  const buttons = card.querySelector('.buttons');
+  function connect() {
+    img.src = source(c.id, eye)+'&t='+Date.now();
+    card.querySelector('a').href = `/snapshot.jpg?camera=${encodeURIComponent(c.id)}&eye=${encodeURIComponent(eye)}`;
+  }
+  for (const mode of c.views) {
+    const b = document.createElement('button');
+    b.textContent = labels[mode] || mode;
+    b.classList.toggle('active', mode===eye);
+    b.onclick = () => {
+      eye = mode;
+      for (const x of buttons.children) x.classList.toggle('active', x===b);
+      connect();
+    };
+    buttons.append(b);
+  }
+  img.onerror = () => setTimeout(() => { if (card.isConnected) connect(); }, 2000);
+  document.querySelector('#cameras').append(card);
+  connect();
+  const value = {card, img, reconnect:connect, signature:c.model+'/'+c.views.join(','), lastFrameCount:0};
+  cards.set(c.id, value);
+  return value;
+}
+async function refresh() {
+  try {
+    const response = await fetch('/api/status', {cache:'no-store'});
+    if (!response.ok) throw Error('Viewer unavailable');
+    const {cameras} = await response.json();
+    const seen = new Set(cameras.map(c=>c.id));
+    for (const [id,v] of cards) if (!seen.has(id)) remove(id,v);
+    let healthy = 0;
+    for (const c of cameras) {
+      let v = cards.get(c.id);
+      if (v && v.signature!==c.model+'/'+c.views.join(',')) { remove(c.id,v); v=null; }
+      v = v || add(c);
+      v.card.querySelector('h2').textContent = (c.role==='wrist'?'Wrist · ':'External · ')+c.model+(c.serial?' · '+c.serial:'');
+      const state = v.card.querySelector('.live');
+      state.textContent = c.healthy ? `● Live · ${c.fps.toFixed(1)} fps` : '● '+(c.error||'Waiting for frames');
+      state.classList.toggle('error', !c.healthy);
+      if (c.healthy) healthy++;
+      if (disconnected || c.frame_count<v.lastFrameCount) v.reconnect();
+      v.lastFrameCount = c.frame_count;
+      const integrity = v.card.querySelector('.integrity');
+      integrity.textContent = `USB frames rejected: ${c.rejected_frames||0} · Capture gaps: ${c.sequence_gaps||0}`+(c.recent_corruption?' · Recent USB corruption detected':'');
+      integrity.classList.toggle('error', !!c.recent_corruption);
+      const dimensions = c.layout==='stereo_pair' ? `${c.width/2} × ${c.height} per eye` : `${c.width} × ${c.height} color`;
+      v.card.querySelector('.bottom .detail').textContent = `${dimensions} · USB ${c.usb_speed_mbps>=5000?'3':'2'}`;
+      const warning = v.card.querySelector('.warning');
+      warning.hidden = c.usb_speed_mbps>=5000;
+      warning.textContent = 'USB 2 connection · Lower-resolution preview. Use a USB 3 cable and port for HD capture.';
+    }
+    document.querySelector('#empty').hidden = cameras.length>0;
+    document.querySelector('#summary').textContent = `${healthy} / ${cameras.length} cameras live`;
+    disconnected = false;
+  } catch (e) {
+    disconnected = true;
+    document.querySelector('#summary').textContent = 'Connection lost — retrying';
+    for (const v of cards.values()) {
+      v.card.querySelector('.live').textContent = '● Connection lost';
+      v.card.querySelector('.live').classList.add('error');
+    }
+  }
+  setTimeout(refresh,1000);
+}
+refresh();
+</script></html>

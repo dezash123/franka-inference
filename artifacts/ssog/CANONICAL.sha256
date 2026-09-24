@@ -1,0 +1,541 @@
+# campaign13 canonical build inputs for fused.cpp / mega_real. FULL sha256.
+# 2026-09-19 r2: peer/prefix_stage.hpp -> 1e7cd3e2 (MbcPrefixAttn's config-B regions
+#   rebased on 42234ff2 by him; a no-flag build is 42234ff2 behaviour bit-for-bit),
+#   peer/siglip.hpp -> 6c93158b (MegaPrefix's fc2 flags 966b217f + MegaTower's SG_EPI2;
+#   all default OFF), src/fused.cpp -> config B behind -DPI05_CFGB_ATTN=1, default 0.
+# MEASURED COST OF THIS INSTALL WITH EVERY FLAG OFF: +0.104 ms of chunk (20.799 ->
+# r4: MegaSched's accepted gate|up quantization-group widening (c576/c320
+#   gu_gn=32, gu_qg=0 -> chunk 512).  Integrated chain digit re-pinned:
+#   6.3004e-03 for r4 with no SG_* flags, 6.8903e-03 with the SG_EPI2/APF/SLMFIT
+#   stack; e2e 20.509 / 20.423 ms (rafael, n=100, --graph 6, one session).
+# r5: the chunk's expert node becomes MegaCore's phase-table megakernel + his
+#   idle-workgroup L2 prefetch, behind -DPI05_MEGA_EXPERT=1 (default 0, so an r4
+#   build instantiates none of it and stays byte-identical -- campaign Rule 1).
+#   Six mega headers added as build inputs.  mega_expert_stage.hpp is MegaCore's
+#   743f707c + a 4-line fix by MegaTower: MegaPlan::build() waits, and fused.cpp's
+#   first call happens while the queue is RECORDING a graph, which SYCL forbids
+#   ('wait method cannot be used for an event associated with a command graph');
+#   the plan is now built on a throwaway in-order queue on the same context.
+# r6: MegaSched's `down` weight-panel 64 B stride pad (PFX_DNPAD=16; kernel half in
+#   peer/prefix_stage.hpp 4e83b40c = canonical 1e7cd3e2 + his diff, merged by
+#   MegaPrefix from the canonical and compile-verified at PFX_DNPAD 0 and 1) plus
+#   MegaCore's mega_expert_stage_prepare() (peer/mega_expert_stage.hpp f22cd87c),
+#   which moves the phase-table build out of the lazy first-call path into setup.
+#   rafael, one session, n=100, --graph 6: r5 19.936/19.957 -> r6 19.807/19.825,
+#   -0.131 ms, gate digit- AND max_abs-identical (6.8903e-03 / 2.3996e-02).
+#   Deliberately-broken control (-DPFX_DNPAD_HOSTOFF) gates 6.8469e-02 with a 56th
+#   binding failure, which proves the flag is in the binary and the A/B is real.
+# r7: ONE recorded graph is now the DEFAULT in fused.cpp (--graph 1; --graph 0 = eager,
+#   --stages falls back to eager because a replay gives one event per submission, not
+#   per kernel) and reproduce_fused.sh passes it on the gate and bench lines.  Pure
+#   submission structure: rafael, one session, gate identical on every row,
+#   graph 1 19.642/19.648/19.626 | 6 19.814/19.825 | 20 20.202 = 29.3 us per graph
+#   submission (MegaSched measured 27.8 on alex-demren over 1..91).  Control: the r6
+#   BINARY run at --graph 1 gives 19.624, i.e. r7 changes argv defaults only.
+#   Soak: 600 consecutive single-graph replays, median 19.651 p95 19.679, gate clean.
+# r8: peer/prefix_stage.hpp -> cde2de16 (MegaPrefix's PFX_GU_PERSIST: persistent
+#   grid-strided gate|up with the epilogue store pipelined into the next tile's dpas
+#   chain), header-only, no host half.  rafael, two sessions, rows interleaved, n=100,
+#   graph=1: canon 19.632/19.642 | flag-off 19.631/19.644 | ON 19.531/19.536/19.532 =
+#   -0.104 ms, gate 6.8903e-03 / max_abs 2.3996e-02 identical on every row.
+#   Rule A: the flag-off binary is TIME-neutral vs a 4e83b40c build (<=0.01 ms, two
+#   interleaved pairs) but NOT byte-identical (md5 067b3a6e vs a5fcaf41) -- reported.
+# r9: peer/mega.hpp -> 3e2da9ca + NEW input peer/mega_kdb.hpp 8194cdf2 (ExpertKLoop's
+#   k-loop W/A register double-buffering, MEGA_KDB=2, per-phase mask 0xB = qkv+o-proj
+#   +down, gate|up deliberately excluded: its own phase wins but the image pays +0.37).
+#   rafael chain, one session interleaved, n=100, graph=1: r8 19.520/19.525 | flag-off
+#   19.524/19.529 | ON 19.451/19.460 = -0.069 ms, bit-exact (gate 6.8903e-03 /
+#   2.3996e-02 on every row).  MUST-FAIL CONTROL -DMEGA_KDB_BROKEN=1 -> chain
+#   6.6788e-02, max_abs 2.5119e-01, 56 binding failures.  Slice deltas agree on three
+#   boxes: -0.078 alex-demren, -0.079 sleepy-joe, -0.069 rafael (MegaCore's repeat).
+#   Rule A here is the DEVICE check (identical K_mega.asm + IGC hash 81557ba8): the
+#   HOST binary cannot match, SYCL's code_location bakes __builtin_LINE() into every
+#   submit site, so any header edit above a kernel shifts it (ExpertKLoop's -E diff:
+#   one token, 'return 686;' -> 'return 755;').  Measured time-neutral: 19.524 vs 19.520.
+# r10: peer/prefix_stage.hpp -> eb6c2f2f (PrefixQkvDown's K_qkv prefetch pair, PFD=2/AKD=64,
+#   reproduced here by running his applier against canonical cde2de16) and peer/mega.hpp ->
+#   b08ba14c (MegaCore's attention lift out of pinned expert.hpp + down's 4 idle workgroups
+#   streaming the NEXT layer's qkv panel into L2).  rafael, ONE session, 8 rows interleaved,
+#   n=100, graph=1, gate 6.8903e-03 / 2.3996e-02 on every row (both parts bit-exact):
+#     r9 19.454 | +qkv 19.421/19.429 | bundle-header flags-OFF 19.417 (time-neutral) |
+#     +lift+pfwg 19.343/19.347 | falsifier MEGA_PFWG_DOWN=2 19.400 (back on baseline)
+#   = -0.109 ms total (-0.029 qkv, -0.078 lift+prefetch).  Controls: no must-fail twin is
+#   possible for a prefetch (it stores nothing), so both halves shipped must-DIFFER
+#   falsifiers that remove only the mechanism - =2 streams THIS layer's panel, which is
+#   already resident, same instructions and bytes, and the win disappears.
+# r11: peer/mega.hpp -> 1cc3a1d5 (MegaCore's MEGA_PFWG_DN3: this layer's down panel as a
+#   THIRD prefetch target in the attention window - down was the last cold phase at
+#   211 GB/s) and peer/siglip.hpp -> 1fdc3fe3 (MegaSched's wl1.patch on 6c93158b, adds
+#   SG_WL1_QKV/SG_WL1_O defaulting to SG_WL1; -DSG_WL1_QKV=0 drops the L1 hint on the
+#   3.98 MiB qkv weight panel that was evicting the re-read A panel).  BOTH shas were
+#   reproduced here by applying the senders' patches to the canonical files.
+#   rafael, ONE session, 9 rows interleaved, n=100, graph=1, gate 6.8903e-03 /
+#   2.3996e-02 / 55 on every row (both changes bit-exact / cache-only):
+#     r10 19.346/19.347 | +DN3 19.137/19.153 | +DN3+WL1 19.121/19.147
+#     falsifier MEGA_PFWG_KIB=6400 (truncates down out of the window) 19.233
+#     WL1 in isolation: off 19.344 vs on 19.334
+#   = -0.213 ms (-0.201 DN3, -0.011 WL1 - at resolution, ridden not signed alone).
+# INTEGRATED BUILD FLAGS for the chunk number (PI05_XFLAGS, config A):
+#   -DEX_SCBF16=0 -DPI05_MEGA_EXPERT=1 -DSG_EPI2=1 -DSG_APF=1 -DSG_SLMFIT=1
+#   -DSG_WL1_AGRP=0 -DSG_WL1_QKV=0 -DPFX_DNPAD=16 -DPFX_GU_PERSIST=1
+#   -DMEGA_KDB=2 -DPFX_QKV_PFD=2 -DPFX_QKV_AKD=64 -DMEGA_ATTN_LIFT=1
+#   -DMEGA_PFWG_DOWN=1 -DMEGA_PFWG_DN3=1 -DPFX_GU_FINE=1
+# MACHINE-READABLE FLAG FIELD (MegaSched's request, 2026-09-19): consumers MUST match the
+# exact prefix `#XFLAGS:` and take the remainder of THAT ONE LINE verbatim.  Prose above
+# and below may mention any flag it likes; a flag mentioned in a comment can then never
+# become a flag in a build, which is what a range/`grep -oE` parser cannot guarantee.
+#XFLAGS: -DEX_SCBF16=0 -DPI05_MEGA_EXPERT=1 -DSG_EPI2=1 -DSG_APF=1 -DSG_SLMFIT=1 -DSG_WL1_AGRP=0 -DSG_WL1_QKV=0 -DPFX_DNPAD=16 -DPFX_GU_PERSIST=1 -DMEGA_KDB=2 -DPFX_QKV_PFD=2 -DPFX_QKV_AKD=64 -DMEGA_ATTN_LIFT=1 -DMEGA_PFWG_DOWN=1 -DMEGA_PFWG_DN3=1 -DPFX_GU_FINE=1 -DPFX_PRUNE_LAYER=0 -DPFX_MID_KEEP=192 -DPFX_MID_ALLOC=1 -DPFX_DYN_KEEP=1 -DPFX_SALIENCY=2 -DPFX_MID_DYN=2 -DPFX_SCORE_WG=2 -DPFX_POST_KEEP=96 -DPFX_PFD=2
+# 2026-09-19 measurement hygiene (MegaTower, rules for reading every row in this file):
+#   * A gated+timed run is +0.211 ms slower than the SAME BINARY timed alone (18.598 bench-only
+#     vs 18.809 --validate --bench, three interleaved reps, spread 0.006).  Split by
+#     -DPFX_VALALLOC=1 (allocate the ~100 MiB of validate-only fp32 dump buffers and never
+#     validate): footprint 0.144, the validation pass itself 0.067.  The deployable number is
+#     the bench-only one; gate in one invocation and time in another.
+#   * There is NO warm-up effect on this part: fresh containers read 18.598/18.597/18.600/18.599
+#     four runs deep, and soak length is worth +0.02 from n=100 to n=1500.
+#   * Placement is worth up to 0.097 ms: -DPFX_ARENA_SKEW=<bytes> (burn N bytes at the front of
+#     the arena, never touched) sweeps 18.582 at 16 MiB to 18.679 at 256 KiB.  No skew is pinned
+#     -- the curve moves whenever an allocation does -- but any single-arm claim below ~0.1 ms
+#     must control for it.  r6's pad passes that control: pad on 18.599, pad off 18.668, pad off
+#     + an equal-sized front skew 18.689, so the pad's win is a stride effect and not an address
+#     shift (MegaSched's isolated down GEMM agrees: 1.2-1.5 %, masked but not redundant).
+# 2026-09-19 r15b: the two cuts in ONE node (PFX_MID_DYN=2).  One ranking pass per camera
+#   serves both budgets and writes both index vectors; the second top-k, the O(MIDV) index
+#   search and the containment counter are all gone, because a token kept at TKEEP has rank
+#   < TKEEP <= MIDV and its mid coordinate IS the first cut's compaction counter.  The two
+#   compaction offsets come from group scans rather than per-item "sum the flags below me"
+#   loops.  370 launches, 18.596 vs mode 1's 18.633/18.643 and r14's 18.495/18.509 in the same
+#   interleaved session; same index-for-index acceptance, same digit.
+#   Cost split by ablation (-DPFX_NOSCORE=1, a pricing knob whose keep set is meaningless):
+#   DPAS score + reduce = 0.035 ms, selector + both stages' tables = 0.055 ms.
+# 2026-09-19 r15 (MegaTower): the hybrid's BOTH cuts are now produced ON DEVICE from one
+#   score, so the chunk is ARGUMENT-FREE again -- no --mid-keep/--post-keep, nothing uploaded
+#   per observation.  Seven graph nodes (score DPAS + reduce, top-192/cam, top-128/cam of the
+#   same score, the two index vectors, and both stages' RoPE/kmask tables), 372 launches,
+#   +0.130 ms over r14's host-uploaded sets (18.630/18.639 vs 18.497/18.510, interleaved).
+#   ACCEPTANCE: with the keep files supplied for comparison the device's own vectors are
+#   index-for-index IDENTICAL to them -- `[midsel] dmid==host 1 (448 of 448), dpost==host 1,
+#   containment violations=0` -- and the chain digit is the same 6.5938e-03 with the files
+#   absent, which is what proves the device selection IS the gated selection.
+#   r14 (host-uploaded keep sets, 365 launches, 18.51) is reproducible with:
+#     PI05_XFLAGS="-DEX_SCBF16=0 -DPI05_MEGA_EXPERT=1 -DSG_EPI2=1 -DSG_APF=1 -DSG_SLMFIT=1 -DSG_WL1_AGRP=0 -DSG_WL1_QKV=0 -DPFX_DNPAD=16 -DPFX_GU_PERSIST=1 -DMEGA_KDB=2 -DPFX_QKV_PFD=2 -DPFX_QKV_AKD=64 -DMEGA_ATTN_LIFT=1 -DMEGA_PFWG_DOWN=1 -DMEGA_PFWG_DN3=1 -DPFX_GU_FINE=1 -DPFX_PRUNE_LAYER=0 -DPFX_MID_KEEP=192 -DPFX_MID_ALLOC=1"
+#   plus --mid-keep/--post-keep; it is the faster row but it is not deployable.
+# 2026-09-19 r14 (MegaTower + MegaPrefix): the HYBRID prune schedule is now the shipped
+#   geometry -- 192 visual tokens/camera kept from Gemma layer 0 (a 448-row mid stream for
+#   layers 0..2) and the layer-0 score's top-128/camera thereafter (320 rows, layers 3..17).
+#   18.515 ms against r13's 18.978 in the same interleaved session (-0.463; three reps each,
+#   spread 0.005), 1500-replay soak clean, chain digit RE-PINNED to 6.5938e-03 against the
+#   two-stage reference share/ref/case2_hybrid192_128{,_w4}.
+#   Also in r14: `down`'s weight-panel pad stride is now DATA (`pfx::LayerW::dn_pad`), so the
+#   mid layers pack plain (dp_pf = 0 inverts deep prefetch at 448) while the 15 post layers
+#   keep r6's pad -- worth 0.079 ms, measured, and NOT retired.  peer/prefix_stage.hpp
+#   46045985 fixes the three `down` paths that ignored the pad entirely; the must-fail control
+#   is `pad on + dp_pf = 0` (1.0368e-01 on the old header, 6.5938e-03 on the new one).
+#   The default REQUIRES --mid-keep/--post-keep until the two-stage device selector lands.
+# TOOLING PINNED TOO (MegaPrefix, 2026-09-19): mbc's build_fused.sh was a FORK
+#   (52b2a70a vs 983cea8f) with NO XFLAGS handling at all, so every flag A/B of the
+#   chunk built on that box produced two byte-identical binaries and read as a clean
+#   null.  The manifest pinned the sources and not the script that compiles them, so
+#   sync_check could not see it.  build_fused.sh / reproduce_fused.sh / sync_check.sh
+#   are now manifest inputs: 16 entries.  (build_fused.sh also no longer defaults
+#   PI05_SHARE to the container path -- pass it explicitly.)
+# r12 CANDIDATE, not the default: src/fused.cpp -> 61e4af5f adds MegaPrefix's file-scope
+#   PFX_PRUNE_LAYER knob, default -1 = the shipped graph, so an unflagged build is the r11
+#   configuration.  -DPFX_PRUNE_LAYER=0 prices prune-at-layer-0: 18.08 ms vs 19.14, chain
+#   digit 7.3524e-03 = 1.067x the pin (inside the 1.5x window), 1500-replay soak clean,
+#   gated by a two-reference cross-matrix (Mega/RESULTS-MegaTower.md 28).  It prices the
+#   GEOMETRY at the frozen keep set; the selector-set gate follows.
+# DEPLOYABLE-PATH FLAGS (both default OFF, so the unflagged build is still r11):
+#   PFX_DYN_KEEP=1  device keep set + device RoPE/kmask rebuild as their own node;
+#     digit IDENTICAL to the uploaded-table path (the tables are GATHERED from a
+#     per-position bank built once by the host, never recomputed on device).
+#   PFX_SELECTOR=1  MegaPrefix's fused FastV node (Mega/src/mega_prune_sel.hpp
+#     af79188d, needs -I campaign13/Mega/src); #errors without PFX_DYN_KEEP.  Its
+#     score is a STAND-IN, so its gate fails by construction until the real saliency
+#     lands -- it prices the mechanism, not the selection.
+#   Measured (rafael, n=100, graph=1): static keep 18.076/18.089 (361 launches),
+#     +dyn keep+tables 18.049/18.067 (363), +selector 18.015/18.025 (363).
+# MEASUREMENT HOOKS in src/fused.cpp, all default-off or argv-only:
+#   --sg-layers N   stop the tower after N encoder layers (device side of the
+#     layer-by-layer comparison against the numpy emulation, RESULTS 30)
+#   --dump-keep P   write the device keep set, score, last-layer q/k and the tower's
+#     post-LN tokens, for index-set equality and the drift table
+#   PFX_SALIENCY=1  the real layer-0 saliency, scalar reference form (correct, 2.70 ms)
+#   PFX_SALIENCY=2  the same on DPAS: 0.093 ms, keep set BYTE-IDENTICAL to mode 1,
+#     score within 5.0e-08 relative.  Deployable r12 = 18.15 ms (RESULTS 29.3).
+#   --qk-frames <list> --qk-out <prefix>  tower-only q/k dump for externally supplied
+#     pixels, one process per N frames; acceptance test is a cmp against the in-graph
+#     dump (a private bf16 rounding broke that once -- use pi05rt f2bf).
+#   PFX_MID_KEEP=N  the HYBRID schedule: N visual tokens/camera from layer 0 (a 448-row
+#     mid stream at N=192) then the existing layer-KPRUNE cut to TKEEP.  Needs
+#     --mid-keep <npy> and refuses without it.  Measured 18.81 ms vs 19.145 shipped and
+#     18.090 for flat prune-at-0; PFX_MID_TILES=1 (borrow the M=320 tiles) REFUSES at
+#     MP=448.  Its digit is NOT a gate until a two-stage reference exists (RESULTS 31).
+# r13: -DPFX_GU_FINE=1 -- MegaPrefix's finer gate|up grid (chunk 256 instead of 1024,
+#   gu_mt 8 / gu_nj 2 / gu_gm 1 / gu_gn 16 at BOTH shapes).  A numerics change, so it
+#   went through the full-chain window against the PINNED digit per Main's ruling (2):
+#   actions.out(w4) 6.6410e-03 against 6.8903e-03 = 0.96x, BETTER, 55 binding failures,
+#   so ACCEPTED and the chain digit is re-pinned at 6.6410e-03 / max_abs 2.5072e-02.
+#   rafael, interleaved, n=100: 19.119 / 19.118 against r11's 19.146 / 19.147 = -0.028 ms
+#   (his -0.154/layer was measured at 448 rows; at the shipped 576/320 shapes the gate|up
+#   tiles were already swept, so the time is small and the accuracy gain is the point).
+# NEW PINNED CHAIN DIGIT: 6.6410e-03, max_abs 2.5072e-02, 55 binding failures.
+# 2026-09-19 r13b: src/fused.cpp re-pinned after the hybrid bisection added measurement
+#   hooks and knobs -- all default-off or argv-only, and the unflagged build is still
+#   r13 (verified: 19.109 ms, digit 6.6410e-03).  New since the last pin: the fp32
+#   per-layer dump (--dump-keep also writes d_play, at8/ats, h8/hs/hrow, the mid
+#   residual), PFX_MID_ALLOC / PFX_MID_MP / PFX_MID_DN / PFX_MID_ATTN, the effective
+#   mid-cfg print, hybrid-aware --inject with shape checks, and --post-keep.
+# 2026-09-21 ssog-A-mc2 (MegaTower2): the VLA-Pruner ON DEVICE at the source placement.  Four
+#   inputs move, every one default-OFF so the unflagged build is the r17 row:
+#   peer/prefix_stage.hpp -> c29a9180 (MegaPrefix: aa9ab597 = canonical 69f1dda8 + the layer-1
+#     semantic epilogue, + the pass-A lever behind PFX_SEM_PASSA; attn.out 2.1328e-04 on both
+#     arms, attn.sem 5.0e-06 at nq 576 and 558), peer/mega.hpp -> 63c66716 and
+#     peer/mega_args_expert.hpp -> f37da18e (MegaCore: canonical + MEGA_PRUNE_ACC, the five arg
+#     fields gated so sizeof(MegaArgs) is canonical without the flag; off arm bit-exact
+#     0/1382400 and 5.798e-03 like pristine), peer/vp_select.hpp (new: the selector nodes),
+#     src/fused.cpp -> PFX_VLAP mode (+ two harness fixes: null-data() guard on refs without
+#     siglip.out, K_attn for the epilogue layer).
+#   The r17 default row WAS re-received after this install (MegaTower3, 2026-09-21,
+#   reproduce_box.sh rafael, checkpoint B weights, ref_hyb96): binary 2ddc01c42f6fa76c, chain
+#   6.8120e-03 / max_abs 3.0311e-02 PASS -- the pinned digit to every figure -- 17.894 ms n=200;
+#   sleepy-joe GPU1 n=1500 soak of the two ssog-A binaries: m2pa1 16.999/17.035, vlap 19.321/19.321.
+# 2026-09-21 MegaTower3: -DPI05_PATCH_BF16=1 ADDED TO THE ssog-A-mc2 LINE.  Without it the loader
+#   dequantises weights-A's served=false `siglip.patch_embed.w_int8` twin (pi05ref.hpp:243-258;
+#   the A-ledger rows were measured WITH the flag but it never entered a manifest line), and the
+#   tower is 0.33 rel-L2 from BOTH ref_model and the served torch stack on a real DROID frame
+#   (acc_A/s00: proj.out 3.2944e-01 diffuse over 505/512 tokens; classical tower 3.2829e-01, so
+#   a weight-path defect, not a kernel).  With the flag: proj.out 1.7094e-02 vs ref_model,
+#   1.7331e-02 vs torch (their mutual distance 1.70e-02).  The #XFLAGS default row runs on
+#   checkpoint B (`--weights $S/weights`, whose IR contract IS the int8 conv), so its digit
+#   stands; ANY build on weights-A must carry the flag.  MegaTower2's "tower 0.32 at proj.out"
+#   and the 1.0917e-01 devkeep chain were this defect.  fused.cpp prints the path it took.
+#   src/fused.cpp also gains --acc-out <dir> (device-accuracy mode: run the timed graph once,
+#   dump actions.device.npy + the ring/keep/semantic/estimate, rel-L2 vs every
+#   actions.<ref>.npy in the case dir) driven by acc_run.sh / acc_report.py (RESULTS 0a-sexies).
+#   MANIFEST LINE ssog-A-mc2 (sleepy-joe GPU1 n=1500: 17.024/17.032 with PASSA before the
+#   patch flag; re-timed after it in RESULTS 0a-sexies):
+#   + SG_GUNR=1 (TowerGemm, peer/siglip.hpp -> b936fbd7, default-off, tower output bit-identical, -0.15 in the chunk: 16.870/16.870 vs 17.020 sleepy-joe card1 n=1500)
+# 2026-09-21 MegaTower4 re-pin (RESULTS 0a-septies / 0a-octies).  src/fused.cpp: (1) THE A+MC2 CONDITIONING FIX --
+#   the PI05_MC2 block overrode the A-contract host fold with share/ref/cond_mc2, whose step0 rows equal
+#   cond/step0 bit-for-bit = checkpoint B's adaRMS modulation; every A+MC2 build ran the expert under it
+#   (expert.step0.layer0 3.0e-01 at identical selection; 7.4e-03 after).  A keeps the host fold, B keeps
+#   cond_mc2.  (2) harness: --keep-force, pad-row masking in prefix/kv digits, step-0 expert at every
+#   layer, --dump-keep writes the expert tensors, tower/prefix --stages buckets split (sg./pfx.).
+#   (3) SelectorFast behind VP_FAST (peer/vp_fast.hpp fb8224c1), InChunkAnomalies' o-proj prefetch twin
+#   behind IC_OP_PF, ChunkGlue's folds behind CG_GLUE (patch applied on 1a0956db; default 0, NOT yet timed
+#   here -- his in-chunk -0.05 on mbc, gate byte-identical; next rung).  peer/siglip.hpp -> 84c0217c =
+#   TowerEpilogues rung 3 (b0bbfec4 on 1b2b89c2) + TowerAttention's TA_VPIPE patch; peer/prefix_stage.hpp
+#   -> PrefixAttnSLM on c29a9180 (+ attn5.hpp/attn6.hpp beside it; the never-launched K_attn6<0,10,2> that
+#   spilled 512 B dropped); peer/mega.hpp -> 78f1a377 = 63c66716 + ExpertOverlap's MEGA_ATTN_PVSUF.
+#   Every knob default-off.  MEASURED (sleepy-joe card1, both locks, arms interleaved, n=1500, base
+#   17.051/17.114): TG2+TF -0.26 | PFX_PG -0.39 (equal-footprint control +0.02) | VP_FAST -0.10 (keep set
+#   EQUAL to the old chain on hist3 and s00) | TA_VPIPE -0.08 | TE -0.12 | PVSUF / ATTN_SLM / IC_OP_PF at
+#   resolution alone, ablation all-minus-one +0.05/+0.02/+0.02 | ALL = 15.882/15.883 (matrix) and
+#   15.872/15.899 (ablation session) = -1.20 ms.  Gate on every arm: s00 devkeep (identical selection,
+#   pad rows masked) 2.6835e-02 and hist3 2.8594e-02 character-identical to base, keep sets identical;
+#   TE (tower 1-ulp class) 2.2206e-02 / 2.5259e-02, better on both, s00 keep unchanged.  The line below
+#   is the ALL arm; 15.88 was measured from fused.cpp 1a0956db (= this file minus the default-off CG_GLUE
+#   blocks); MegaCore's independent reproduction from THIS pinned tree on mbc is the ship condition.
+#   ACCURACY LABEL (0a-octies): chain 2.1e-02 at identical selection (synthetic, injected) / 2.3-2.7e-02
+#   real frames; 40-sample mc2 cold vs configAmc2_torch 0.0484 / first-8 0.1778; vs dense10 0.0704 /
+#   0.2780 / worst 0.2579 = 1.37x/1.42x/1.78x of the torch MC2 stack, two outliers (s04, s38) open.
+# 2026-09-21 MegaTower5 (RESULTS 0a-nonies): -DCG_GLUE=3 ADDED TO THE ssog-A-mc2 LINE (ChunkGlue's node folds,
+#   already in fused.cpp 28a9bef1 default-off; no input sha moves).  sleepy-joe card1, both locks, two sessions of
+#   three interleaved n=1500 rounds in BOTH orders: line 15.803/15.890/15.898/15.888/15.887/15.898 vs +CG_GLUE=3
+#   15.817/15.830/15.821/15.777/15.820/15.824 = -0.07 ms here; MegaCore on mbc, paired order-balanced, -0.052 mean /
+#   -0.044 median, 5/5 pairs non-positive: ON THE LINE AS "-0.04..-0.07, direction confirmed on two cards" (launches 375 -> 368); CG_GLUE_EMBED=0 (the K_sem_nk hoist
+#   alone) 15.840/15.840/15.832.  Gate: s00 devkeep (keep-force) 2.2206e-02 and hist3 2.5259e-02 character-identical,
+#   and act/keep/sem/pool/estimate/exlayer/exvel dumps cmp-EQUAL to the line's on both refs (pacc, the float-atomic
+#   accumulator, differs at 1e-07 relative between two runs of the SAME binary and is not a byte instrument).
+#   MegaCore's mbc reproduction of the 14-rung line (base 16.717/16.723 -> all 15.521/15.517, digits identical to four
+#   figures) is on record in Mega/RESULTS.md 12; his qualification is now RESULTS 0d rule 15: on a real-frame reference
+#   the gate is the corridor (<= 1.5x torch-vs-numpy on that reference), and the 2e-02 validator tolerance is not it.
+# 2026-09-21 MegaTower5 re-pin 2 (RESULTS 0a-nonies, --serve): src/fused.cpp gains --serve, the RESIDENT policy
+#   server for SpriliCim's B580 evaluation (JSON lines on stdin/stdout; per-chunk text_valid through in-place
+#   rewrites of the five text_valid-dependent device tables + one cached recorded graph per distinct text_valid;
+#   per-episode pruner rings carried as fp32 host copies exactly as acc_run.sh carries them).  Gate: acc_A
+#   s00..s07 through one process with two interleaved episodes = 12/12 actions byte-identical to the --acc-out
+#   cold pass of the same binary; s00 byte-identical on sleepy-joe card0/card1, mbc, rafael (fused.serve md5
+#   87cf1bfac099196152a455cf1b0b50a5 was built from THIS fused.cpp on the pre-patch headers below).
+#   peer/expert.hpp -> 40aa40e4 and peer/mega.hpp -> 9eecb641 = canonical 44bee1fe / 78f1a377 + MegaCore's
+#   score-row tail pad clamp (Mega/handoff_expert_pad_clamp.patch): at TP=320 SPAD is true, width 48, offset
+#   336 -- character-identical to the original (his control: layers 0/1382400 words differ, 5.798e-03); at
+#   TP=576 (the unpruned warm-up chunk) the old width was -208 and the TU was rejected.  Enables the TP=576
+#   warm-up build (-DPI05_TKEEP=512 -DMEGA_ATTN2=4 -DMEGA_SPLIT_LOCAL=1, MegaCore, gate pending).
+# 2026-09-22 HcTowerExpert (evidence/hc-towerexpert-20260922/RESULTS.md 2g): -DSG_LNQ_GB=3 ADDED TO THE
+#   ssog-A-mc2 LINE.  peer/siglip.hpp, K_lnq only: the per-column gamma/beta pair is loaded at the TOP of the
+#   kernel (before the row loads and before the reduction) instead of being re-fetched inside the tile loop,
+#   where the two 512 B messages sat on the epilogue's dependency chain once per (row, c) tile.  Instrument
+#   that found it: SG_LNQ_TWIN (wrong output by construction, default 0) -- deleting the LN arithmetic is
+#   -0.235 ms of node and deleting ONLY the gamma/beta loads is -0.166, i.e. 70 % of the bound is the fetch.
+#   sg.ln 0.475 -> 0.389 ms.  Chunk, sleepy-joe card1, canonical stack, n=1500, three rounds in each order,
+#   arms interleaved, 368 launches: T=64 15.909 -> 15.828 (-0.081, 6/6 paired negative, 5x the within-arm
+#   spread 0.016/0.011) and T=128 19.640 -> 19.554 (-0.086, 6/6, 17x the spread).  Second card and second
+#   geometry (LiberoHc14, rafael, AT=10, S5 snapshot): -0.036, 4/4 paired negative in both orders -- direction
+#   travels, magnitude is quoted per card (0d rule 17).
+#   GATE: bit-identical on TWO checkpoints and FIVE comparators -- T=64 s00 devkeep 2.2206e-02 / max_abs
+#   8.1872e-02 / keep EQUAL 256/256 P=426 / sem_nk 570/570, hist3 keep-forced 3.3697e-02, hist3 ring
+#   2.5259e-02 with keep DIFFER 226/256, proj.out 1.7326e-02 and siglip.out 4.1057e-02, T=128 s00 devkeep
+#   2.3183e-02, LiberoHc14's AT=10 real LIBERO frames 2.8652e-02 / 2.4291e-02 / 2.6172e-02 and his AT=15
+#   DROID devkeep with the flag compiled ON 2.2206e-02 / 8.1872e-02 / P=426.
+#   THE FIRST FORM IS VOID: -DSG_LNQ_GB=2 (sg.ln 0.372, -0.103, and -0.047 in LiberoHc14's AT=10 chunk) moves
+#   the DROID chain to 2.3794e-02 -- OUTSIDE the 2.2e-02 bar -- while making the tower BETTER (proj.out
+#   1.7130e-02, siglip.out 4.0691e-02); hist3 4.5453e-02, hist3 ring 3.4113e-02 with keep DIFFER 230/256.
+#   Four-arm control: GB=1 (cache hints only) is character-identical, so the replacement load form is exact;
+#   GB=4 (hoist before the epilogue loop, no hints) moves the digit identically to GB=2.  What moves it is
+#   hoisting the loads to a point where mean and rstd are already live, which lets IGC contract
+#   (v - mean) * rstd * gw + gb differently.  Two rules out of it: "same bytes, same expression, same order"
+#   is NOT a bit-identity argument on this stack (source order is not instruction order), and the effect is
+#   INPUT-dependent -- GB=2 is character-identical on three real LIBERO frames at tv=10 and moves the DROID
+#   comparators at tv=58/46, so a numerics-capable flag is not "bit-identical" until BOTH checkpoints'
+#   comparators have run.
+# 2026-09-22 RE-PIN (Repin, evidence/repin-20260922/RESULTS.md).  The stale-hash notice that stood here
+#   is DISCHARGED: the 20 inputs DroidT128's mux work and the 2026-09-22 hillclimb rungs moved are
+#   re-pinned below FROM A BUILD + GATE, not from an inspection.  One snapshot of the workspace produced
+#   all three binaries and all three gates, and the 24 files were re-hashed after the gates and are
+#   byte-identical to the snapshot, so the hashes below are the hashes that were compiled.
+#   TWO FILES JOIN THE MANIFEST.  The compiler was asked what it reads (-MD on each of the three TUs,
+#   evidence/repin-20260922/raw/deps-fused_*.txt, identical on all three): 21 project inputs, of which
+#   TWO were unpinned -- share/pi05rt/pi05rt.hpp (the PI05_TTXT switch and the MP_PRE/MP_POST align_up
+#   derivation, the file the integration pass flagged) and share/pi05rt/pi05ref.hpp (the loader contract
+#   -DPI05_PATCH_BF16=1 selects between, pi05ref.hpp:243-258 -- the twin whose mis-selection WAS
+#   MegaTower3's 0.33 rel-L2 tower defect).  Main's ruling: pin both.  24 entries; every file the
+#   compiler reads is now a line, which is what the 2026-09-19 tooling pin was reaching for.
+#   BUILD: buildfarm, ssog-b580:neo2513-aot, oneAPI DPC++ 2025.2.0, AOT -fsycl-targets=spir64_gen
+#   -device bmg-g21 -options '-doubleGRF'; flag fields read out of THIS file by the pinned extractor
+#   prefix, never retyped (full argv in raw/fused_*.argv.txt):
+#     fused_t64    927d6d3d26806f09b32ba4ed6691abb345723af392706443e40b8dcd29fc8672
+#     fused_t128   3c3ab95af2fddda85b10c8628db3c59783050091db3ff52a59b51d8cc61adcdc
+#     fused_libero 6f1215dd6a1f66fad315736763e8a401902f58c5c8822e3cbd812a3e998845fc
+#   GATE: rafael (single B580, PCI 0000:10:00.0), ssog-b580:neo2513, driver 1.6.33276+22, one process at
+#   a time under gpu0.lock -> .gpu0.lock -> .ram.lock, gate in one invocation, NOTHING timed in this pass.
+#   Every figure on the three lines below is CHARACTER-IDENTICAL to the digit its rung lane published.
+#   The farm AOT build is still NOT byte-reproducible on every TU (HcPrefixT64: two builds of identical
+#   source give different sha256), so a binary sha here is the receipt for THAT build and the GATE DIGIT
+#   is the identity instrument -- "equal sha proves the flag is off" does not transfer to AOT.
+#   Rider (rafael, 14 GB): fused_libero --validate --inject peaks ~10 GB anon with part of it pinned, and
+#   at ~11 GB available it is OOM-killed with rc=137 and a ZERO-BYTE log, which reads like a build
+#   failure and is not.  Run one --validate at a time and check free -g first (RESULTS 5 of the receipt).
+# 2026-09-23 FinalBuild: -DHC15_FPS_PFALL=1 ADDED TO ALL THREE LINES (LiberoHc15, rung
+#   evidence/libero-hc15-20260923/RESULTS.md 2; receipt evidence/finalbuild-20260923/RESULTS.md).
+#   peer/vp_fast.hpp only, inside the greedy FPS selector node: one `lsc_prefetch` sweep of the
+#   live rows of the Gram/distance matrix (L1 uncached / L3 cached) issued once at the top of the
+#   kernel, before the greedy starts.  PREFETCH ONLY -- it stores nothing, computes nothing and
+#   touches no address the kernel would not otherwise read, so it is bit-identical BY CONSTRUCTION
+#   and that is what the gates below show.  vp.fps 0.121 -> 0.072 ms of node (-0.049), -0.041 of
+#   chunk; unguarded by window or AT, so ONE flag covers DROID T64, T128, T256 and LIBERO AT10.
+#XFLAGS_SSOG_A_MC2: -DEX_SCBF16=0 -DPI05_MEGA_EXPERT=1 -DSG_EPI2=1 -DSG_APF=1 -DSG_SLMFIT=1 -DSG_WL1_AGRP=0 -DSG_WL1_QKV=0 -DPFX_DNPAD=16 -DPFX_GU_PERSIST=1 -DMEGA_KDB=2 -DPFX_QKV_PFD=2 -DPFX_QKV_AKD=64 -DMEGA_ATTN_LIFT=1 -DMEGA_PFWG_DOWN=1 -DMEGA_PFWG_DN3=1 -DPFX_GU_FINE=1 -DPFX_PFD=2 -DPFX_PRUNE_LAYER=2 -DPFX_DYN_KEEP=1 -DPFX_VLAP=1 -DMEGA_PRUNE_ACC=1 -DPFX_SEM_PASSA=1 -DPI05_PATCH_BF16=1 -DPI05_MC2=1 -DSG_GUNR=1 -DSG_PFD_FC1=2 -DSG_FC1_GM=2 -DTF_APF_WG=8 -DPFX_PG=1 -DVP_FAST=1 -DTA_VPIPE=1 -DTE_FC1_ONEBAR=2 -DTE_ST2=2 -DTE_PRE=1 -DTE_PRE_G=2 -DMEGA_ATTN_PVSUF=1 -DPFX_ATTN_SLM=1 -DIC_OP_PF=1 -DCG_GLUE=3 -DSG_LNQ_GB=3 -DHC15_FPS_PFALL=1
+#   (drop -DPI05_MC2=1 for the Euler-5 ssog-A line)
+#   (add -DPI05_AT=10 -DPI05_FLOW_QQQ=0 for the LIBERO pi05_libero line; SG_LNQ_GB=3 is live at T=64 and is
+#    window- and AT-independent, so one flag covers the DROID T64, DROID T128 and LIBERO AT10 lines)
+#   RE-PINNED 2026-09-22 (Repin): fused_t64 927d6d3d26806f09b32ba4ed6691abb345723af392706443e40b8dcd29fc8672
+#     from the input hashes below.  rafael gate, s00 devkeep keep-forced (weights-A, case 0, text_valid 58):
+#     actions.out(w4) 2.2206e-02, max_abs 8.1872e-02, vlap.keep_set EQUAL 256/256 P=426, vlap.sem_nk 570/570,
+#     proj.out 1.7326e-02, siglip.out 4.1057e-02, 95 stages / 49 binding failures.  hist3 RING (case 2,
+#     text_valid 46, the device's own selection): 2.5259e-02, max_abs 6.5959e-02, keep DIFFER 226/256 P=328,
+#     sem_nk 558/558, proj.out 1.8224e-02.  raw/gate-t64-{dk,hist3ring}.log.
+#   RE-PINNED 2026-09-22 (Repin): the LIBERO line (this field + -DPI05_AT=10 -DPI05_FLOW_QQQ=0) is
+#     fused_libero 6f1215dd6a1f66fad315736763e8a401902f58c5c8822e3cbd812a3e998845fc.  rafael gate, real
+#     LIBERO frames libero10-ep0010 at text_valid 10, identical selection (--keep-force --hist-init),
+#     pi05_libero canonical weights: s00 2.8652e-02 / max_abs 2.4188e-02 / keep EQUAL 256/256 P=413,
+#     s01 2.4291e-02 / 2.2861e-02 / P=362, s02 2.6172e-02 / 3.2444e-02 / P=333; sem_nk 522/522 on all
+#     three, 85 stages / 2 binding failures.  raw/gate-libero-s0*.log.
+# 2026-09-22 THE T=128 LINE (geometry DroidT128; rungs HcPrefixT128 7, HcAttnT128 8, HcTowerExpert 2g/6).
+#   It is #XFLAGS_SSOG_A_MC2 verbatim -- including -DSG_LNQ_GB=3 -- plus -DPI05_TTXT=128 plus five
+#   T=128-only flags.  All five #error or vanish at PI05_TTXT == 64, so the T=64 line is bit-identical and
+#   time-neutral with them present in the tree (HcPrefixT128 3, HcAttnT128 4: t64 arms 2.2206e-02, chunk
+#   15.7205 vs 15.7215 clamped).  COMPOSED AND MEASURED, not summed: sleepy-joe card1, canonical stack,
+#   n=1500, 368 launches on every arm, three rounds in each order, arms interleaved --
+#     base 19.634 -> five flags 18.351 (-1.283) -> all six 18.267 (-1.367).
+#   The five interfere by 15 % with each other (arithmetic sum -1.501 vs measured -1.285 in HcPrefixT128's
+#   own session: both lanes remove workgroup ROUNDS on the same 20 cores) while SG_LNQ_GB=3 is fully
+#   additive (-0.084 on top of the five against -0.086 standalone; K_lnq shares no resource with K_attn2 or
+#   the pg GEMMs).  GATE against DroidT128's T=128 reference: 2.2374e-02, max_abs 7.3123e-02, keep EQUAL
+#   256/256 P=426, sem_nk 570/570, proj.out 1.7326e-02 -- character-identical to the five-flag stack, which
+#   is hardware proof that GB=3 adds nothing numerically on top of them.
+#   A T=128 device run MUST be gated against a reference generated at T=128 (DroidT128 4): the same
+#   acc_ref.py invocation at T=64 reproduces the published devkeep reference BYTE-identically, and its
+#   T=128 output differs from it by 2.1138e-02 on actions.out -- pure geometry noise from 64 exactly-zero
+#   softmax terms regrouping a float reduction and the per-token int8 quantiser flipping codes by 1 LSB.
+#   RIDER (HcAttnT128 8): ATT128_KCLAMP makes attention time depend on text_valid -- at text_valid=128 it
+#   finds 40/40 and 24/24 blocks live and clamps nothing, so DroidT128 6a's "the window is free to occupy"
+#   (+0.003 ms from tv 58 -> 128) becomes "free except for the attention".  Drop it for -0.783 of the -0.881.
+#XFLAGS_SSOG_A_MC2_T128: -DEX_SCBF16=0 -DPI05_MEGA_EXPERT=1 -DSG_EPI2=1 -DSG_APF=1 -DSG_SLMFIT=1 -DSG_WL1_AGRP=0 -DSG_WL1_QKV=0 -DPFX_DNPAD=16 -DPFX_GU_PERSIST=1 -DMEGA_KDB=2 -DPFX_QKV_PFD=2 -DPFX_QKV_AKD=64 -DMEGA_ATTN_LIFT=1 -DMEGA_PFWG_DOWN=1 -DMEGA_PFWG_DN3=1 -DPFX_GU_FINE=1 -DPFX_PFD=2 -DPFX_PRUNE_LAYER=2 -DPFX_DYN_KEEP=1 -DPFX_VLAP=1 -DMEGA_PRUNE_ACC=1 -DPFX_SEM_PASSA=1 -DPI05_PATCH_BF16=1 -DPI05_MC2=1 -DSG_GUNR=1 -DSG_PFD_FC1=2 -DSG_FC1_GM=2 -DTF_APF_WG=8 -DPFX_PG=1 -DVP_FAST=1 -DTA_VPIPE=1 -DTE_FC1_ONEBAR=2 -DTE_ST2=2 -DTE_PRE=1 -DTE_PRE_G=2 -DMEGA_ATTN_PVSUF=1 -DPFX_ATTN_SLM=1 -DIC_OP_PF=1 -DCG_GLUE=3 -DSG_LNQ_GB=3 -DPI05_TTXT=128 -DPFX_T128_RQG=8 -DPG_T128_DN_MT=12 -DPG_T128_OP_MT=12 -DATT128_POST=1 -DATT128_KCLAMP=1 -DHC15_FPS_PFALL=1
+#   RE-PINNED 2026-09-22 (Repin): fused_t128 3c3ab95af2fddda85b10c8628db3c59783050091db3ff52a59b51d8cc61adcdc
+#     from the input hashes below.  rafael gate against DroidT128's T=128 reference (acc_T128 s00 devkeep,
+#     weights-A, case 0, text_valid 58, keep-forced): actions.out(w4) 2.2374e-02, max_abs 7.3123e-02,
+#     vlap.keep_set EQUAL 256/256 P=426, vlap.sem_nk 570/570, proj.out 1.7326e-02, siglip.out 4.1057e-02,
+#     83 stages / 49 binding failures -- character-identical to the composed five-flag + GB=3 row above.
+#     raw/gate-t128-dk128.log.
+# 2026-09-23 THE T=256 LINE (geometry T256Geometry, rung ledger evidence/t256-20260923;
+#   composed and gated by FinalBuild, evidence/finalbuild-20260923/RESULTS.md).  It is
+#   #XFLAGS_SSOG_A_MC2 verbatim -- MINUS its trailing -DHC15_FPS_PFALL=1, which is re-appended
+#   last so all three lines end the same way -- plus -DPI05_TTXT=256 and exactly TWO T=256-only
+#   flags.  The T=128-only tile flags are deliberately NOT carried over: PG_T128_DN_MT /
+#   PG_T128_OP_MT are 384-row tiles and #error at any other window (MuxFinal, farm_build.sh).
+#     ATT128_KCLAMP=1  the post stream picks its attention score-cache depth from text_valid at
+#       run time, with every reachable depth instantiated, so a 256-wide window cannot abort
+#       mid-episode on a prompt shorter than the window.  Shared with the T=128 line.
+#       -1.354 ms (22.509 -> 21.155, n=1500, rafael).  It is NOT bit-identical and is not
+#       claimed to be: it shortens the PRE stream's key loop as well (570 live keys of 768 ->
+#       36 blocks of 48), and dropping trailing blocks that each contribute exactly 0.0 still
+#       regroups the fp32 reduction tree, after which the int8 requantiser flips a few codes.
+#       actions.out(w4) 2.3586e-02 -> 2.3690e-02 and max_abs 8.9336e-02 -> 7.4463e-02, i.e. the
+#       chain moves 0.4 % worse and the worst element 17 % better; 1.63x s00's 1.45e-02
+#       torch-vs-numpy corridor against T=64's 1.53x and T=128's 1.54x, so INSIDE the bar.
+#     PFX_T256_RQG=8   requant row grouping: c320.rq_g = 8 instead of the shipped 2.  The
+#       static_assert requires the group to divide the chunk count, so each group is a
+#       whole-chunk range and the clamp is the T=128 clamp -- bit-identical by construction,
+#       and proven so TWICE on hardware (T256Geometry §5: r4 = r1 + RQG reads r1's digits to
+#       the character, and the r11 + RQG stack reads r11's).  -0.049 ms, reproduced in a
+#       second session (21.155 -> 21.106 and 21.156 -> 21.101; instrument noise ~0.01 ms).
+#   WITHDRAWN before the pin: -DATT256_POST=5 (T256Geometry §5b, 2026-09-23) -- it buys -0.09 ms
+#   and moves the digit by +6.8 %, which fails the trade, so it is NOT on this line.
+#XFLAGS_SSOG_A_MC2_T256: -DEX_SCBF16=0 -DPI05_MEGA_EXPERT=1 -DSG_EPI2=1 -DSG_APF=1 -DSG_SLMFIT=1 -DSG_WL1_AGRP=0 -DSG_WL1_QKV=0 -DPFX_DNPAD=16 -DPFX_GU_PERSIST=1 -DMEGA_KDB=2 -DPFX_QKV_PFD=2 -DPFX_QKV_AKD=64 -DMEGA_ATTN_LIFT=1 -DMEGA_PFWG_DOWN=1 -DMEGA_PFWG_DN3=1 -DPFX_GU_FINE=1 -DPFX_PFD=2 -DPFX_PRUNE_LAYER=2 -DPFX_DYN_KEEP=1 -DPFX_VLAP=1 -DMEGA_PRUNE_ACC=1 -DPFX_SEM_PASSA=1 -DPI05_PATCH_BF16=1 -DPI05_MC2=1 -DSG_GUNR=1 -DSG_PFD_FC1=2 -DSG_FC1_GM=2 -DTF_APF_WG=8 -DPFX_PG=1 -DVP_FAST=1 -DTA_VPIPE=1 -DTE_FC1_ONEBAR=2 -DTE_ST2=2 -DTE_PRE=1 -DTE_PRE_G=2 -DMEGA_ATTN_PVSUF=1 -DPFX_ATTN_SLM=1 -DIC_OP_PF=1 -DCG_GLUE=3 -DSG_LNQ_GB=3 -DPI05_TTXT=256 -DATT128_KCLAMP=1 -DPFX_T256_RQG=8 -DHC15_FPS_PFALL=1
+# 2026-09-21 MegaTower3 re-pin (RESULTS 0a-sexies): src/fused.cpp -> ee00780c (--acc-out mode,
+#   the patch-path banner, PFX_PG integration behind a default-off flag); peer/siglip.hpp ->
+#   1b2b89c2 = canonical 1fdc3fe3 + TowerGemm rung 2 (63f8b5d8: SG_GUNR/SG_PFD_*/SG_FC1_GM/
+#   SG_RESPF) + TowerFusion (eca1b2c4: TF_APF_*), every knob default-off, hist3 gate digits
+#   character-identical on all four arms; NEW input peer/pg.hpp 43145b71 (PrefixGemm, only
+#   compiled under -DPFX_PG).  CANDIDATE flags, round 1 interleaved n=1500 sleepy-joe GPU1 on the
+#   mc2 line: -DSG_GUNR=1 -DSG_PFD_FC1=2 -DSG_FC1_GM=2 (-0.223), -DTF_APF_WG=8 (-0.078), both
+#   16.827 vs 17.109 (-0.282); -DPFX_PG=1 gate-identical, bench pending.  NOT in the manifest
+#   line until round 2 + the PG bench close (successor: finish /tmp/mt3_tw_ab.log and
+#   /tmp/mt3_pg_ab.log on sleepy-joe, then add the winning flags here).
+#   THE ACCURACY GATE FOR THIS LINE IS OPEN: device vs dense10 on acc_A is 5-10x config A after
+#   the tower fix; nothing here may be quoted as a policy until RESULTS 0a-sexies closes.
+# 2026-09-23 RE-PIN (FinalBuild, evidence/finalbuild-20260923/RESULTS.md).  The HANDOFF build.
+#   ONE snapshot of the workspace produced all six binaries and every gate below, and the 28
+#   files were re-hashed after the gates and are byte-identical to that snapshot -- so the
+#   hashes below are the hashes that were compiled.  The buildfarm tree was diffed against the
+#   workspace before AND after the build: 26 source files, identical on both sides both times.
+#   WHAT MOVED since the 2026-09-22 re-pin, and which lane moved it (9 of the 24 old entries):
+#     src/fused.cpp, peer/pg.hpp, peer/prefix_stage.hpp   DroidT128 -> T256 geometry work
+#       (PI05_TTXT=256, ATT128_KCLAMP, PFX_T256_RQG, the PG_T256_* tiles) plus MuxFinal's
+#       per-window namespace parameterisation and the --serve protocol-stream fix
+#     peer/expert.hpp, peer/mega.hpp, peer/mega_expert_stage.hpp   T256Geometry's ex::PA_ALIAS
+#       (P written on top of the dead score area, one extra stage-4 barrier) which is what
+#       fits the expert megakernel into 63424 B of SLM at TP=512 -- SAME as T64, smaller than
+#       T128's 65536, so a three-window mux gains no SLM pressure from T256
+#     peer/siglip.hpp, share/pi05rt/pi05rt.hpp   the T=256 window plumbing and MP_PRE/MP_POST
+#     peer/vp_fast.hpp   LiberoHc15's HC15_FPS_PFALL (the flag this build exists to ship)
+#   FOUR FILES JOIN THE MANIFEST, 24 -> 28.  The deliverable is no longer one TU: the compiler
+#   was asked what it reads (-MD on every geometry TU, raw/deps-*.txt, identical across
+#   T64/T128/T256 and across AT=15/AT=10) and it reads 22 project inputs, of which
+#   src/wshare.hpp was unpinned; src/mux.cpp is the router TU; and by the 2026-09-19 tooling
+#   rule -- pin the script that compiles the sources, not just the sources -- scripts/
+#   mux_build.sh and scripts/nscheck.awk join too.  nscheck.awk is not decoration: it is the
+#   refusal that catches an un-parameterised top-level namespace, which ODR-collides SILENTLY
+#   at link in an N-geometry binary (droid-t128 SS18-20).
+#   BUILD: buildfarm, ssog-b580:neo2513-aot, oneAPI DPC++ 2025.2.0, AOT -fsycl-targets=spir64_gen
+#   -device bmg-g21 -options '-doubleGRF'; every flag field read out of THIS file by the pinned
+#   extractor prefix, never retyped (full argv in raw/build-*.argv.txt):
+#     fused_mux_droid   3a75ec281c1a3875b0cd1fbe9cd547247bdbb1af5457a27a805c9097bb63eb3c  (AT=15, windows 64/128/256)
+#     fused_mux_libero  5f6eb480b8888c508bffd8c062f446ec1bdbdefd36d95fb7aca87ffa2fa5fdb2  (AT=10, windows 64/128/256)
+#     fused_t64         5cba6453e25cbf4410cf0434d95c71c79eeaa62c20ccd2e7072d8acbf38e5a3b
+#     fused_t128        a50e9a80cd494d2723b65ff3060663de9e6cd0ce1b850afdb1f5531de1e132f1
+#     fused_t256        9eae70554a7423c79899e71c68aa2f99676b3de25d5a38cfb40ef7025a5ad4b0
+#     fused_libero      4e3389dc7a622d886cecaef85a849586c6843b78e11145c1eec5730103b03e39
+#   fused_t64 came out BYTE-IDENTICAL to LiberoHc15's independently built `d_pfall`
+#   (5cba6453e25cbf44, his receipt S7) -- two boxes, two scripts, same bytes.  That is a
+#   stronger statement than a matching digit and it is not guaranteed on this AOT toolchain
+#   (the farm is still not byte-reproducible on every TU), so it is recorded, not relied on.
+#   GATE: DROID on billy card0 (PCI 0000:03:00.0) beside SimRuns' resident server, LIBERO and
+#   both serve paths on rafael (PCI 0000:10:00.0), ssog-b580:neo2513, lock nest
+#   gpu0.lock -> .gpu0.lock -> .ram.lock, ONE --validate per invocation, nothing timed.
+#   EVERY figure below is CHARACTER-IDENTICAL to the digit its rung lane published; the mux
+#   geometry and the standalone control built from the SAME tree agree on every row.
+#     T64   s00 devkeep  2.2206e-02 / max_abs 8.1872e-02 / keep EQUAL 256/256 P=426 / sem_nk 570-570
+#           hist3 ring   2.5259e-02 / 6.5959e-02 / keep DIFFER 226/256 P=328 / sem_nk 558-558
+#     T128  s00 devkeep  2.2374e-02 / 7.3123e-02 / EQUAL 256/256 P=426 / 570-570
+#     T256  s00 devkeep  2.3690e-02 / 7.4463e-02 / EQUAL 256/256 P=426 / 570-570
+#     LIBERO AT=10 libero10-ep0010  s00 2.8652e-02 / s01 2.4291e-02 / s02 2.6172e-02,
+#           keep EQUAL 256/256 P=413 / 362 / 333, sem_nk 522-522, 85 stages / 2 binding failures
+#   proj.out 1.7326e-02 and siglip.out 4.1057e-02 on every DROID row.  rc=1 on the binding
+#   2.0e-02 FP32 gate is this line's normal state on a real-frame reference (0d rule 15).
+#   SERVE-PATH BIT-IDENTITY (rafael, the deployed path, DEVICE's own selection, no --keep-force
+#   because a keep-forced chunk cannot depend on the ring): three geometries resident in one
+#   process, arena 3472.8 + 751.4 + 281.7 = 4505.9 MiB, setup 6.2 / 1.2 / 0.4 s, and every
+#   routed chunk bit-identical to an independent single-window --acc-out control -- including
+#   the ring carried 58 -> 87 -> 58 -> 200 across THREE window boundaries and back
+#   (e2 vs cold 2.0519e-02, e3 vs cold 2.2147e-02, e4 vs cold 1.1618e-02), text_valid 300
+#   REFUSED rather than truncated, t64/t128/t256 rc=0.  AT=10 serve: same, routed to T=64.
+# 2026-09-23 RE-PIN (ServeTune, evidence/servetune-20260923/RESULTS.md).  src/fused.cpp ->
+#   96ac3478: the --serve path's per-text_valid RETUNE becomes a CACHE.  FinalSpeed 11.3
+#   measured the retune as the largest served-minus-bench term (2.58 ms of a 20.8 ms served
+#   chunk on a stream that changes text_valid on 61 % of chunks).  The six host-built device
+#   tables (pre-prune RoPE cos/sin, pre-prune kmask, the expert's kv_bias and action RoPE, the
+#   hoisted K_sem_nk count) are now built ONCE per distinct text_valid into their own device
+#   buffers and kept resident BESIDE that text_valid's recorded graph, in one cache entry
+#   bounded by the existing --graph-cache: an executable graph bakes buffer ADDRESSES into its
+#   kernel arguments, so tables and graph must live and die together.  A change event is then a
+#   pointer rebind (bpre/bsem tables + sem_nk) plus a 9 KiB device-to-device refresh of the
+#   three expert tables -- those cannot be rebound, because mega_expert_stage_prepare()
+#   snapshots `s.a.ex.k = P.k` at setup and only re-applies kv_k/kv_v/noise/actions per launch.
+#   `rope_tables` (pow+cos+sin over TPRE x HH = 81 920 entries) no longer runs per chunk, and
+#   nothing is uploaded on a hit.  Second change, same block: the served chunk did THREE
+#   submit-and-wait round trips (H2D -> wait -> replay -> wait -> D2H -> wait); make_queue()
+#   builds the queue with sycl::property::queue::in_order, so the two intermediate waits are
+#   redundant and are now taken only if q.is_in_order() is false.  212 added / 63 removed lines,
+#   16 hunks, all inside `if (serve)` except the --graph-cache doc comment -- which is why every
+#   gate digit below is character-identical to FinalBuild's.
+#   BUILD: buildfarm, ssog-b580:neo2513-aot, oneAPI DPC++ 2025.2.0, AOT bmg-g21 -doubleGRF,
+#   fb_build.sh with every flag line read out of THIS file (MUX_WINDOWS=64,128,256):
+#     fused_mux_droid   db89756ca6b0451040cbbf6e3490d28606d5ed510de3d4cc371bfce3259d6edb  (AT=15, windows 64/128/256)
+#     fused_mux_libero  a52d55a6dfcfd6b59ed84300f6eb3129b77411b504561b2c6f53a9bef20b97e3  (AT=10, windows 64/128/256)
+#     fused_t64         4329f288269fb40e30598970a8ae8457d5b3707d209e5711aad84918403219b3
+#     fused_t128        6b89f367b798055cd8462c3403302e8806b37a3a3609bf205b18fd892392df39
+#     fused_t256        bd56954664d0faa1af91cfd02471d03c6658d5d1cfde1322c14c35ea5b2d193c
+#     fused_libero      7e903cfe1f9985cdde89ca7b941222ec9e9beb7af713e39c031c2b7c3c5300e3
+#   GATE: sleepy-joe card1 (PCI 0000:09:00.0), ssog-b580:neo2513, lock nest gpu1.lock ->
+#   .gpu1.lock, ONE --validate per invocation, nothing timed in a gated process.  All 14 rows
+#   (7 mux + 7 matched control) are CHARACTER-IDENTICAL to the FinalBuild entry above:
+#     T64   s00 devkeep  2.2206e-02 / 8.1872e-02 / keep EQUAL 256/256 P=426 / sem_nk 570-570
+#           hist3 ring   2.5259e-02 / 6.5959e-02 / keep DIFFER 226/256 P=328 / sem_nk 558-558
+#     T128  s00 devkeep  2.2374e-02 / 7.3123e-02 / EQUAL 256/256 P=426 / 570-570
+#     T256  s00 devkeep  2.3690e-02 / 7.4463e-02 / EQUAL 256/256 P=426 / 570-570
+#     LIBERO AT=10 libero10-ep0010  s00 2.8652e-02 / s01 2.4291e-02 / s02 2.6172e-02,
+#           keep EQUAL 256/256 P=413 / 362 / 333, sem_nk 522-522, 85 stages / 2 binding failures
+#   SERVED-BYTE IDENTITY, which is the claim a gate cannot make (the gates never enter the
+#   serve path): every chunk's actions.f32 over the FULL sets, hashed and diffed against the
+#   3a75ec28 / 5f6eb480 binaries on the same card -- 435/435 DROID and 360/360 LIBERO
+#   BYTE-IDENTICAL, and again byte-identical at --graph-cache 8, which forces 71 evictions and
+#   so exercises the free-and-rebuild path.  PI05_TV_CACHE_VERIFY=1 (debug env: rebuild the
+#   tables on the host on EVERY hit and memcmp them against the resident set) over both sets,
+#   two passes each: 651 hits compared, 0 mismatches.
+#   TIMING (same card, same session, interleaved in both orders, n=435/360, min_freq pinned
+#   2850 and restored to 1200): the per-change-event cost goes to zero and the served row drops
+#     DROID T64 b2b   20.676 -> 17.961 median (change-event chunks 20.737 -> 17.988)
+#     DROID T64 150ms 24.982 -> 19.857 median      LIBERO b2b mean 18.734 -> 17.946
+#     per change event, T64: 2.545 ms -> 0.060 ms (b2b), 4.801 -> -0.337 (150 ms cadence)
+#   --bench --keep-force is UNCHANGED (it never pays a retune): T64 15.822/15.837 old vs
+#   15.833/15.835 new, T128 18.262 both, T256 21.380 vs 21.373, n=1500 each, interleaved.
+96ac3478ab1f367aa40c3cb36e3e1eb964e39a60effc186dcebc6bb92b2aa20b  campaign13/RuntimeCore/src/fused.cpp
+41f25bcb5c4d487675e0aab87750b64263a817b1ebdbea85dc32cb7f7e7ee6e5  campaign13/RuntimeCore/src/kernels.hpp
+4a093ec94aedfac20dd08404aee1d3c84daffb2296e170f35326d46974eed055  campaign13/RuntimeCore/peer/expert.hpp
+605835ceff46abdc02e796ee86010a74e244ac223bbc57c143f88625dd217c45  campaign13/RuntimeCore/peer/expert_stage.hpp
+7f092759468d524b693ef114ee84b6fda7a2e63d65ea2bb7bbd297cfbf8598fe  campaign13/RuntimeCore/peer/prefix_stage.hpp
+4a498aede8fe1abd8a315ba6e25062addd3f70bf5bd3f54b33262bd0ff87e693  campaign13/RuntimeCore/peer/siglip.hpp
+e869fef9cf2a96c02a60f525da7c3ffe587993eb0886a6031a002bd8528d5945  campaign13/RuntimeCore/peer/mega_expert_stage.hpp
+7dd8e3fb708a4712d7d4da756156fba94ff371bc4feb094989e98194d08ceea0  campaign13/RuntimeCore/peer/mega.hpp
+bcb09ca42cfbd37b5284ce7fc5f972a351f1f728c763b56cd64ee3b7af9d2613  campaign13/RuntimeCore/peer/mega_kdb.hpp
+564ba2332489837f8d5c1e9b10714e145f358dab55746751982d4ab48f647b32  campaign13/RuntimeCore/peer/mega_abi.hpp
+b37615d7868ac256b3d366550e2c218da1f226fc2309d9bacbb5d6c66a9dcd7a  campaign13/RuntimeCore/peer/mega_args_expert.hpp
+d7dc1c812cec3519da0aa694384dacf796652dd7d844f8ff64731a32c9086578  campaign13/RuntimeCore/peer/mega_args_siglip.hpp
+fbcd4293ec771128476b2c4ca390f47e133b469e61641e7f3775e447db9a05a3  campaign13/RuntimeCore/peer/mega_args_prefix.hpp
+d0ec476005e53c3384bd4089b5852fe00647d89739efc5a2a60a4b48ebf1e595  campaign13/RuntimeCore/build_fused.sh
+0f0a26c5d7b281ab78b8f9e0842a311486163186d3e26529148e4e903f5f1f47  campaign13/RuntimeCore/reproduce_fused.sh
+e7f060b9f7dba1ff4b6317fd718571d0df627c9073d1ce9b893335f8ddd26cba  campaign13/RuntimeCore/sync_check.sh
+380752946fffb508160de379a84c818d82b9169f5bb1ba7e60f6e54f2676ba14  campaign13/RuntimeCore/peer/mega_ada_w4.hpp
+e49447f37a86fc4a18b1fafec0b509e2bce0cd0e39d3bc62c754a2a78eee46b0  campaign13/RuntimeCore/peer/vp_select.hpp
+3d4f8a6934aa2dc5f4787bf37c107054c404d090bd58fc783bbd07ac6c34a587  campaign13/RuntimeCore/peer/pg.hpp
+02022adff342af34b5672b8eaadc29d269de0fb4dba45db3a0e41bb4aeb95930  campaign13/RuntimeCore/peer/attn5.hpp
+541f9964317c6bfb4c9e83fcbe0bd194957754f36600a31d2181fb16f45f6ed1  campaign13/RuntimeCore/peer/attn6.hpp
+3a5fab1013002d7bbf42a2cfa3ccae3e955b74906cad727e241a2fbb899b8949  campaign13/RuntimeCore/peer/vp_fast.hpp
+1be822624f8bfe68bf23a54194269c764038c7fde1df4591ddd9d0ab45a5f8e8  campaign13/share/pi05rt/pi05rt.hpp
+7d3db05e86ef58dadfe26e170069694e9f385e0f032ab03fa224a8385eff4210  campaign13/share/pi05rt/pi05ref.hpp
+d03f6832477e654e671c46b9d048f53b03bb65ec5e37954260b654dd82676b44  campaign13/RuntimeCore/src/wshare.hpp
+7b8f338d3f06212ab6222bb783e80b588cc3b676d32e2ee216c3aa2f56c0fdd8  campaign13/RuntimeCore/src/mux.cpp
+069ec3cb5893d196b06956921742fa465314668eb8a97f42b27fb9f22b3c6329  campaign13/RuntimeCore/scripts/mux_build.sh
+7083d22f0244fb9c7468e85aa2e6b0b0a2dc76efa47b715cf13fbf0a17991698  campaign13/RuntimeCore/scripts/nscheck.awk

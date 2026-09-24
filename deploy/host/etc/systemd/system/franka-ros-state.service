@@ -1,0 +1,19 @@
+[Unit]
+Description=Franka FR3 ROS 2 state interface on Rome
+After=network-online.target franka-c2-dhcp.service
+Wants=network-online.target
+Requires=franka-c2-dhcp.service
+[Service]
+Type=simple
+User=spring
+WorkingDirectory=/var/lib/spring-data/franka-network-20260923/ros
+ExecStart=/var/lib/spring-data/franka-network-20260923/ros/start-ros-franka.sh
+LimitRTPRIO=99
+LimitMEMLOCK=infinity
+KillSignal=SIGINT
+TimeoutStopSec=15
+Restart=no
+StandardOutput=append:/var/lib/spring-data/franka-network-20260923/ros/bringup-state.log
+StandardError=append:/var/lib/spring-data/franka-network-20260923/ros/bringup-state.log
+[Install]
+WantedBy=multi-user.target

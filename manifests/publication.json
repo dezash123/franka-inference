@@ -1,0 +1,50 @@
+{
+  "created_utc": "2026-09-24T21:19:01.902846+00:00",
+  "target_repository": "https://github.com/dezash123/franka-inference",
+  "scope": "Source/configuration publication; no live deployment or robot commands",
+  "validation": {
+    "native_build": {
+      "host": "rome",
+      "kernel": "6.18.53-spring-rt",
+      "command": "taskset -c 0-3,6-9 bash scripts/build_native.sh /var/tmp/franka-publish-check-20260924-build",
+      "result": "passed",
+      "programs": [
+        "stream_fci",
+        "read_fci_errors",
+        "read_fci_snapshot",
+        "read_fci_realtime",
+        "recover_fci",
+        "camera/libcapture_v4l2.so"
+      ],
+      "programs_executed": false
+    },
+    "syntax": {
+      "python_ast_files": 79,
+      "shell_bash_n_files": 31,
+      "json_files": 196,
+      "javascript_node_check": [
+        "franka_droid/ui/app.js",
+        "franka_droid/ui/graphs.js"
+      ],
+      "result": "passed"
+    },
+    "deployment_preview": "passed; --apply was not used",
+    "rome_source_files_rechecked": 376,
+    "git_index_matches_recorded_publication_hashes": true,
+    "pinned_ov_a_source_inputs": "6 present inputs match SHA256SUMS.pinned; heavy assets deliberately external",
+    "ov_mux_tuning_kernel_paths": "all T64/T128/T256 references resolve in exported source",
+    "fp16_artifacts": "12 installed files freshly SHA-256 hashed on Rome, including checkpoint and three IR weight files",
+    "secret_review": "No matches for private-key, cloud/API token, embedded credential URL, or literal-secret patterns; source and artifact scope reviewed",
+    "large_binary_artifacts_in_git": false,
+    "offline_tests_run": false,
+    "robot_motion_run": false,
+    "services_restarted": false,
+    "whitespace": "Authored documentation/scripts checked; original patch context, calibration trailing blanks and one historical GPU probe whitespace retained unchanged"
+  },
+  "limits": [
+    "Fresh-machine reinstall not validated",
+    "Model assets require S3 or authorized access to existing Rome; checkpoint-A IRs are not in the SSOG S3 archive",
+    "Historical benchmark receipts are not new measurements",
+    "Live state and UI settings may change after this snapshot"
+  ]
+}

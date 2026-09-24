@@ -1,0 +1,25 @@
+{
+  "verified_utc": "2026-09-23T20:41:52Z",
+  "target": "sentradel@spring-20260923002126",
+  "install_path": "/home/sentradel/pi05-ssog-a-mc2-mux",
+  "gpu": "Intel Arc B580",
+  "runtime_image": "sha256:d757f380562ef33bc7367bd6dac0442b70b989b86f42befc7922802d82bc4b78",
+  "kernel_binary_sha256": "db89756ca6b0451040cbbf6e3490d28606d5ed510de3d4cc371bfce3259d6edb",
+  "canonical_manifest_sha256": "0376a60ab7c1833c6dcdfa7bd04281a8c1f0a2804e8c45743738a2c5001ff103",
+  "weights_index_sha256": "be03641157e2d9ebe17d52283641099de28bcc647367c1d39a375690e64deac1",
+  "ready": {
+    "mux": true,
+    "windows": [64, 128, 256],
+    "max_token_len": 256,
+    "line": "ssog-A-mc2",
+    "steps": 2
+  },
+  "smoke": {
+    "real_chunk_response_ok": true,
+    "routed_window": 64,
+    "reported_ms": 29.410,
+    "actions_bytes": 1920,
+    "actions_sha256": "195fed903c4c31b9ba3e47350f2d1d946129065b06b3128c6ca9d9a052f81867"
+  },
+  "recovery_archives_sha256_verified": true
+}

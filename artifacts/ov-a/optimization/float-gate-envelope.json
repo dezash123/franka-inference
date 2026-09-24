@@ -1,0 +1,54 @@
+{
+  "reference": "torch-eager-fp32",
+  "rule": "rmse <= 1.05*max(selected, group-128 baseline); cosine >= min(...) - 5e-5; per sample",
+  "samples": {
+    "zero": {
+      "rmse_max": 0.03938432781833244,
+      "cosine_min": 0.999447102811796,
+      "selected_rmse": 0.03750888363650708,
+      "ovdyn_rmse": 0.03524512960782646
+    },
+    "random": {
+      "rmse_max": 0.058181874349138935,
+      "cosine_min": 0.9994384324445363,
+      "selected_rmse": 0.052945989545510615,
+      "ovdyn_rmse": 0.05541130890394184
+    },
+    "validation-0": {
+      "rmse_max": 0.049462906871563427,
+      "cosine_min": 0.9992945908263985,
+      "selected_rmse": 0.04710753035386993,
+      "ovdyn_rmse": 0.04334688232397437
+    },
+    "validation-1": {
+      "rmse_max": 0.05185286113945975,
+      "cosine_min": 0.9992810963260219,
+      "selected_rmse": 0.04938367727567595,
+      "ovdyn_rmse": 0.04840778801547266
+    },
+    "validation-2": {
+      "rmse_max": 0.056048617506209535,
+      "cosine_min": 0.9995077543853066,
+      "selected_rmse": 0.053379635720199554,
+      "ovdyn_rmse": 0.05078199228343085
+    },
+    "validation-3": {
+      "rmse_max": 0.06008382866862695,
+      "cosine_min": 0.999273661002565,
+      "selected_rmse": 0.05666566766163255,
+      "ovdyn_rmse": 0.057222693970120905
+    },
+    "validation-4": {
+      "rmse_max": 0.09438656608901048,
+      "cosine_min": 0.9992313122269634,
+      "selected_rmse": 0.0898919677038195,
+      "ovdyn_rmse": 0.08522407378285377
+    },
+    "validation-5": {
+      "rmse_max": 0.10492062420747815,
+      "cosine_min": 0.9993343353083858,
+      "selected_rmse": 0.09992440400712205,
+      "ovdyn_rmse": 0.09438615322933107
+    }
+  }
+}

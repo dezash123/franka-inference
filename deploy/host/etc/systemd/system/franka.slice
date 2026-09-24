@@ -1,0 +1,4 @@
+[Unit]
+Description=Franka controller CPU access
+[Slice]
+AllowedCPUs=0-3 5-9

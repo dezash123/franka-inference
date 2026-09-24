@@ -1,0 +1,84 @@
+{
+  "openpi": {
+    "path": "/home/spring/robo_run/openpi",
+    "url": "https://github.com/Physical-Intelligence/openpi.git",
+    "commit": "215abfb217dbac7d5f1273282331b9b1866c0479",
+    "status": []
+  },
+  "libfranka": {
+    "path": "/var/lib/spring-data/workloads/robo_run/vendor/libfranka",
+    "url": "https://github.com/frankarobotics/libfranka.git",
+    "commit": "85912fe02258d8cb811d3eff1f11e52ce89e3217",
+    "status": [
+      " M src/control_loop.cpp",
+      " M src/control_loop.h",
+      " M src/control_tools.cpp"
+    ],
+    "patch": "patches/libfranka.patch"
+  },
+  "ros2/franka_ros2": {
+    "path": "/var/lib/spring-data/workloads/robo_run/ros2_ws/src/franka_ros2",
+    "url": "https://github.com/frankarobotics/franka_ros2.git",
+    "commit": "6cedf7f1a2ca280c433f643eae697be23eb2a15e",
+    "status": [
+      " M franka_hardware/include/franka_hardware/robot.hpp"
+    ],
+    "patch": "patches/ros2-franka_ros2.patch"
+  },
+  "ros2/gz_ros2_control": {
+    "path": "/var/lib/spring-data/workloads/robo_run/ros2_ws/src/gz_ros2_control",
+    "url": "https://github.com/ros-controls/gz_ros2_control.git",
+    "commit": "7937b3093ffed51a20c9b638df0061c9bb82e610",
+    "status": []
+  },
+  "ros2/ros2_control": {
+    "path": "/var/lib/spring-data/workloads/robo_run/ros2_ws/src/ros2_control",
+    "url": "https://github.com/ros-controls/ros2_control.git",
+    "commit": "24aecb3b3eb36512c2ac07a9383de5e063cdc26e",
+    "status": [
+      "?? ros2controlcli/ros2controlcli/__pycache__/",
+      "?? ros2controlcli/ros2controlcli/api/__pycache__/",
+      "?? ros2controlcli/ros2controlcli/command/__pycache__/",
+      "?? ros2controlcli/ros2controlcli/verb/__pycache__/"
+    ]
+  },
+  "ros2/franka_description": {
+    "path": "/var/lib/spring-data/workloads/robo_run/ros2_ws/src/franka_description",
+    "url": "https://github.com/frankarobotics/franka_description.git",
+    "commit": "7aeeddc449edf8d62b594f9e36a81da53e7796f9",
+    "status": []
+  },
+  "ros2/libfranka": {
+    "path": "/var/lib/spring-data/workloads/robo_run/ros2_ws/src/libfranka",
+    "url": "https://github.com/frankarobotics/libfranka.git",
+    "commit": "3cc708cafa1cdba49ceaab536a14216dfb7bf48a",
+    "status": [
+      " M src/control_tools.cpp"
+    ],
+    "patch": "patches/ros2-libfranka.patch"
+  },
+  "ros2/ros2_robotiq_gripper": {
+    "path": "/var/lib/spring-data/workloads/robo_run/ros2_ws/src/ros2_robotiq_gripper",
+    "url": "https://github.com/PickNikRobotics/ros2_robotiq_gripper.git",
+    "commit": "a74d007d8f2f06dc6a503ad21038ba869d4999a6",
+    "status": []
+  },
+  "ros2/serial": {
+    "path": "/var/lib/spring-data/workloads/robo_run/ros2_ws/src/serial",
+    "url": "https://github.com/tylerjw/serial.git",
+    "commit": "d8d160678aa0b31cdf467c052b954fa287cc6cdf",
+    "status": []
+  },
+  "ros2/olvx_descriptions_module": {
+    "path": "/var/lib/spring-data/workloads/robo_run/ros2_ws/src/olvx_descriptions_module",
+    "url": "https://github.com/olive-robotics/olvx_descriptions_module.git",
+    "commit": "c3444ed7742305ecda813433371ee2113abc7a44",
+    "status": []
+  },
+  "ros2/zed_description": {
+    "path": "/var/lib/spring-data/workloads/robo_run/ros2_ws/src/zed_description",
+    "url": "https://github.com/stereolabs/zed-ros2-description.git",
+    "commit": "1aa88b319897311d2f33882a4abbc40da8d75ace",
+    "status": []
+  }
+}

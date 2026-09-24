@@ -1,0 +1,52 @@
+[
+  {
+    "label": "c2t64-w2x2",
+    "status": 0,
+    "slm0": true,
+    "barrier0": true,
+    "settings": "grfMin=209 pack_a=2 pack_b=0 wg_tile_m=128 wg_tile_n=64 sg_tile_m=64 sg_tile_n=32 sg_per_wg_m=2 sg_per_wg_n=2 slm_size=0 "
+  },
+  {
+    "label": "c2t64-w2x3",
+    "status": -6,
+    "error": "aB32/0{cc}+B32,32@64/32{cc} aM64/0{cc}+M32,32@64{cc} rb wg 2x3 sys xaf k1 grf256 vav di sr pk32 np\nterminate called after throwing an instance of 'std::runtime_error'\n  what():  No matching kernel\n"
+  },
+  {
+    "label": "c2t64-w4x2",
+    "status": 0,
+    "slm0": true,
+    "barrier0": true,
+    "settings": "grfMin=209 pack_a=2 pack_b=0 wg_tile_m=256 wg_tile_n=64 sg_tile_m=64 sg_tile_n=32 sg_per_wg_m=4 sg_per_wg_n=2 slm_size=0 "
+  },
+  {
+    "label": "c2t64-w2x4",
+    "status": 0,
+    "slm0": true,
+    "barrier0": true,
+    "settings": "grfMin=209 pack_a=2 pack_b=0 wg_tile_m=128 wg_tile_n=128 sg_tile_m=64 sg_tile_n=32 sg_per_wg_m=2 sg_per_wg_n=4 slm_size=0 "
+  },
+  {
+    "label": "c2t64-w4x1",
+    "status": 0,
+    "slm0": true,
+    "barrier0": true,
+    "settings": "grfMin=209 pack_a=2 pack_b=0 wg_tile_m=256 wg_tile_n=32 sg_tile_m=64 sg_tile_n=32 sg_per_wg_m=4 sg_per_wg_n=1 slm_size=0 "
+  },
+  {
+    "label": "c2t64-w1x4",
+    "status": 0,
+    "slm0": true,
+    "barrier0": true,
+    "settings": "grfMin=209 pack_a=2 pack_b=0 wg_tile_m=64 wg_tile_n=128 sg_tile_m=64 sg_tile_n=32 sg_per_wg_m=1 sg_per_wg_n=4 slm_size=0 "
+  },
+  {
+    "label": "c2t64-w2x6",
+    "status": -6,
+    "error": "aB32/0{cc}+B32,32@64/32{cc} aM64/0{cc}+M32,32@64{cc} rb wg 2x6 sys xaf k1 grf256 vav di sr pk32 np\nterminate called after throwing an instance of 'std::runtime_error'\n  what():  No matching kernel\n"
+  },
+  {
+    "label": "c2t64-w3x2",
+    "status": -6,
+    "error": "aB32/0{cc}+B32,32@64/32{cc} aM64/0{cc}+M32,32@64{cc} rb wg 3x2 sys xaf k1 grf256 vav di sr pk32 np\nterminate called after throwing an instance of 'std::runtime_error'\n  what():  No matching kernel\n"
+  }
+]
